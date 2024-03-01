@@ -1,3 +1,7 @@
+local helpers = require("helpers")
+local nmap = helpers.map_normal
+local imap = helpers.map_insert
+
 return {
   "ThePrimeagen/harpoon",
   branch = "harpoon2",
@@ -26,22 +30,34 @@ return {
     --     :find()
     -- end
     -- vim.keymap.set("n", "<leader>hl", function() toggle_telescope(harpoon:list()) end, { desc = "Open harpoon window" })
-    vim.keymap.set("n", "<leader>hl", function()
+    nmap("<leader>hl", function()
       harpoon.ui:toggle_quick_menu(harpoon:list())
     end)
-    vim.keymap.set("n", "<leader>ha", function()
+    nmap("<leader>ha", function()
       harpoon:list():append()
     end, { desc = "Append buffer to harpoon" })
-    vim.keymap.set("n", "<f1>", function()
+    nmap("<f1>", function()
       harpoon:list():select(1)
     end, { desc = "Switch to 1st harpoon buffer" })
-    vim.keymap.set("n", "<f2>", function()
+    nmap("<f2>", function()
       harpoon:list():select(2)
     end, { desc = "Switch to 2nd harpoon buffer" })
-    vim.keymap.set("n", "<f3>", function()
+    nmap("<f3>", function()
       harpoon:list():select(3)
     end, { desc = "Switch to 3rd harpoon buffer" })
-    vim.keymap.set("n", "<f4>", function()
+    nmap("<f4>", function()
+      harpoon:list():select(4)
+    end, { desc = "Switch to 4th harpoon buffer" })
+    imap("<f1>", function()
+      harpoon:list():select(1)
+    end, { desc = "Switch to 1st harpoon buffer" })
+    imap("<f2>", function()
+      harpoon:list():select(2)
+    end, { desc = "Switch to 2nd harpoon buffer" })
+    imap("<f3>", function()
+      harpoon:list():select(3)
+    end, { desc = "Switch to 3rd harpoon buffer" })
+    imap("<f4>", function()
       harpoon:list():select(4)
     end, { desc = "Switch to 4th harpoon buffer" })
   end,
