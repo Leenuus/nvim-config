@@ -1,72 +1,74 @@
 local helpers = require("helpers")
-local map_insert = helpers.map_insert
-local map_normal = helpers.map_normal
-local map_toggle = helpers.map_toggle
-local map_visual = helpers.map_visual
-local map_operator = helpers.map_operator
-local map_command = helpers.map_command
+local imap = helpers.map_insert
+local nmap = helpers.map_normal
+local tmap = helpers.map_toggle
+local vmap = helpers.map_visual
+local omap = helpers.map_operator
+local cmap = helpers.map_command
 
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 -- cmdline mode
-map_command("<C-h>", "<C-w>")
-map_command("<C-j>", 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = true, noremap = true })
-map_command("<C-k>", 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true, noremap = true })
+cmap("<C-h>", "<C-w>")
+cmap("<C-j>", 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = true, noremap = true })
+cmap("<C-k>", 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true, noremap = true })
 
 -- insertion
-map_insert("<c-h>", "<c-w>", { silent = true })
-map_insert("<c-u>", "<esc>viwUea", { silent = true })
-map_insert("<esc>", "<esc>zz", { silent = true })
+imap("<c-h>", "<c-w>", { silent = true })
+imap("<c-u>", "<esc>viwUea", { silent = true })
+imap("<esc>", "<esc>zz", { silent = true })
 
 -- navigation
-map_normal("<esc>", "<esc>zz")
-map_normal("k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-map_normal("j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+nmap("<esc>", "<esc>zz")
+nmap("k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+nmap("j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vmap("k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vmap("j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-map_normal("H", "_")
-map_visual("H", "_")
-map_operator("H", "_")
+nmap("H", "_")
+vmap("H", "_")
+omap("H", "_")
 
-map_normal("L", "$")
-map_visual("L", "$h")
-map_operator("L", "$")
+nmap("L", "$")
+vmap("L", "$h")
+omap("L", "$")
 
-map_normal("J", "10gjzz")
-map_visual("J", "10gj")
-map_operator("J", "10gj")
+nmap("J", "10gjzz")
+vmap("J", "10gj")
+omap("J", "10gj")
 
-map_normal("K", "10gkzz")
-map_visual("K", "10gk")
-map_operator("K", "10gk")
+nmap("K", "10gkzz")
+vmap("K", "10gk")
+omap("K", "10gk")
 
-map_visual("<", "<gv")
-map_visual(">", ">gv")
+vmap("<", "<gv")
+vmap(">", ">gv")
 
 -- quit
-map_normal("<leader>w", "<cmd>w<cr>")
-map_normal("<leader>q", "<cmd>x<cr>")
-map_normal("<leader>Q", "<cmd>q!<cr>")
+nmap("<leader>w", "<cmd>w<cr>")
+nmap("<leader>q", "<cmd>x<cr>")
+nmap("<leader>Q", "<cmd>q!<cr>")
 -- map_normal('Q', "mmggvG=`m")
 
 -- redo
-map_normal("U", "<cmd>redo<cr>")
+nmap("U", "<cmd>redo<cr>")
 
 -- operators
-map_operator("p", "i(")
-map_operator("P", "a(")
-map_operator("q", 'i"')
-map_operator("Q", "i'")
-map_operator("o", "i[")
-map_operator("O", "i{")
-map_operator("w", "iw")
-map_operator("W", "iW")
+omap("p", "i(")
+omap("P", "a(")
+omap("q", 'i"')
+omap("Q", "i'")
+omap("o", "i[")
+omap("O", "i{")
+omap("w", "iw")
+omap("W", "iW")
 
 -- Diagnostic keymaps
-map_normal("<leader>dp", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-map_normal("<leader>dn", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-map_normal("<leader>dh", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-map_normal("<leader>dl", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+nmap("<leader>dp", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
+nmap("<leader>dn", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
+nmap("<leader>dh", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+nmap("<leader>dl", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 -- document existing key chains
 require("which-key").register({
@@ -76,8 +78,8 @@ require("which-key").register({
 })
 
 -- toggle options
-map_toggle("h", "<cmd>set invhlsearch<cr>", "[H]ighlight")
-map_toggle("t", "<cmd>TransparentToggle<cr>", "[T]ransparent")
-map_toggle("i", "<cmd>set invignorecase<cr>", "[I]gnorecase")
-map_toggle("s", helpers.setup_scrolloff, "[H]ighlight")
-map_toggle("e", "<cmd>NvimTreeToggle<cr>", "[E]xplorer")
+tmap("h", "<cmd>set invhlsearch<cr>", "[H]ighlight")
+tmap("t", "<cmd>TransparentToggle<cr>", "[T]ransparent")
+tmap("i", "<cmd>set invignorecase<cr>", "[I]gnorecase")
+tmap("s", helpers.setup_scrolloff, "[H]ighlight")
+tmap("e", "<cmd>NvimTreeToggle<cr>", "[E]xplorer")
