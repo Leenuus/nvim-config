@@ -1,25 +1,7 @@
--- some luasnip snippets
-
 local ls = require("luasnip")
 local s = ls.snippet
-local sn = ls.snippet_node
-local text = ls.text_node
 local insert = ls.insert_node
-local f = ls.function_node
-local c = ls.choice_node
-local d = ls.dynamic_node
-local r = ls.restore_node
-local l = require("luasnip.extras").lambda
-local rep = require("luasnip.extras").rep
-local p = require("luasnip.extras").partial
-local m = require("luasnip.extras").match
-local n = require("luasnip.extras").nonempty
-local dl = require("luasnip.extras").dynamic_lambda
 local fmt = require("luasnip.extras.fmt").fmt
-local fmta = require("luasnip.extras.fmt").fmta
-local types = require("luasnip.util.types")
-local conds = require("luasnip.extras.conditions")
-local conds_expand = require("luasnip.extras.conditions.expand")
 
 local bash_snip1 = s(
   "ty",
@@ -83,7 +65,47 @@ fi
   )
 )
 
-local bash_snips = { bash_snip1, bash_snip2, bash_snip3, bash_snip4 }
+local bash_snip5 = s(
+  "ye",
+  fmt(
+    [[while true; do
+  echo -n '{}'
+  read -r -p " [y/n]: " yn
+  case $yn in
+      [Yy]*) yes=1; break;;  
+      [Nn]*) yes=0; break;;
+  esac
+done
 
-ls.add_snippets("sh", bash_snips)
-ls.add_snippets("bash", bash_snips)
+{}]],
+    {
+      insert(1, "prompt"),
+      insert(2),
+    }
+  )
+)
+
+local bash_snip6 = s(
+  "ify",
+  fmt(
+    [[if [ "$yes" -eq 1 ]; then
+  {}
+elif [ "$yes" -eq 0 ];then
+  {}
+else
+  echo "Unspecified yes or no, do nothing to protect the script"
+fi
+yes=''
+
+{}]],
+    {
+      insert(1, "command"),
+      insert(2, "command"),
+      insert(3),
+    }
+  )
+)
+
+local bash_snips = { bash_snip1, bash_snip2, bash_snip3, bash_snip4, bash_snip5, bash_snip6 }
+
+return bash_snips
