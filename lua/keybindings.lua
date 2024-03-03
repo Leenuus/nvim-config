@@ -9,6 +9,12 @@ local cmap = helpers.map_command
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
+-- jump around windows
+nmap("<C-h>", ":wincmd h<cr>", { silent = true })
+nmap("<C-j>", ":wincmd j<cr>", { silent = true })
+nmap("<C-k>", ":wincmd k<cr>", { silent = true })
+nmap("<C-l>", ":wincmd l<cr>", { silent = true })
+
 -- cmdline mode
 cmap("<C-h>", "<C-w>")
 cmap("<C-j>", 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = true, noremap = true })
@@ -18,6 +24,10 @@ cmap("<C-k>", 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true, noremap = t
 imap("<c-h>", "<c-w>", { silent = true })
 imap("<c-u>", "<esc>viwUea", { silent = true })
 imap("<esc>", "<esc>zz", { silent = true })
+imap("<c-_>", function()
+  local api = require("Comment.api")
+  api.toggle.linewise.current()
+end, { silent = true })
 
 -- navigation
 nmap("<esc>", "<esc>zz")
@@ -34,6 +44,7 @@ nmap("L", "$")
 vmap("L", "$h")
 omap("L", "$")
 
+-- TODO: better `J` which scroll down 1/4 screen
 nmap("J", "10gjzz")
 vmap("J", "10gj")
 omap("J", "10gj")
@@ -49,7 +60,6 @@ vmap(">", ">gv")
 nmap("<leader>w", "<cmd>w<cr>")
 nmap("<leader>q", "<cmd>x<cr>")
 nmap("<leader>Q", "<cmd>q!<cr>")
--- map_normal('Q', "mmggvG=`m")
 
 -- redo
 nmap("U", "<cmd>redo<cr>")
@@ -69,6 +79,7 @@ nmap("<leader>dp", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic
 nmap("<leader>dn", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
 nmap("<leader>dh", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 nmap("<leader>dl", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+nmap("<leader>ds", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
 
 -- document existing key chains
 require("which-key").register({
