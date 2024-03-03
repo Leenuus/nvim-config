@@ -1,4 +1,5 @@
 return {
+  { "xiyaowong/transparent.nvim" },
   -- Theme inspired by Atom
   {
 
@@ -19,5 +20,8 @@ return {
     priority = 1000,
     opts = {},
   },
-  { "xiyaowong/transparent.nvim" },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+  },
 }
