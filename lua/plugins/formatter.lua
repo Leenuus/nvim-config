@@ -17,6 +17,8 @@ return {
         fish = { "fish_indent" },
         markdown = { "markdownlint-cli2" },
         python = { "black" },
+        -- TODO: add `ocaml` formatter setting
+        -- ocaml = { "dune fmt" },
       },
     })
     vim.api.nvim_create_user_command("Format", function(args)

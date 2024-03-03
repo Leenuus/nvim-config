@@ -1,3 +1,6 @@
+-- TODO: shorten timeout
+-- TODO: shorter popup; adjust popup to screen size
+-- TODO: display popup at bottom right
 return {
   "folke/noice.nvim",
   dependencies = {
