@@ -41,6 +41,7 @@ return {
             desc = "Edit Config",
             key = "c",
             key_format = " %s", -- remove default surrounding `[]`
+            -- TODO: if in tmux, rename current window
             action = "cd $HOME/.config/nvim|e init.lua",
           },
           {
