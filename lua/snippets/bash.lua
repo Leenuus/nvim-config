@@ -105,7 +105,38 @@ yes=''
     }
   )
 )
+local bash_snip7 = s(
+  "ift",
+  fmt(
+    [[if [ -n "$TMUX" ]; then
+  tmux {}
+fi
 
-local bash_snips = { bash_snip1, bash_snip2, bash_snip3, bash_snip4, bash_snip5, bash_snip6 }
+{}]],
+    {
+      insert(1, "rename-window"),
+      insert(2),
+    }
+  )
+)
+
+-- NOTE: to escape delimeters, double them
+local bash_snip8 = s(
+  "main",
+  fmt(
+    [[#!/bin/bash
+
+main(){{
+  {}
+}}
+
+main]],
+    {
+      insert(1, "command"),
+    }
+  )
+)
+
+local bash_snips = { bash_snip1, bash_snip2, bash_snip3, bash_snip4, bash_snip5, bash_snip6, bash_snip7, bash_snip8 }
 
 return bash_snips
