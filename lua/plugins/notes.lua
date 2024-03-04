@@ -1,4 +1,3 @@
--- TODO: add todo keybindings
 local nmap = require("helpers").map_normal
 local imap = require("helpers").map_insert
 
@@ -94,5 +93,7 @@ return {
   config = function()
     require("todo-comments").setup(opts)
     nmap("<leader>dL", cmd)
+    imap("jk", [[NOTE:<esc>:lua local api = require("Comment.api");api.toggle.linewise.current()<cr>A]])
+    imap("kj", [[TODO:<esc>:lua local api = require("Comment.api");api.toggle.linewise.current()<cr>A]])
   end,
 }
