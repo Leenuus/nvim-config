@@ -1,4 +1,7 @@
 -- TODO: add todo keybindings
+local nmap = require("helpers").map_normal
+local imap = require("helpers").map_insert
+
 local opts = {
   signs = true, -- show icons in the signs column
   sign_priority = 8, -- sign priority
@@ -63,10 +66,31 @@ local opts = {
     -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
   },
 }
+local function keywords(keys)
+  local res = ""
+  for _, key in pairs(keys) do
+    res = res .. key .. ","
+    for k, keysetting in pairs(opts["keywords"]) do
+      if key == k then
+        local alt = keysetting["alt"]
+        if alt ~= nil then
+          for _, v in pairs(alt) do
+            res = res .. v .. ","
+          end
+        end
+      end
+    end
+  end
+  return res
+end
+
+local cmd = ":TodoTelescope keywords=" .. keywords({ "TODO", "HACK", "FIX" }) .. "<cr>"
+
 return {
   "folke/todo-comments.nvim",
   dependencies = { "nvim-lua/plenary.nvim" },
   config = function()
     require("todo-comments").setup(opts)
+    nmap("<leader>dL", cmd)
   end,
 }
