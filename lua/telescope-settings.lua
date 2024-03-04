@@ -63,18 +63,20 @@ local function telescope_live_grep_open_files()
 end
 
 nmap("<leader>s/", telescope_live_grep_open_files, { desc = "[S]earch [/] in Open Files" })
-nmap("<leader>st", require("telescope.builtin").builtin, { desc = "[S]earch [S]elect Telescope" })
+nmap("<leader>sS", require("telescope.builtin").builtin, { desc = "[S]earch [S]elect Telescope" })
 nmap("<leader>sl", require("telescope.builtin").resume, { desc = "[S]earch [R]esume" })
 nmap("<leader>sh", require("telescope.builtin").help_tags, { desc = "[S]earch [H]elp" })
 nmap("<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
 -- nmap("<leader>sG", "<cmd>LiveGrepGitRoot<cr>", { desc = "[S]earch by [G]rep on Git Root" })
 nmap("<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
 -- See `:help telescope.builtin`
-nmap("<leader><space>", require("telescope.builtin").git_files, { desc = "[ ] Find existing buffers" })
-nmap("<leader>sf", require("telescope.builtin").buffers, { desc = "Search [G]it [F]iles" })
-nmap("<leader>sF", require("telescope.builtin").find_files, { desc = "[S]earch [F]iles" })
+nmap("<leader><space>", function()
+  require("telescope.builtin").find_files({ hidden = true, no_ignore = false })
+end, { desc = "Search all files in current dir" })
+nmap("<leader>sf", require("telescope.builtin").git_files, { desc = "Search Git Files" })
+nmap("<leader>sF", require("telescope.builtin").buffers, { desc = "Search Buffers" })
 
-nmap("<leader>/", function()
+nmap("<leader>ss", function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
     winblend = 10,
