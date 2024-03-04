@@ -18,6 +18,7 @@ local opts = {
     DONE = { icon = " ", color = "info", alt = { "done" } },
     NOTE = { icon = "📖", color = "hint", alt = { "note", "INFO", "info" } },
     HACK = { icon = " ", color = "test", alt = { "OPTIM", "PERF", "PERFORMANCE", "OPTIMIZE" } },
+    DEPRECATED = { icon = " ", color = "test", alt = { "OBSOLETE", "OUTDATED", "OLD" } },
     -- TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
   },
   gui_style = {
@@ -66,6 +67,7 @@ local opts = {
     -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
   },
 }
+
 local function keywords(keys)
   local res = ""
   for _, key in pairs(keys) do
