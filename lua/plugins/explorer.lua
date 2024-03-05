@@ -1,3 +1,7 @@
+-- TODO: a better alternative to create files and navigate it
+-- I can build it my own
+-- especially for the `file creator part`
+-- I want one open a floating window prompt me for file name
 return {
   "nvim-tree/nvim-tree.lua",
   config = function()
