@@ -10,10 +10,10 @@ local cmap = helpers.map_command
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 -- jump around windows
-nmap("<C-h>", ":wincmd h<cr>", { silent = true })
-nmap("<C-j>", ":wincmd j<cr>", { silent = true })
-nmap("<C-k>", ":wincmd k<cr>", { silent = true })
-nmap("<C-l>", ":wincmd l<cr>", { silent = true })
+nmap("<C-h>", "<cmd>wincmd h<cr>", { silent = true })
+nmap("<C-j>", "<cmd>wincmd j<cr>", { silent = true })
+nmap("<C-k>", "<cmd>wincmd k<cr>", { silent = true })
+nmap("<C-l>", "<cmd>wincmd l<cr>", { silent = true })
 
 -- cmdline mode
 cmap("<C-h>", "<C-w>")
@@ -57,7 +57,7 @@ vmap("<", "<gv")
 vmap(">", ">gv")
 
 -- quit
-nmap("<leader>w", "<cmd>w<cr>")
+nmap("<leader>w", "<cmd>wall<cr>")
 nmap("<leader>q", "<cmd>x<cr>")
 nmap("<leader>Q", "<cmd>q!<cr>")
 
@@ -71,8 +71,10 @@ omap("q", 'i"')
 omap("Q", "i'")
 omap("o", "i[")
 omap("O", "i{")
-omap("w", "iw")
-omap("W", "iW")
+-- omap("w", "iw")
+-- omap("W", "iW")
+omap("9", "(")
+omap("0", ")")
 
 -- Diagnostic keymaps
 nmap("<leader>dp", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
