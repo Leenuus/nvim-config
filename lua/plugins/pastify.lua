@@ -8,8 +8,8 @@ return {
     --   },
     -- }
     -- p
-		-- FIXME: it breaks when you are in non-global python venv
-		-- possible solutions: 1. lazy loading when needed
+    -- FIXME: it breaks when you are in non-global python venv
+    -- possible solutions: 1. lazy loading when needed
     require("pastify").setup({
       opts = {
         absolute_path = false, -- use absolute or relative path to the working directory

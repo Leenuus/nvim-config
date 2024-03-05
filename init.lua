@@ -38,7 +38,7 @@ vim.filetype.add({
     sshconfig = "sshconfig",
   },
   pattern = {
-  -- TODO: pattern for detect sshconfig filetpye in ~/.ssh/config.d/
+    -- TODO: pattern for detect sshconfig filetpye in ~/.ssh/config.d/
     -- ["/home/leenuus/%.ssh/config%.d/.*"] = 'sshconfig',
     -- ["${HOME}/%.ssh/config%.d/.*"] = "sshconfig" ,
     -- NOTE: a workaround now is use `sshconfig` as ext of these files

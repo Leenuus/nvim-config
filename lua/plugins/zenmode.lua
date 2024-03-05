@@ -27,7 +27,7 @@ local opts = {
       enabled = true,
       ruler = false, -- disables the ruler text in the cmd line area
       showcmd = false, -- disables the command in the last line of the screen
-      -- you may turn on/off statusline in zen mode by setting 'laststatus' 
+      -- you may turn on/off statusline in zen mode by setting 'laststatus'
       -- statusline will be shown only if 'laststatus' == 3
       laststatus = 3, -- turn off the statusline in zen mode
     },
@@ -58,27 +58,24 @@ local opts = {
     },
   },
   -- callback where you can add custom code when the Zen window opens
-  on_open = function(win)
-    
-  end,
+  on_open = function(win) end,
   -- callback where you can add custom code when the Zen window closes
-  on_close = function()
-  end,
+  on_close = function() end,
 }
 
-    -- set -l o $argv[1]
-    -- if test -z "$o"; or test "$o" -eq 10
-    --     alacritty msg config "window.opacity=1"
-    -- else if test "$o" -gt 1; and test "$o" -lt 10; or test "$o" -eq 1
-    --     alacritty msg config "window.opacity=0.$o"
-    -- else if test "$o" -lt 1; and test "$o" -gt 0
-    --     alacritty msg config "window.opacity=$o"
-    -- else
-    --     echo "Invalid opacity"
-    --     return 1
-    -- end
+-- set -l o $argv[1]
+-- if test -z "$o"; or test "$o" -eq 10
+--     alacritty msg config "window.opacity=1"
+-- else if test "$o" -gt 1; and test "$o" -lt 10; or test "$o" -eq 1
+--     alacritty msg config "window.opacity=0.$o"
+-- else if test "$o" -lt 1; and test "$o" -gt 0
+--     alacritty msg config "window.opacity=$o"
+-- else
+--     echo "Invalid opacity"
+--     return 1
+-- end
 
 return {
   "folke/zen-mode.nvim",
-  opts = opts
+  opts = opts,
 }

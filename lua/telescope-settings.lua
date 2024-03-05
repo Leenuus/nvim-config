@@ -80,7 +80,7 @@ local function telescope_search_gitfiles_or_cwd()
   end
   local _ = vim.fn.systemlist("git -C " .. vim.fn.escape(current_dir, " ") .. " rev-parse --show-toplevel")[1]
   if vim.v.shell_error ~= 0 then
-  -- DONE: fallback to search through files in cwd, when git repo is not inited
+    -- DONE: fallback to search through files in cwd, when git repo is not inited
     require("telescope.builtin").find_files({ hidden = true, no_ignore = false })
   else
     require("telescope.builtin").git_files()
