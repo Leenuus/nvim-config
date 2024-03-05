@@ -137,6 +137,29 @@ main]],
   )
 )
 
-local bash_snips = { bash_snip1, bash_snip2, bash_snip3, bash_snip4, bash_snip5, bash_snip6, bash_snip7, bash_snip8 }
+local bash_snip9 = s(
+  "iftr",
+  fmt(
+    [[if [ -n "$TMUX" ]; then
+  tmux rename-window {}
+fi
+
+{}
+
+if [ -n "$TMUX" ]; then
+  tmux set-option -w automatic-rename on
+fi
+
+{}]],
+    {
+      insert(1, "win_name"),
+      insert(2, "command"),
+      insert(3),
+    }
+  )
+)
+
+local bash_snips =
+  { bash_snip1, bash_snip2, bash_snip3, bash_snip4, bash_snip5, bash_snip6, bash_snip7, bash_snip8, bash_snip9 }
 
 return bash_snips
