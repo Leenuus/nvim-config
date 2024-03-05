@@ -9,6 +9,8 @@ local cmap = helpers.map_command
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
+nmap("<Enter>", ":", { silent = false })
+
 -- jump around windows
 nmap("<C-h>", "<cmd>wincmd h<cr>", { silent = true })
 nmap("<C-j>", "<cmd>wincmd j<cr>", { silent = true })
