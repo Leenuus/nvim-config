@@ -62,6 +62,31 @@ local function telescope_live_grep_open_files()
   })
 end
 
+-- TODO:telescope powered split files keybindings
+local function telescope_split_file()
+  print("Not implemented")
+end
+
+local function telescope_search_gitfiles_or_cwd()
+  local current_file = vim.api.nvim_buf_get_name(0)
+  local current_dir
+  local cwd = vim.fn.getcwd()
+  -- If the buffer is not associated with a file, return nil
+  if current_file == "" then
+    current_dir = cwd
+  else
+    -- Extract the directory from the current file's path
+    current_dir = vim.fn.fnamemodify(current_file, ":h")
+  end
+  local _ = vim.fn.systemlist("git -C " .. vim.fn.escape(current_dir, " ") .. " rev-parse --show-toplevel")[1]
+  if vim.v.shell_error ~= 0 then
+  -- DONE: fallback to search through files in cwd, when git repo is not inited
+    require("telescope.builtin").find_files({ hidden = true, no_ignore = false })
+  else
+    require("telescope.builtin").git_files()
+  end
+end
+
 nmap("<leader>s/", telescope_live_grep_open_files, { desc = "[S]earch [/] in Open Files" })
 nmap("<leader>sS", require("telescope.builtin").builtin, { desc = "[S]earch [S]elect Telescope" })
 nmap("<leader>sl", require("telescope.builtin").resume, { desc = "[S]earch [R]esume" })
@@ -71,9 +96,10 @@ nmap("<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch 
 nmap("<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
 -- See `:help telescope.builtin`
 nmap("<leader><space>", function()
-  require("telescope.builtin").find_files({ hidden = true, no_ignore = false })
+  require("telescope.builtin").find_files({ hidden = true, no_ignore = true })
 end, { desc = "Search all files in current dir" })
-nmap("<leader>sf", require("telescope.builtin").git_files, { desc = "Search Git Files" })
+nmap("<leader>sf", telescope_search_gitfiles_or_cwd, { desc = "Search Git Files" })
+
 nmap("<leader>sF", require("telescope.builtin").buffers, { desc = "Search Buffers" })
 
 nmap("<leader>ss", function()
