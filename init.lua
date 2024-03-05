@@ -29,8 +29,21 @@ require("tree-sitter")
 require("telescope-settings")
 require("lsp")
 require("cursor")
-require('recording')
-require('snippets')
+require("recording")
+require("snippets")
+
+vim.filetype.add({
+  extension = {
+    todo = "markdown",
+    sshconfig = "sshconfig",
+  },
+  pattern = {
+  -- TODO: pattern for detect sshconfig filetpye in ~/.ssh/config.d/
+    -- ["/home/leenuus/%.ssh/config%.d/.*"] = 'sshconfig',
+    -- ["${HOME}/%.ssh/config%.d/.*"] = "sshconfig" ,
+    -- NOTE: a workaround now is use `sshconfig` as ext of these files
+  },
+})
 
 -- TODO: learn vim modline features
 -- The line beneath this is called `modeline`. See `:help modeline`
