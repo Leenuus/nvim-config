@@ -35,7 +35,6 @@ local on_attach = function(_, bufnr)
     vim.lsp.buf.signature_help()
   end, "Open signature help")
 
-
   -- Lesser used LSP functionality
   -- nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
   -- nmap('<lelder>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
@@ -64,6 +63,7 @@ local servers = {
   rust_analyzer = {},
   tsserver = {},
   html = { filetypes = { "html", "twig", "hbs" } },
+  marksman = { filetypes = { "md", "todo" } },
   zls = {},
   lua_ls = {
     Lua = {
