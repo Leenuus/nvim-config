@@ -15,17 +15,6 @@ local header = {
   [[                                    ]],
 }
 
--- local function get_quote()
---    local handle = io.popen('random-quote -r', 'r')
---    if handle ~= nil then
---       local res = handle:read('*a')
---       handle:close()
---       return { res }
---    else
---       return {}
---    end
--- end
-
 return {
   "nvimdev/dashboard-nvim",
   event = "VimEnter",
@@ -58,9 +47,9 @@ return {
             action = "quit",
           },
         },
-        -- footer = {
-        --    "Fuck You Stupid Shit"
-        -- }
+        footer = {
+           "Treasure Your Time!!!"
+        }
       },
     })
   end,
