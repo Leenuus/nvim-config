@@ -3,10 +3,14 @@ local s = ls.snippet
 local insert = ls.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
 
+-- TODO: echo message should have the same
+-- program specified by program, the first
+-- argument user input
 local bash_snip1 = s(
   "ty",
   fmt(
     [[if ! type {} >/dev/null 2>&1; then
+  echo "not installed"
   exit 1
 fi
 ]],
@@ -159,7 +163,31 @@ fi
   )
 )
 
-local bash_snips =
-  { bash_snip1, bash_snip2, bash_snip3, bash_snip4, bash_snip5, bash_snip6, bash_snip7, bash_snip8, bash_snip9 }
+local bash_snip10 = s(
+  "tr",
+  fmt(
+    [[trap '{}' INT EXIT
+
+{}]],
+    {
+      insert(1, "cleanup"),
+      insert(2),
+    }
+  )
+)
+--
+
+local bash_snips = {
+  bash_snip1,
+  bash_snip2,
+  bash_snip3,
+  bash_snip4,
+  bash_snip5,
+  bash_snip6,
+  bash_snip7,
+  bash_snip8,
+  bash_snip9,
+  bash_snip10,
+}
 
 return bash_snips
