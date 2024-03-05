@@ -7,7 +7,7 @@ local opts = {
     -- * a percentage of the width / height of the editor when <= 1
     -- * a function that returns the width or the height
     width = 0.65, -- width of the Zen window
-    height = 1, -- height of the Zen window
+    height = 0.8, -- height of the Zen window
     -- by default, no options are changed for the Zen window
     -- uncomment any of the options below, or add other vim.wo options you want to apply
     options = {
@@ -31,7 +31,7 @@ local opts = {
       -- statusline will be shown only if 'laststatus' == 3
       laststatus = 3, -- turn off the statusline in zen mode
     },
-    twilight = { enabled = true }, -- enable to start Twilight when zen mode opens
+    twilight = { enabled = false }, -- enable to start Twilight when zen mode opens
     gitsigns = { enabled = false }, -- disables git signs
     tmux = { enabled = false }, -- disables the tmux statusline
     -- this will change the font size on kitty when in zen mode
@@ -58,7 +58,9 @@ local opts = {
     },
   },
   -- callback where you can add custom code when the Zen window opens
-  on_open = function(win) end,
+  on_open = function(win)
+    vim.cmd([[TransparentDisable]])
+  end,
   -- callback where you can add custom code when the Zen window closes
   on_close = function() end,
 }
