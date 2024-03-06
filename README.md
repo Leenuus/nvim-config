@@ -5,8 +5,7 @@
 3. add `ocaml` formatter setting
 4. echo message should have the same
 5. telescope powered split files keybindings
-6. use nnn as explorer when we open directory with nvim
-7. format on save
+6. format on save
 
 ### Noice related:
 1. shorten timeout
