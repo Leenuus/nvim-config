@@ -175,7 +175,13 @@ local bash_snip10 = s(
     }
   )
 )
---
+
+local bash_snip11 = s(
+  "do",
+  fmt([[>/dev/null 2>&1{}]], {
+    insert(1),
+  })
+)
 
 local bash_snips = {
   bash_snip1,
@@ -188,6 +194,7 @@ local bash_snips = {
   bash_snip8,
   bash_snip9,
   bash_snip10,
+  bash_snip11,
 }
 
 return bash_snips

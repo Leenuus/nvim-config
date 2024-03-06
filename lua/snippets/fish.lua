@@ -25,6 +25,13 @@ end
   )
 )
 
-local fish_snips = { fish_snip1 }
+local snip2 = s(
+  "do",
+  fmt([[>/dev/null 2>&1{}]], {
+    insert(1),
+  })
+)
+
+local fish_snips = { fish_snip1, snip2 }
 
 return fish_snips
