@@ -26,21 +26,28 @@ return {
         header = header,
         center = {
           {
-            icon = "📖  ",
+            icon = "",
+            desc = "New File",
+            key = "n",
+            key_format = " %s", -- remove default surrounding `[]`
+            action = "enew",
+          },
+          {
+            icon = "",
             desc = "Edit Config",
             key = "c",
             key_format = " %s", -- remove default surrounding `[]`
             action = "cd $HOME/.config/nvim|e init.lua",
           },
           {
-            icon = "✏️   ",
+            icon = "",
             desc = "Change Colorscheme",
             key = "t",
             key_format = " %s",
             action = "Telescope colorscheme",
           },
           {
-            icon = "✈️   ",
+            icon = "",
             desc = "Quit Neovim",
             key = "q",
             key_format = " %s",
