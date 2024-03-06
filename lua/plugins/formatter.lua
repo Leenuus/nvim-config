@@ -1,3 +1,4 @@
+local nmap = require("helpers").map_normal
 return {
   "stevearc/conform.nvim",
   config = function()
@@ -32,6 +33,7 @@ return {
       end
       require("conform").format({ async = true, lsp_fallback = true, range = range })
     end, { range = true })
-    vim.keymap.set("n", "Q", "<cmd>Format<cr>")
+    nmap("Q", "<cmd>Format<cr>")
+    -- TODO: 7. format on save
   end,
 }
