@@ -48,8 +48,8 @@ return {
           },
         },
         footer = {
-           "Treasure Your Time!!!"
-        }
+          "Treasure Your Time!!!",
+        },
       },
     })
   end,
