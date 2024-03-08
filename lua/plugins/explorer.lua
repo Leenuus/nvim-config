@@ -28,7 +28,7 @@ return {
     \ execute 'NnnExplorer' argv()[0] | wincmd p | bd | execute 'x' | endif
 	augroup END
       ]])
-      tmap("e", "<cmd>NnnPicker %:p:h<CR>", "[E]xplorer")
+      tmap("e", "<cmd>NnnPicker %:p:h<CR>", "[e]xplorer")
     end,
   },
 }

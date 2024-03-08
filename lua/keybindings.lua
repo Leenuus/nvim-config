@@ -99,8 +99,8 @@ require("which-key").register({
 })
 
 -- toggle options
-tmap("h", "<cmd>set invhlsearch<cr>", "[H]ighlight")
-tmap("t", "<cmd>TransparentToggle<cr>", "[T]ransparent")
-tmap("i", "<cmd>set invignorecase<cr>", "[I]gnorecase")
-tmap("s", helpers.setup_scrolloff, "[H]ighlight")
-tmap("z", "<cmd>ZenMode<cr>", "[Z]enMode")
+tmap("h", "<cmd>set invhlsearch<cr>", "[h]ighlight")
+tmap("t", "<cmd>TransparentToggle<cr>", "[t]ransparent")
+tmap("i", "<cmd>set invignorecase<cr>", "[i]gnorecase")
+tmap("s", helpers.setup_scrolloff, "[s]crolloff")
+tmap("z", "<cmd>ZenMode<cr>", "[z]enMode")
