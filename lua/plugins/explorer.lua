@@ -7,19 +7,23 @@ return {
         -- NOTE: -o used to open file only on pressing <Enter>
         -- -c used to open 8-color
         -- experience is much more better now with nnn integration
+        -- TODO: use a nnn dedicated for neovim
         command = "nnn -C",
         set_default_mappings = 0,
         replace_netrw = 1,
         action = {
-          -- ["<c-t>"] = "tab split",
+          ["<c-p>"] = "vsplit",
           ["<c-s>"] = "split",
-          ["<c-t>"] = "vsplit",
+          -- ["<c-t>"] = "tab split",
           -- ["<c-o>"] = copy_to_clipboard,
         },
       })
       -- DONE: use nnn as explorer when we open directory with neovim
       -- a vim script delete `.` buffer and close no name buffer
       -- and then we finally get to nnn explorer window
+      vim.g.loaded_netrw = 1
+      vim.g.loaded_netrwPlugin = 1
+
       vim.cmd([[
 	augroup nnndirectory
     autocmd!
