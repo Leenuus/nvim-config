@@ -1,22 +1,25 @@
--- [[ Configure Telescope ]]
--- See `:help telescope` and `:help telescope.setup()`
 local h = require("helpers")
 local nmap = h.map_normal
 
+local actions = require("telescope.actions")
+
 require("telescope").setup({
   defaults = {
+    -- DONE:telescope powered split files keybindings
     mappings = {
+      n = {
+        ["<Tab>"] = actions.toggle_selection,
+        ["\\"] = actions.file_vsplit,
+        ["-"] = actions.file_split,
+      },
       i = {
-        ["<C-u>"] = false,
-        ["<C-d>"] = false,
-        ["<C-p>"] = false,
-        ["<C-n>"] = false,
+        ["<C-P>"] = actions.file_vsplit,
+        ["<C-S>"] = actions.file_split,
       },
     },
   },
 })
 
--- Enable telescope fzf native, if installed
 pcall(require("telescope").load_extension, "fzf")
 
 -- Telescope live_grep in git root
@@ -62,11 +65,6 @@ local function telescope_live_grep_open_files()
   })
 end
 
--- TODO:telescope powered split files keybindings
-local function telescope_split_file()
-  print("Not implemented")
-end
-
 local function telescope_search_gitfiles_or_cwd()
   local current_file = vim.api.nvim_buf_get_name(0)
   local current_dir
@@ -91,7 +89,7 @@ nmap("<leader>s/", telescope_live_grep_open_files, { desc = "[S]earch [/] in Ope
 nmap("<leader>sS", require("telescope.builtin").builtin, { desc = "[S]earch [S]elect Telescope" })
 nmap("<leader>sl", require("telescope.builtin").resume, { desc = "[S]earch [R]esume" })
 nmap("<leader>sh", require("telescope.builtin").help_tags, { desc = "[S]earch [H]elp" })
-nmap("<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
+-- nmap("<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
 -- nmap("<leader>sG", "<cmd>LiveGrepGitRoot<cr>", { desc = "[S]earch by [G]rep on Git Root" })
 nmap("<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
 -- See `:help telescope.builtin`
