@@ -45,8 +45,12 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-path",
 
+      -- NOTE: replace it with local modified repo
+      {
       -- Adds a number of user-friendly snippets
-      "rafamadriz/friendly-snippets",
+      -- "rafamadriz/friendly-snippets",
+        dir = "~/Projects/Neovims/friendly-snippets",
+      },
     },
   },
 
