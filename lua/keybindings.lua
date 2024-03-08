@@ -18,10 +18,10 @@ nmap("<C-k>", "<cmd>wincmd k<cr>", { silent = true })
 nmap("<C-l>", "<cmd>wincmd l<cr>", { silent = true })
 
 -- resize window
-nmap("<leader>Wj", "<cmd>resize +3<cr>", { silent = true })
-nmap("<leader>Wk", "<cmd>resize -3<cr>", { silent = true })
-nmap("<leader>Wl", "<cmd>vertical resize +3<cr>", { silent = true })
-nmap("<leader>Wh", "<cmd>vertical resize -3<cr>", { silent = true })
+nmap("<leader>wj", "<cmd>resize +3<cr>", { silent = true })
+nmap("<leader>wk", "<cmd>resize -3<cr>", { silent = true })
+nmap("<leader>wl", "<cmd>vertical resize +3<cr>", { silent = true })
+nmap("<leader>wh", "<cmd>vertical resize -3<cr>", { silent = true })
 
 -- cmdline mode
 cmap("<C-h>", "<C-w>")
