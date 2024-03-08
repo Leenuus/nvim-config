@@ -183,6 +183,13 @@ local bash_snip11 = s(
   })
 )
 
+local bash_snip12 = s(
+  "pr",
+  fmt([[proxychains -f "$HOME/.proxychains.conf" {}]], {
+    insert(1),
+  })
+)
+
 local bash_snips = {
   bash_snip1,
   bash_snip2,
@@ -195,6 +202,7 @@ local bash_snips = {
   bash_snip9,
   bash_snip10,
   bash_snip11,
+  bash_snip12,
 }
 
 return bash_snips
