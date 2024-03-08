@@ -1,14 +1,12 @@
 local tmap = require("helpers").map_toggle
 return {
   {
-    "mcchrish/nnn.vim",
+    -- "mcchrish/nnn.vim",
+    dir = "~/Projects/Neovims/nnn.vim",
     config = function()
       require("nnn").setup({
-        -- NOTE: -o used to open file only on pressing <Enter>
-        -- -c used to open 8-color
-        -- experience is much more better now with nnn integration
-        -- TODO: use a nnn dedicated for neovim
-        command = "nnn -C",
+        -- DONE: use dedicated nnn executable with more vim friendly keymap
+        command = "nvimnnn -C -A",
         set_default_mappings = 0,
         replace_netrw = 1,
         action = {
