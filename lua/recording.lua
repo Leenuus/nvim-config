@@ -1,10 +1,6 @@
 -- Popup message when recording
 
-local nmap = require("helpers").map_normal
-
-nmap("q", "q")
-
-vim.api.nvim_create_augroup("recording", { clear = true })
+local gp = vim.api.nvim_create_augroup("recording-notifications", { clear = true })
 
 local noption = {
   title = "Recording",
@@ -17,17 +13,15 @@ local level = vim.log.levels.INFO
 vim.api.nvim_create_autocmd("RecordingEnter", {
   pattern = "*",
   callback = function()
-    -- TODO: a maybe needed error handling for `require`
     require("notify")("Start Recording", level, noption)
   end,
-  group = "recording",
+  group = gp,
 })
 
 vim.api.nvim_create_autocmd("RecordingLeave", {
   pattern = "*",
   callback = function()
-    -- TODO: a maybe needed error handling for `require`
     require("notify")("Stop Recording", level, noption)
   end,
-  group = "recording",
+  group = gp,
 })
