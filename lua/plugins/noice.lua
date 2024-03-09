@@ -1,13 +1,13 @@
-local function route_skip(find)
-  return {
-    filter = {
-      event = "msg_show",
-      kind = "",
-      find = find,
-    },
-    opts = { skip = true },
-  }
-end
+-- local function route_skip(find)
+--   return {
+--     filter = {
+--       event = "msg_show",
+--       kind = "",
+--       find = find,
+--     },
+--     opts = { skip = true },
+--   }
+-- end
 
 local function route_mini(filter)
   return {
@@ -17,17 +17,32 @@ local function route_mini(filter)
 end
 
 local routes = {
-  route_skip("written"),
-  route_skip("yanked"),
-  route_skip("more lines"),
-  route_skip("more line"),
-  route_skip("fewer lines"),
-  route_skip("fewer line"),
+  route_mini({
+    event = "msg_show",
+    kind = "",
+    find = "written",
+  }),
+  route_mini({
+    event = "msg_show",
+    kind = "",
+    find = "more lines",
+  }),
+  route_mini({
+    event = "msg_show",
+    kind = "",
+    find = "fewer lines",
+  }),
   route_mini({
     min_width = vim.api.nvim_win_get_width(0) / 4,
   }),
   route_mini({
     min_height = vim.api.nvim_win_get_height(0) / 4,
+  }),
+  route_mini({
+    max_height = vim.api.nvim_win_get_height(0) / 4,
+  }),
+  route_mini({
+    max_width = vim.api.nvim_win_get_height(0) / 4,
   }),
 }
 
