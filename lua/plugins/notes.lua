@@ -93,7 +93,7 @@ return {
   config = function()
     require("todo-comments").setup(opts)
     nmap("<leader>dL", cmd)
-    imap("jk", [[NOTE:<esc>:lua local api = require("Comment.api");api.toggle.linewise.current()<cr>A]])
-    imap("kj", [[TODO:<esc>:lua local api = require("Comment.api");api.toggle.linewise.current()<cr>A]])
+    vim.cmd[[iabbrev jk NOTE:]]
+    vim.cmd[[iabbrev kj TODO:]]
   end,
 }
