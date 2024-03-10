@@ -1,5 +1,3 @@
--- [[ Configure LSP ]]
---  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
   local nmap = function(keys, func, desc)
     if desc then
@@ -16,31 +14,25 @@ local on_attach = function(_, bufnr)
     vim.keymap.set("i", keys, func, { buffer = bufnr, desc = desc })
   end
 
+  -- TODO: look up more functions in vim.lsp.buf[]
   nmap("<leader>lr", vim.lsp.buf.rename, "[R]e[n]ame")
   nmap("<leader>la", function()
     vim.lsp.buf.code_action({ context = { only = { "quickfix", "refactor", "source" } } })
   end, "[C]ode [A]ction")
   nmap("<leader>ls", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
   nmap("<leader>lS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-  -- nmap('Q', vim.lsp.buf.format)
+  nmap("Q", vim.lsp.buf.format, "Format")
+  nmap("gh", vim.lsp.buf.hover, "[G]oto [H]over")
   nmap("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
   nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
   nmap("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
   nmap("gt", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-  nmap("gh", vim.lsp.buf.hover, "Hover Documentation")
   nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
   nmap("<C-p>", vim.lsp.buf.signature_help, "Signature Documentation")
   imap("<C-p>", function()
     vim.lsp.buf.signature_help()
   end, "Open signature help")
-
-  -- Lesser used LSP functionality
-  -- nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-  -- nmap('<lelder>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-  -- nmap('<leader>wl', function()
-  --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  -- end, '[W]orkspace [L]ist Folders')
 end
 
 -- mason-lspconfig requires that these setup functions are called in this order
@@ -48,22 +40,30 @@ end
 require("mason").setup()
 require("mason-lspconfig").setup()
 
--- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
---  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config. You must look up that documentation yourself.
---
---  If you want to override the default filetypes that your language server will attach to you can
---  define the property 'filetypes' to the map in question.
-local servers = {
+-- NOTE: for supported lsp list, checkout here
+-- https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
+local ensure_installed_servers = {
+  --  Add any additional override configuration in the following tables. They will be passed to
+  --  the `settings` field of the server config. You must look up that documentation yourself.
+  awk_ls = {},
+  ast_grep = {},
+  asm_lsp = {},
+  bashls = {},
+  cmake = {},
+  -- NOTE: for makefile
+  ["autotools-language-server"] = {},
+  vimls = {},
+  yamlls = {},
   clangd = {},
+  taplo = {},
   gopls = {},
   pyright = {},
   rust_analyzer = {},
   tsserver = {},
+  -- NOTE:
+  --  If you want to override the default filetypes that your language server will attach to you can
+  --  define the property 'filetypes' to the map in question.
   html = { filetypes = { "html", "twig", "hbs" } },
-  marksman = { filetypes = { "md", "todo" } },
   zls = {},
   lua_ls = {
     Lua = {
@@ -86,7 +86,7 @@ capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 local mason_lspconfig = require("mason-lspconfig")
 
 mason_lspconfig.setup({
-  ensure_installed = vim.tbl_keys(servers),
+  ensure_installed = vim.tbl_keys(ensure_installed_servers),
 })
 
 mason_lspconfig.setup_handlers({
@@ -94,8 +94,8 @@ mason_lspconfig.setup_handlers({
     require("lspconfig")[server_name].setup({
       capabilities = capabilities,
       on_attach = on_attach,
-      settings = servers[server_name],
-      filetypes = (servers[server_name] or {}).filetypes,
+      settings = ensure_installed_servers[server_name],
+      filetypes = (ensure_installed_servers[server_name] or {}).filetypes,
     })
   end,
 })

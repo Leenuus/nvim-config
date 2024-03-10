@@ -1,9 +1,8 @@
 ## TODO
 
 - better `J` which scroll down 1/4 screen
-- add `ocaml` formatter setting
-- echo message should have the same
 - format on save
+- `nullls` custom source
 
 ### Noice related:
 
