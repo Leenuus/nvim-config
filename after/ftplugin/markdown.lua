@@ -15,7 +15,7 @@ nmap("Q", function()
     if string.match(line, "^#+") ~= nil then
       line = capitalize(line)
     end
-    buf[i] = vim.trim(line)
+    buf[i] = vim.fn.trim(line, " ", 2)
   end
   vim.api.nvim_buf_set_lines(0, 0, -1, false, buf)
 end)

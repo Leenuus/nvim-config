@@ -35,10 +35,9 @@ return {
     end, { range = true })
     nmap("Q", function()
       vim.cmd([[Format]])
-      -- NOTE: trim spaces...
       local buf = vim.api.nvim_buf_get_lines(0, 0, -1, true)
       for i, line in pairs(buf) do
-        buf[i] = vim.trim(line)
+        buf[i] = vim.fn.trim(line, " ", 2)
       end
       vim.api.nvim_buf_set_lines(0, 0, -1, false, buf)
     end)
