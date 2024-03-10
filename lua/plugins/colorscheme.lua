@@ -6,6 +6,7 @@ return {
     "navarasu/onedark.nvim",
     priority = 1000,
     lazy = false,
+    transparent = true, -- Enable this to disable setting the background color
     config = function()
       require("onedark").setup({
         -- Set a style preset. 'dark' is default.
