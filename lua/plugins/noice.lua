@@ -38,12 +38,12 @@ local routes = {
   route_mini({
     min_height = vim.api.nvim_win_get_height(0) / 4,
   }),
-  route_mini({
-    max_height = vim.api.nvim_win_get_height(0) / 4,
-  }),
-  route_mini({
-    max_width = vim.api.nvim_win_get_height(0) / 4,
-  }),
+  -- route_mini({
+  --   max_height = vim.api.nvim_win_get_height(0) / 4,
+  -- }),
+  -- route_mini({
+  --   max_width = vim.api.nvim_win_get_height(0) / 4,
+  -- }),
 }
 
 return {
