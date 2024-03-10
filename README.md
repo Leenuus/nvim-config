@@ -7,6 +7,6 @@
 
 ### Noice related:
 
-- shorten timeout
-- shorter popup; adjust popup to screen size
-- display popup at bottom right
+- [ ] shorten timeout
+- [x] shorter popup; adjust popup to screen size
+- [x] display popup at bottom right
