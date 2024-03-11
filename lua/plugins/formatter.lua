@@ -5,9 +5,13 @@ return {
     "nvimtools/none-ls.nvim",
     config = function()
       local null_ls = require("null-ls")
+      local spell = null_ls.builtins.completion.spell.with({
+        filetypes = { "markdown" },
+      })
+
       local sources = {
         -- NOTE: completion
-        null_ls.builtins.completion.spell,
+        spell,
         -- NOTE: formatter
         null_ls.builtins.formatting.stylua,
         null_ls.builtins.formatting.shfmt,
@@ -28,8 +32,6 @@ return {
       null_ls.setup({
         sources = sources,
       })
-      -- nmap('Q', vim.lsp.buf.format)
-      nmap("Q", vim.lsp.buf.format)
     end,
   },
 }
