@@ -9,12 +9,12 @@ require("telescope").setup({
     mappings = {
       n = {
         ["<Tab>"] = actions.toggle_selection,
-        ["\\"] = actions.file_vsplit,
-        ["-"] = actions.file_split,
+        ["\\"] = actions.select_vertical,
+        ["-"] = actions.select_horizontal,
       },
       i = {
-        ["<C-P>"] = actions.file_vsplit,
-        ["<C-S>"] = actions.file_split,
+        ["<C-P>"] = actions.select_vertical,
+        ["<C-S>"] = actions.select_horizontal,
       },
     },
   },
@@ -107,3 +107,5 @@ nmap("<leader>ss", function()
     previewer = false,
   }))
 end, { desc = "[/] Fuzzily search in current buffer" })
+
+nmap("<leader>sm", require("telescope.builtin").man_pages, { desc = "Search Man Pages" })
