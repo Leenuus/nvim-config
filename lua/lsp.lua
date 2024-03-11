@@ -45,13 +45,13 @@ require("mason-lspconfig").setup()
 local ensure_installed_servers = {
   --  Add any additional override configuration in the following tables. They will be passed to
   --  the `settings` field of the server config. You must look up that documentation yourself.
-  awk_ls = {},
+  -- awk_ls = {},
   ast_grep = {},
   asm_lsp = {},
   bashls = {},
   cmake = {},
   -- NOTE: for makefile
-  ["autotools-language-server"] = {},
+  -- ["autotools-language-server"] = {},
   vimls = {},
   yamlls = {},
   clangd = {},
