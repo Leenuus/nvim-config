@@ -61,6 +61,6 @@ return {
       routes = routes,
     })
     tmap("n", "<CMD>Noice debug<CR>", "debug noice")
-    nmap("sM", "<CMD>Noice telescope<CR>", { desc = "search for messages" })
+    nmap("<leader>sM", "<CMD>Noice telescope<CR>", { desc = "search for messages" })
   end,
 }
