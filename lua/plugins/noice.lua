@@ -1,18 +1,19 @@
--- local function route_skip(find)
---   return {
---     filter = {
---       event = "msg_show",
---       kind = "",
---       find = find,
---     },
---     opts = { skip = true },
---   }
--- end
+local tmap = require("helpers").map_toggle
+local nmap = require("helpers").map_normal
 
 local function route_mini(filter)
   return {
     filter = filter,
     view = "mini",
+  }
+end
+
+local function route_discard(filter)
+  return {
+    filter = filter,
+    opts = {
+      skip = true,
+    },
   }
 end
 
@@ -22,28 +23,16 @@ local routes = {
     kind = "",
     find = "written",
   }),
-  route_mini({
+  route_discard({
+    event = "msg_show",
+    kind = "echo",
+    find = "line",
+  }),
+  route_discard({
     event = "msg_show",
     kind = "",
-    find = "more lines",
+    find = "line",
   }),
-  route_mini({
-    event = "msg_show",
-    kind = "",
-    find = "fewer lines",
-  }),
-  route_mini({
-    min_width = vim.api.nvim_win_get_width(0) / 4,
-  }),
-  route_mini({
-    min_height = vim.api.nvim_win_get_height(0) / 4,
-  }),
-  -- route_mini({
-  --   max_height = vim.api.nvim_win_get_height(0) / 4,
-  -- }),
-  -- route_mini({
-  --   max_width = vim.api.nvim_win_get_height(0) / 4,
-  -- }),
 }
 
 return {
@@ -63,13 +52,15 @@ return {
       },
       -- TODO: figure out what presets have done for us
       presets = {
-        bottom_search = false, -- use a classic bottom cmdline for search
-        command_palette = true, -- position the cmdline and popupmenu together
+        bottom_search = false,        -- use a classic bottom cmdline for search
+        command_palette = true,       -- position the cmdline and popupmenu together
         long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = false, -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = false, -- add a border to hover docs and signature help
+        inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+        lsp_doc_border = false,       -- add a border to hover docs and signature help
       },
       routes = routes,
     })
+    tmap("n", "<CMD>Noice debug<CR>", "debug noice")
+    nmap("sM", "<CMD>Noice telescope<CR>", { desc = "search for messages" })
   end,
 }
