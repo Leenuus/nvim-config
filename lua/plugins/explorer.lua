@@ -34,6 +34,7 @@ return {
 
           ["h"] = actions.up,
           ["q"] = actions.quit,
+          ["<esc>"] = actions.quit,
 
           ["A"] = actions.mkdir,
           ["a"] = actions.newfile,
@@ -73,7 +74,7 @@ return {
         hide_cursor = true,
       })
       -- NOTE: visual mode settings
-      vim.api.nvim_create_autocmd({ "FileType" }, {
+      vim.api.nvim_create_autocmd({ "Filetype" }, {
         pattern = { "lir" },
         callback = function()
           -- use visual mode

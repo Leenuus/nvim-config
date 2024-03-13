@@ -5,6 +5,7 @@ augroup cursor
 	" reset cursor on start:
 	autocmd VimEnter * silent !echo -ne "\e[2 q"
 	autocmd VimEnter * set cursorline
+  autocmd VimEnter * highlight CursorLine guifg=yellow
 	autocmd VimEnter * set cursorcolumn
 	" cursor blinking bar on insert mode
 	let &t_SI = "\e[5 q"
