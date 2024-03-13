@@ -16,17 +16,15 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins", {})
 
-vim.cmd([[colorscheme tokyonight]])
-
 require("options")
 require("keybindings")
 require("highlight")
 require("tree-sitter")
 require("telescope-settings")
 require("lsp")
-require("cursor")
 require("recording")
 require("snippets")
 require("filetype")
+require("enter")
 
 -- vim: ts=2 sts=2 sw=2 et
