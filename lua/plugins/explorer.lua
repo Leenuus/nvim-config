@@ -62,7 +62,6 @@ return {
             local width = math.floor(vim.o.columns * 0.6)
             local height = math.floor(vim.o.lines * 0.5)
             return {
-              -- DONE: a telescope like border
               border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
               width = width,
               height = height,
@@ -105,6 +104,17 @@ return {
         lir_win.init()
       end, {})
       tmap("e", "<cmd>LirToggle<CR>", "[e]xplorer")
+
+      vim.api.nvim_create_autocmd("BufEnter", {
+        callback = function()
+          if vim.bo.filetype == "lir" then
+            vim.cmd([[
+              TransparentDisable
+            ]])
+          end
+        end,
+        pattern = "*",
+      })
     end,
   },
 }
