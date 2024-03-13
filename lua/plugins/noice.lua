@@ -38,6 +38,12 @@ local routes = {
     kind = "lua_error",
     find = "line",
   }),
+  -- NOTE: remove annoying change related lua_error msg
+  route_discard({
+    event = "msg_show",
+    kind = "lua_error",
+    find = "change",
+  }),
 }
 
 return {
