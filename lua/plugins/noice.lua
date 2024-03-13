@@ -33,6 +33,11 @@ local routes = {
     kind = "",
     find = "line",
   }),
+  route_discard({
+    event = "msg_show",
+    kind = "lua_error",
+    find = "line",
+  }),
 }
 
 return {
