@@ -55,7 +55,9 @@ vim.api.nvim_create_user_command("LiveGrepGitRoot", live_grep_git_root, {})
 
 smap("l", require("telescope.builtin").resume)
 smap("h", require("telescope.builtin").help_tags)
-smap("m", require("telescope.builtin").man_pages)
+smap("m", function()
+  require("telescope.builtin").man_pages({ sections = { "ALL" } })
+end)
 smap("s", require("telescope.builtin").builtin)
 smap("g", "<cmd>LiveGrepGitRoot<cr>")
 
