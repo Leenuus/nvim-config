@@ -44,6 +44,17 @@ local routes = {
     kind = "lua_error",
     find = "change",
   }),
+  -- NOTE: disable search related messages
+  route_discard({
+    event = "msg_show",
+    kind = "emsg",
+    find = "E486",
+  }),
+  route_discard({
+    event = "msg_show",
+    kind = "wmsg",
+    find = "hit BOTTOM",
+  }),
 }
 
 return {
