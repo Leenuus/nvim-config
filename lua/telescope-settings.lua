@@ -58,12 +58,26 @@ smap("h", require("telescope.builtin").help_tags)
 smap("m", require("telescope.builtin").man_pages)
 smap("s", require("telescope.builtin").builtin)
 smap("g", "<cmd>LiveGrepGitRoot<cr>")
-smap("f", function()
-  require("telescope.builtin").find_files({ hidden = true, no_ignore = true, cwd = find_git_root() })
-end)
 
+smap("f", function()
+  require("telescope.builtin").find_files({
+    hidden = true,
+    no_ignore = true,
+    cwd = find_git_root(),
+    find_command = {
+      "fd",
+      "-E",
+      ".git",
+      "-E",
+      "*build*",
+      "-E",
+      "*target*",
+      "-H",
+    },
+  })
+end)
 nmap("<leader><space>", function()
-  require("telescope.builtin").find_files({ hidden = false, no_ignore = true, cwd = find_git_root() })
+  require("telescope.builtin").find_files({ cwd = find_git_root() })
 end)
 
 smap("/", function()
@@ -72,4 +86,3 @@ smap("/", function()
     previewer = false,
   }))
 end)
-
