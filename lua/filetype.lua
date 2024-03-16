@@ -9,17 +9,17 @@ local pattern = {
   -- [".*/etc/foo/.*%.conf"] = { "dosini", { priority = 10 } },
   -- A pattern containing an environment variable
   -- ["${XDG_CONFIG_HOME}/foo/git"] = "git",
-  ["README.(a+)$"] = function(path, bufnr, ext)
-    if ext == "md" then
-      return "markdown"
-    elseif ext == "rst" then
-      return "rst"
-    end
-  end,
+  -- ["README.(a+)$"] = function(path, bufnr, ext)
+  --   if ext == "md" then
+  --     return "markdown"
+  --   elseif ext == "rst" then
+  --     return "rst"
+  --   end
+  -- end,
 }
 
 local filename = {
-  -- [".foorc"] = "toml",
+  ["urls"] = "rssfeed",
   -- ["/etc/foo/config"] = "toml",
 }
 
