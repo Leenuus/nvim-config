@@ -3,8 +3,6 @@ return {
   -- Detect tabstop and shiftwidth automatically
   "tpope/vim-sleuth",
 
-  -- NOTE: This is where your plugins related to LSP can be installed.
-  --  The configuration is done below. Search for lspconfig to find it below.
   {
     -- LSP Configuration & Plugins
     "neovim/nvim-lspconfig",
@@ -45,10 +43,10 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-path",
 
-      -- NOTE: replace it with local modified repo
-      {
       -- Adds a number of user-friendly snippets
+      {
       -- "rafamadriz/friendly-snippets",
+      -- NOTE: replace it with local modified repo
         dir = "~/Projects/Neovims/friendly-snippets",
       },
     },
