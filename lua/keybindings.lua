@@ -9,6 +9,7 @@ local cmap = helpers.map_command
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
+nmap("Q", "<nop>")
 nmap("<Enter>", ":", { silent = false })
 
 -- jump around windows
@@ -22,6 +23,10 @@ nmap("<leader>wj", "<cmd>resize +3<cr>", { silent = true })
 nmap("<leader>wk", "<cmd>resize -3<cr>", { silent = true })
 nmap("<leader>wl", "<cmd>vertical resize +3<cr>", { silent = true })
 nmap("<leader>wh", "<cmd>vertical resize -3<cr>", { silent = true })
+
+-- split window
+nmap('<c-\\>', '<C-W>v')
+imap('<c-\\>', '<esc><C-W>vi')
 
 -- cmdline mode
 cmap("<C-h>", "<C-w>")
@@ -38,7 +43,7 @@ imap("<c-_>", function()
 end, { silent = true })
 
 -- navigation
-nmap("<esc>", "<esc>zz")
+nmap("<esc>", "<cmd>noh<cr><esc>zz")
 nmap("k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 nmap("j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 vmap("k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
