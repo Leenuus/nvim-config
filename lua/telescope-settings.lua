@@ -61,25 +61,36 @@ end)
 smap("s", require("telescope.builtin").builtin)
 smap("g", "<cmd>LiveGrepGitRoot<cr>")
 
+local find_command = {
+  "fd",
+  "-H",
+  "-E",
+  ".git",
+  "-E",
+  "*build*",
+  "-E",
+  "*target*",
+}
+
 smap("f", function()
   require("telescope.builtin").find_files({
     hidden = true,
     no_ignore = true,
     cwd = find_git_root(),
-    find_command = {
-      "fd",
-      "-E",
-      ".git",
-      "-E",
-      "*build*",
-      "-E",
-      "*target*",
-      "-H",
-    },
+    find_command = find_command,
   })
 end)
 nmap("<leader><space>", function()
   require("telescope.builtin").find_files({ cwd = find_git_root() })
+end)
+
+smap("F", function()
+  require("telescope.builtin").find_files({
+    cwd = vim.fn.getcwd(),
+    hidden = true,
+    no_ignore = false,
+    find_command = find_command,
+  })
 end)
 
 smap("/", function()
