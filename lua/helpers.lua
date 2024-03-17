@@ -5,7 +5,7 @@ function M.setup_scrolloff()
     vim.o.scrolloff = 0
     vim.api.nvim_clear_autocmds({ group = "scrolloff" })
   else
-    vim.api.nvim_create_augroup("scrolloff", {})
+    vim.api.nvim_create_augroup("scrolloff", { clear = true })
     vim.api.nvim_create_autocmd({ "WinEnter", "WinResized" }, {
       pattern = "*",
       group = "scrolloff",
