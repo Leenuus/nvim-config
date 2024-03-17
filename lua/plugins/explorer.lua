@@ -45,6 +45,7 @@ return {
           ["y"] = actions.yank_path,
           ["."] = actions.toggle_show_hidden,
           ["d"] = actions.delete,
+          ["x"] = actions.delete,
 
           ["m"] = function()
             mark_actions.toggle_mark("n")
