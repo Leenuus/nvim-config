@@ -21,7 +21,9 @@ return {
         ignore = {
           "node_modules",
           ".git",
-        }, -- { ".DS_Store", "node_modules" } etc.
+          "target",
+          "build",
+        },
         devicons = {
           enable = true,
           highlight_dirname = true,
@@ -109,7 +111,7 @@ return {
         callback = function()
           if vim.bo.filetype == "lir" then
             vim.cmd([[
-              TransparentDisable
+              highlight CursorLine guifg=yellow
             ]])
           end
         end,
