@@ -1,28 +1,17 @@
+local opts = {
+  transparent = true,     -- Enable this to disable setting the background color
+  terminal_colors = true, -- Configure the colors used when opening a `:terminal` in [Neovim](https://github.com/neovim/neovim)
+}
+
 return {
   { "xiyaowong/transparent.nvim" },
-  -- Theme inspired by Atom
-  {
-
-    "navarasu/onedark.nvim",
-    priority = 1000,
-    lazy = false,
-    transparent = true, -- Enable this to disable setting the background color
-    config = function()
-      require("onedark").setup({
-        -- Set a style preset. 'dark' is default.
-        style = "dark", -- dark, darker, cool, deep, warm, warmer, light
-      })
-      require("onedark").load()
-    end,
-  },
   {
     "/folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
-    opts = {},
-  },
-  {
-    "rose-pine/neovim",
-    name = "rose-pine",
+    config = function()
+      vim.o.termguicolors = true
+      require("tokyonight").setup(opts)
+    end,
   },
 }
