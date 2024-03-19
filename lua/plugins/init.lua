@@ -12,8 +12,7 @@ return {
       "williamboman/mason-lspconfig.nvim",
 
       -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { "j-hui/fidget.nvim", opts = {} },
+      { "j-hui/fidget.nvim",       opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       "folke/neodev.nvim",
@@ -45,19 +44,20 @@ return {
 
       -- Adds a number of user-friendly snippets
       {
-      -- "rafamadriz/friendly-snippets",
-      -- NOTE: replace it with local modified repo
+        -- "rafamadriz/friendly-snippets",
+        -- NOTE: replace it with local modified repo
         dir = "~/Projects/Neovims/friendly-snippets",
       },
     },
   },
 
   -- Useful plugin to show you pending keybinds.
-  { "folke/which-key.nvim", opts = {} },
+  { "folke/which-key.nvim",  event = "VeryLazy", opts = {} },
   {
     -- Set lualine as statusline
     "nvim-lualine/lualine.nvim",
     -- See `:help lualine.txt`
+    enabled = true,
     opts = {
       options = {
         icons_enabled = true,
@@ -74,11 +74,12 @@ return {
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
     main = "ibl",
+    lazy = true,
     opts = {},
   },
 
   -- "gc" to comment visual regions/lines
-  { "numToStr/Comment.nvim", opts = {} },
+  { "numToStr/Comment.nvim", event = "VeryLazy", opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   {

@@ -18,6 +18,7 @@ local header = {
 return {
   "nvimdev/dashboard-nvim",
   event = "VimEnter",
+  -- enabled = false,
   dependencies = { { "nvim-tree/nvim-web-devicons" } },
   config = function()
     require("dashboard").setup({

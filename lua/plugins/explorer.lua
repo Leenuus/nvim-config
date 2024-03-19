@@ -2,10 +2,10 @@ local tmap = require("helpers").map_toggle
 return {
   {
     "tamago324/lir.nvim",
+    cmd = { "LirToggle", "LirOpen", "LirClose" },
     config = function()
       vim.g.loaded_netrw = 1
       vim.g.loaded_netrwPlugin = 1
-      local lir_win = require("lir.float")
       local actions = require("lir.actions")
       local mark_actions = require("lir.mark.actions")
       local clipboard_actions = require("lir.clipboard.actions")
@@ -97,22 +97,11 @@ return {
           name = "LirFolderNode",
         },
       })
-      vim.api.nvim_create_user_command("LirToggle", function()
-        lir_win.toggle()
-      end, {})
-      vim.api.nvim_create_user_command("LirClose", function()
-        lir_win.close()
-      end, {})
-      vim.api.nvim_create_user_command("LirOpen", function()
-        lir_win.init()
-      end, {})
-      tmap("e", "<cmd>LirToggle<CR>", "[e]xplorer")
 
       vim.api.nvim_create_autocmd("BufEnter", {
         callback = function()
           if vim.bo.filetype == "lir" then
             vim.cmd([[
-              highlight CursorLine guifg=yellow
             ]])
           end
         end,
