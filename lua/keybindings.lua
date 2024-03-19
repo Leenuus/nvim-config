@@ -31,6 +31,10 @@ nmap('<c-\\>', '<C-W>v')
 imap('<c-\\>', '<esc><C-W>va')
 nmap('<c-s>', '<C-W>s')
 imap('<c-s>', '<esc><C-W>sa')
+nmap("<c-\\>", "<C-W>v")
+imap("<c-\\>", "<esc><C-W>va")
+nmap("<c-s>", "<C-W>s")
+imap("<c-s>", "<esc><C-W>sa")
 
 -- cmdline mode
 cmap("<C-h>", "<C-w>")
