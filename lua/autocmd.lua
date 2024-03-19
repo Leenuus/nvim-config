@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
     let &t_EI = "\e[2 q"
     ]])
   end,
-  group = cursor_setting
+  group = cursor_setting,
 })
 
 vim.api.nvim_create_autocmd({ "VimLeave" }, {
@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd({ "VimLeave" }, {
     set guicursor=a:ver90"
     ]])
   end,
-  group = cursor_setting
+  group = cursor_setting,
 })
 
 -- NOTE: close man page easily
@@ -73,7 +73,6 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
   end,
 })
 
-
 local gp = vim.api.nvim_create_augroup("recording-notifications", { clear = true })
 
 local noption = {
@@ -99,3 +98,21 @@ vim.api.nvim_create_autocmd("RecordingLeave", {
   end,
   group = gp,
 })
+
+-- [[ Highlight on yank ]]
+-- See `:help vim.highlight.on_yank()`
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = "*",
+})
+
+-- abbr
+vim.cmd([[Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}]])
+vim.cmd([[Abolish teh the]])
+vim.cmd([[Abolish cahr char]])
+vim.cmd([[Abolish bsaic basic]])
+vim.cmd([[Abolish suage usage]])

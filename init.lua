@@ -21,7 +21,6 @@ vim.cmd([[colorscheme tokyonight]])
 
 require("options")
 require("keybindings")
-require("highlight")
 require("tree-sitter")
 require("telescope-settings")
 require("lsp")
