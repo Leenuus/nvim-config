@@ -87,6 +87,7 @@ return {
     "MunifTanjim/nui.nvim",
     "rcarriga/nvim-notify",
   },
+  -- enabled = false,
   config = function()
     require("notify").setup(opts)
     require("noice").setup({

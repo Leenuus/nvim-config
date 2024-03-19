@@ -16,8 +16,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins", {})
 
-vim.cmd([[colorscheme tokyonight]])
--- vim.cmd([[highlight CursorLine guifg=yellow]])
 
 require("options")
 require("keybindings")
@@ -28,4 +26,6 @@ require("snippets")
 require("filetype")
 require("autocmd")
 
+-- vim.cmd([[colorscheme habamax]])
+vim.cmd([[colorscheme tokyonight]])
 -- vim: ts=2 sts=2 sw=2 et

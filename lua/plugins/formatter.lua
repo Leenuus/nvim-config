@@ -1,5 +1,3 @@
-local nmap = require("helpers").map_normal
-
 return {
   {
     "nvimtools/none-ls.nvim",
