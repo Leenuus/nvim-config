@@ -72,43 +72,22 @@ fi
 local bash_snip5 = s(
   "ye",
   fmt(
-    [[while true; do
-  echo -n '{}'
-  read -r -p " [y/n]: " yn
-  case $yn in
-      [Yy]*) yes=1; break;;  
-      [Nn]*) yes=0; break;;
-  esac
-done
-
-{}]],
-    {
-      insert(1, "prompt"),
-      insert(2),
-    }
+    [[yes_or_no() {{
+  local message=$1
+  while true; do
+    # shellcheck disable=SC2162
+    read -p "$message [y/n]: " yn
+    case "$yn" in
+    [Yy]*) return 0 ;;
+    [Nn]*) return 1 ;;
+    esac
+  done
+}}
+]],
+    {}
   )
 )
 
-local bash_snip6 = s(
-  "ify",
-  fmt(
-    [[if [ "$yes" -eq 1 ]; then
-  {}
-elif [ "$yes" -eq 0 ];then
-  {}
-else
-  echo "Unspecified yes or no, do nothing to protect the script"
-fi
-yes=''
-
-{}]],
-    {
-      insert(1, "command"),
-      insert(2, "command"),
-      insert(3),
-    }
-  )
-)
 local bash_snip7 = s(
   "ift",
   fmt(
@@ -190,19 +169,35 @@ local bash_snip12 = s(
   })
 )
 
+local snip13 = s("copy", fmt([[xclip -selection clipboard]], {}))
+
+local snip14 = s(
+  "readline",
+  fmt(
+    [[while IFS= read -r line; do
+  echo "$line"
+done < {}
+  ]],
+    {
+      insert(1, "input"),
+    }
+  )
+)
+
 local bash_snips = {
   bash_snip1,
   bash_snip2,
   bash_snip3,
   bash_snip4,
   bash_snip5,
-  bash_snip6,
   bash_snip7,
   bash_snip8,
   bash_snip9,
   bash_snip10,
   bash_snip11,
   bash_snip12,
+  snip13,
+  snip14,
 }
 
 return bash_snips
