@@ -1,11 +1,8 @@
-local tmap = require("helpers").map_toggle
 return {
   {
     "tamago324/lir.nvim",
     cmd = { "LirToggle", "LirOpen", "LirClose" },
     config = function()
-      vim.g.loaded_netrw = 1
-      vim.g.loaded_netrwPlugin = 1
       local actions = require("lir.actions")
       local mark_actions = require("lir.mark.actions")
       local clipboard_actions = require("lir.clipboard.actions")

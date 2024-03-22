@@ -4,6 +4,8 @@
 local helpers = require("helpers")
 helpers.setup_scrolloff()
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 vim.o.relativenumber = true
 vim.wo.number = true
 vim.o.mouse = "a"
