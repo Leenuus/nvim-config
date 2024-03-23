@@ -110,4 +110,8 @@ return {
     },
     build = ":TSUpdate",
   },
+  {
+    -- extension for easily creating abbr
+    "tpope/vim-abolish",
+  },
 }
