@@ -17,8 +17,6 @@ nmap("<C-h>", "<cmd>wincmd h<cr>", { silent = true })
 nmap("<C-j>", "<cmd>wincmd j<cr>", { silent = true })
 nmap("<C-k>", "<cmd>wincmd k<cr>", { silent = true })
 nmap("<C-l>", "<cmd>wincmd l<cr>", { silent = true })
-imap("<C-h>", "<cmd>wincmd h<cr>", { silent = true })
-imap("<C-l>", "<cmd>wincmd l<cr>", { silent = true })
 
 -- resize window
 nmap("<leader>wj", "<cmd>resize +3<cr>", { silent = true })
