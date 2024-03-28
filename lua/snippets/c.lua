@@ -4,7 +4,7 @@ local insert = ls.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
 
 local snip1 = s(
-  "ty",
+  "main",
   fmt(
     [[#include <stdio.h>
 
