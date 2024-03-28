@@ -10,7 +10,6 @@ local cmap = helpers.map_command
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 nmap("Q", "<nop>")
-nmap("<Enter>", ":", { silent = false })
 
 -- jump around windows
 nmap("<C-h>", "<cmd>wincmd h<cr>", { silent = true })
