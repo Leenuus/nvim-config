@@ -1,6 +1,6 @@
 local M = {}
 
-function M.setup_scrolloff()
+function M.toggle_scrolloff()
   if vim.o.scrolloff ~= 0 then
     vim.o.scrolloff = 0
     vim.api.nvim_clear_autocmds({ group = "scrolloff" })

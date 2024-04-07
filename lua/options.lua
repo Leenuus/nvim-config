@@ -2,7 +2,7 @@
 -- See `:help vim.o`
 
 local helpers = require("helpers")
-helpers.setup_scrolloff()
+helpers.toggle_scrolloff()
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1

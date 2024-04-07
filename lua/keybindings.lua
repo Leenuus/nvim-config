@@ -108,7 +108,7 @@ require("which-key").register({
 tmap("h", "<cmd>set invhlsearch<cr>", "[h]ighlight")
 tmap("t", "<cmd>TransparentToggle<cr>", "[t]ransparent")
 tmap("i", "<cmd>set invignorecase<cr>", "[i]gnorecase")
-tmap("s", helpers.setup_scrolloff, "[s]crolloff")
+tmap("s", helpers.toggle_scrolloff, "[s]crolloff")
 tmap("z", "<cmd>ZenMode<cr>", "[z]enMode")
 tmap("o", "<cmd>ZenMode<cr>", "[z]enMode")
 tmap("g", "<cmd>LazyGit<CR>", "LazyGit")
