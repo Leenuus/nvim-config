@@ -3,10 +3,10 @@ local s = ls.snippet
 local insert = ls.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
 
-local snip1 = s("sm", fmt("&mut self", {}))
-local snip2 = s("sr", fmt("&self", {}))
+local mut_ref = s("sm", fmt("&mut self", {}))
+local immut_ref = s("sr", fmt("&self", {}))
 
-local snip3 = s(
+local if_debug = s(
   "ifd",
   fmt(
     [[if cfg!(debug_assertions) {{
@@ -18,6 +18,6 @@ local snip3 = s(
 
 local snip4 = s("ift", fmt("#[cfg(test)]", {}))
 
-local snips = { snip1, snip2, snip3, snip4 }
+local snips = { mut_ref, immut_ref, if_debug, snip4 }
 
 return snips

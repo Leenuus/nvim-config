@@ -3,10 +3,12 @@ local s = ls.snippet
 local insert = ls.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
 
-local snip1 = s(
+local main = s(
   "main",
   fmt(
-    [[def main():
+    [[#!/bin/python
+
+def main():
     {}
 
 if __name__ == '__main__':
@@ -18,7 +20,7 @@ if __name__ == '__main__':
 )
 
 local python_snips = {
-  snip1,
+  main,
 }
 
 return python_snips

@@ -6,7 +6,7 @@ local fmt = require("luasnip.extras.fmt").fmt
 -- TODO: echo message should have the same
 -- program specified by program, the first
 -- argument user input
-local bash_snip1 = s(
+local if_installed = s(
   "ty",
   fmt(
     [[if ! type {} >/dev/null 2>&1; then
@@ -20,24 +20,34 @@ fi
   )
 )
 
-local bash_snip2 = s(
+local parse_opts = s(
   "parse",
   fmt(
-    [[while [ "$#" -gt 0 ];do
-  case "$1" in
-    {} ) {};;
-    *) ;;
-  esac
-  shift
-done]],
+    [[print_help() {{
+	exit 1
+}}
+opts=$(getopt -o {} --long {} -- "$@") || print_help
+eval set -- "$opts"
+
+while (($#)); do
+	case $1 in
+  {}) {};;
+  --) shift; break ;;
+	*) false ;;
+	esac
+	shift
+done
+    ]],
     {
-      insert(1, "match"),
-      insert(2, "command"),
+      insert(1, "short"),
+      insert(2, "long"),
+      insert(3, "match"),
+      insert(4, "action"),
     }
   )
 )
 
-local bash_snip3 = s(
+local ifz = s(
   "ifz",
   fmt(
     [[if [ -z "${}" ]; then
@@ -53,7 +63,7 @@ fi
   )
 )
 
-local bash_snip4 = s(
+local ifn = s(
   "ifn",
   fmt(
     [[if [ -n "${}" ]; then
@@ -69,7 +79,7 @@ fi
   )
 )
 
-local bash_snip5 = s(
+local yes_or_no = s(
   "ye",
   fmt(
     [[yes_or_no() {{
@@ -88,7 +98,7 @@ local bash_snip5 = s(
   )
 )
 
-local bash_snip7 = s(
+local if_tmux = s(
   "ift",
   fmt(
     [[if [ -n "$TMUX" ]; then
@@ -104,7 +114,7 @@ fi
 )
 
 -- NOTE: to escape delimeters, double them
-local bash_snip8 = s(
+local main = s(
   "main",
   fmt(
     [[#!/bin/bash
@@ -120,7 +130,7 @@ main]],
   )
 )
 
-local bash_snip9 = s(
+local tmux_rename = s(
   "iftr",
   fmt(
     [[if [ -n "$TMUX" ]; then
@@ -142,8 +152,8 @@ fi
   )
 )
 
-local bash_snip10 = s(
-  "tr",
+local trap = s(
+  "trap",
   fmt(
     [[trap '{}' INT EXIT
 
@@ -155,23 +165,16 @@ local bash_snip10 = s(
   )
 )
 
-local bash_snip11 = s(
-  "do",
+local discard_output = s(
+  "dd",
   fmt([[>/dev/null 2>&1{}]], {
     insert(1),
   })
 )
 
-local bash_snip12 = s(
-  "pr",
-  fmt([[proxychains -f "$HOME/.proxychains.conf" {}]], {
-    insert(1),
-  })
-)
+local copy = s("copy", fmt([[xclip -selection clipboard]], {}))
 
-local snip13 = s("copy", fmt([[xclip -selection clipboard]], {}))
-
-local snip14 = s(
+local readline = s(
   "readline",
   fmt(
     [[while IFS= read -r line; do
@@ -184,20 +187,38 @@ done < {}
   )
 )
 
+local replace = s(
+  "replace",
+  fmt([["${{{}//{}/{}}}"]], {
+    insert(1, "var"),
+    insert(2, "search"),
+    insert(3, "replace"),
+  })
+)
+
+local get_suffix = s(
+  "suf",
+  fmt([["${{{}##*{}}}"]], {
+    insert(1, "var"),
+    insert(2, "delimeter"),
+  })
+)
+
 local bash_snips = {
-  bash_snip1,
-  bash_snip2,
-  bash_snip3,
-  bash_snip4,
-  bash_snip5,
-  bash_snip7,
-  bash_snip8,
-  bash_snip9,
-  bash_snip10,
-  bash_snip11,
-  bash_snip12,
-  snip13,
-  snip14,
+  if_installed,
+  parse_opts,
+  ifz,
+  ifn,
+  yes_or_no,
+  if_tmux,
+  main,
+  tmux_rename,
+  trap,
+  discard_output,
+  copy,
+  readline,
+  replace,
+  get_suffix,
 }
 
 return bash_snips
