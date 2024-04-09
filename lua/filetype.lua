@@ -1,30 +1,30 @@
+local augroup = require("helpers").augroup
+local gp = augroup("filetype-detection")
+
 local extension = {
   todo = "markdown",
   sshconfig = "sshconfig",
 }
 
-local pattern = {
-  -- [".*/etc/foo/.*"] = "fooscript",
-  -- Using an optional priority
-  -- [".*/etc/foo/.*%.conf"] = { "dosini", { priority = 10 } },
-  -- A pattern containing an environment variable
-  -- ["${XDG_CONFIG_HOME}/foo/git"] = "git",
-  -- ["README.(a+)$"] = function(path, bufnr, ext)
-  --   if ext == "md" then
-  --     return "markdown"
-  --   elseif ext == "rst" then
-  --     return "rst"
-  --   end
-  -- end,
-}
+-- NOTE: never work, seem bugs
+local pattern = {}
 
 local filename = {
   ["urls"] = "rssfeed",
-  -- ["/etc/foo/config"] = "toml",
 }
 
 vim.filetype.add({
   extension = extension,
   pattern = pattern,
-  filename = filename
+  filename = filename,
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  group = gp,
+  pattern = {
+    "bash-fc*",
+  },
+  callback = function()
+    vim.bo.filetype = "bash"
+  end,
 })

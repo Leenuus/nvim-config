@@ -44,4 +44,8 @@ function M.map_toggle(lhs, rhs, desc)
   M.map_normal(l, rhs, { desc = d })
 end
 
+M.augroup = function(name)
+  return vim.api.nvim_create_augroup(name, { clear = true })
+end
+
 return M

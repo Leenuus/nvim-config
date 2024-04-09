@@ -1,7 +1,4 @@
-local augroup = function(name)
-  return vim.api.nvim_create_augroup(name, { clear = true })
-end
-
+local augroup = require("helpers").augroup
 local cursor_setting = augroup("cursor_setting")
 
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
