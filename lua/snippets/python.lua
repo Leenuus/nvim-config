@@ -14,7 +14,7 @@ def main():
 if __name__ == '__main__':
     main()]],
     {
-      insert(1, "pass"),
+      insert(0, "pass"),
     }
   )
 )

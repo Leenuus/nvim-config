@@ -24,6 +24,18 @@ end
   )
 )
 
-local fish_snips = { discard_output, if_installed }
+local if_tmux = s(
+  "ift",
+  fmt(
+    [[if test -n "$TMUX"
+    {}
+end]],
+    {
+      insert(0, "rename-window"),
+    }
+  )
+)
+
+local fish_snips = { discard_output, if_installed, if_tmux }
 
 return fish_snips

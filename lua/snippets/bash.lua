@@ -3,19 +3,15 @@ local s = ls.snippet
 local insert = ls.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
 
--- TODO: echo message should have the same
--- program specified by program, the first
--- argument user input
 local if_installed = s(
   "ty",
   fmt(
     [[if ! type {} >/dev/null 2>&1; then
-  echo "not installed"
   exit 1
 fi
 ]],
     {
-      insert(1, "program"),
+      insert(0, "program"),
     }
   )
 )
@@ -47,18 +43,33 @@ done
   )
 )
 
+local simple_parse_opt = s(
+  "pa",
+  fmt(
+    [[while [ "$#" -gt 0 ]; do
+  case "$1" in
+  {}) {} ;;
+  *) ;;
+  esac
+  shift
+done]],
+    {
+      insert(1, "match"),
+      insert(2, "command"),
+    }
+  )
+)
+
 local ifz = s(
   "ifz",
   fmt(
     [[if [ -z "${}" ]; then
   {}
 fi
-
-{}]],
+]],
     {
       insert(1, "var"),
       insert(2, "command"),
-      insert(3),
     }
   )
 )
@@ -69,12 +80,10 @@ local ifn = s(
     [[if [ -n "${}" ]; then
   {}
 fi
-
-{}]],
+]],
     {
       insert(1, "var"),
       insert(2, "command"),
-      insert(3),
     }
   )
 )
@@ -104,11 +113,9 @@ local if_tmux = s(
     [[if [ -n "$TMUX" ]; then
   tmux {}
 fi
-
-{}]],
+]],
     {
-      insert(1, "rename-window"),
-      insert(2),
+      insert(0, "rename-window"),
     }
   )
 )
@@ -125,7 +132,7 @@ main(){{
 
 main]],
     {
-      insert(1, "command"),
+      insert(0, "command"),
     }
   )
 )
@@ -142,35 +149,22 @@ fi
 if [ -n "$TMUX" ]; then
   tmux set-option -w automatic-rename on
 fi
-
-{}]],
+]],
     {
       insert(1, "win_name"),
       insert(2, "command"),
-      insert(3),
     }
   )
 )
 
 local trap = s(
   "trap",
-  fmt(
-    [[trap '{}' INT EXIT
-
-{}]],
-    {
-      insert(1, "cleanup"),
-      insert(2),
-    }
-  )
-)
-
-local discard_output = s(
-  "dd",
-  fmt([[>/dev/null 2>&1{}]], {
-    insert(1),
+  fmt([[trap '{}' INT]], {
+    insert(0, "echo cleanup"),
   })
 )
+
+local discard_output = s("dd", fmt([[>/dev/null 2>&1]], {}))
 
 local copy = s("copy", fmt([[xclip -selection clipboard]], {}))
 
@@ -179,10 +173,9 @@ local readline = s(
   fmt(
     [[while IFS= read -r line; do
   echo "$line"
-done < {}
-  ]],
+done < {}]],
     {
-      insert(1, "input"),
+      insert(0, "input"),
     }
   )
 )
@@ -198,10 +191,49 @@ local replace = s(
 
 local get_suffix = s(
   "suf",
-  fmt([["${{{}##*{}}}"]], {
+  fmt([["${{{}#{}}}"]], {
     insert(1, "var"),
-    insert(2, "delimeter"),
+    insert(2, "prefix"),
   })
+)
+
+local get_prefix = s(
+  "pre",
+  fmt([[${{{}%{}}}]], {
+    insert(1, "var"),
+    insert(2, "suffix"),
+  })
+)
+
+local slice = s(
+  "slice",
+  fmt([[${{{}:{}:{}}}]], {
+    insert(1, "var"),
+    insert(2, "from"),
+    insert(3, "length"),
+  })
+)
+
+local last_pid = s("last_pid", fmt([[$!]], {}))
+
+-- NOTE: for entire ANSI color codes
+-- https://gist.github.com/JBlond/2fea43a3049b38287e5e9cefc87b2124
+-- or notes: bash-ansi-color.md
+local color = s(
+  "color",
+  fmt(
+    [[BLACK=‘\033[30m’
+RED='\033[31m'
+GREEN='\033[32m'
+YELLOW='\033[33m'
+BLUE='\033[34m'
+PURPLE='\033[35m'
+CYAN='\033[36m'
+WHITE='\033[37m'
+NC='\033[0m'
+  ]],
+    {}
+  )
 )
 
 local bash_snips = {
@@ -219,6 +251,11 @@ local bash_snips = {
   readline,
   replace,
   get_suffix,
+  get_prefix,
+  slice,
+  simple_parse_opt,
+  last_pid,
+  color,
 }
 
 return bash_snips
