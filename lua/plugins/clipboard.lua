@@ -1,10 +1,8 @@
 return {
   "AckslD/nvim-neoclip.lua",
-  dependency = {
-    { "kkharji/sqlite.lua",           module = "sqlite" },
-    -- you'll need at least one of these
-    { "nvim-telescope/telescope.nvim" },
-    -- {'ibhagwan/fzf-lua'},
+  dependencies = {
+    'kkharji/sqlite.lua',
+    "nvim-telescope/telescope.nvim"
   },
   config = function()
     require("neoclip").setup({
