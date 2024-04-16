@@ -4,7 +4,7 @@ local insert = ls.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
 
 local discard_output = s(
-  "do",
+  "dd",
   fmt([[>/dev/null 2>&1{}]], {
     insert(1),
   })

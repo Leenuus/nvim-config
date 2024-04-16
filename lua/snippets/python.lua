@@ -6,7 +6,7 @@ local fmt = require("luasnip.extras.fmt").fmt
 local main = s(
   "main",
   fmt(
-    [[#!/bin/python
+    [[#!/usr/bin/env python
 
 def main():
     {}

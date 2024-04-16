@@ -2,16 +2,28 @@ local ls = require("luasnip")
 local s = ls.snippet
 local insert = ls.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
+local func = ls.function_node
+local c = ls.choice_node
+local t = ls.text_node
+local rep = require("luasnip.extras").rep
 
 local if_installed = s(
   "ty",
   fmt(
     [[if ! type {} >/dev/null 2>&1; then
+  echo '{} not installed'
   exit 1
 fi
-]],
+{}]],
     {
-      insert(0, "program"),
+      insert(1, "prog"),
+      rep(1),
+      -- func(function(args, parent, user_args)
+      --   local _ = parent
+      --   local _ = user_args
+      --   return args[1][1]
+      -- end, { 1 }),
+      insert(0),
     }
   )
 )
@@ -236,6 +248,9 @@ NC='\033[0m'
   )
 )
 
+-- FIXME: problematic somehow
+local source = s("source?", t("(return 0 2>/dev/null) && sourced=1 || not_sourced=1"))
+
 local bash_snips = {
   if_installed,
   parse_opts,
@@ -256,6 +271,7 @@ local bash_snips = {
   simple_parse_opt,
   last_pid,
   color,
+  source,
 }
 
 return bash_snips
