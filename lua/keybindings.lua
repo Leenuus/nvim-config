@@ -38,9 +38,11 @@ cmap("<C-k>", 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true, noremap = t
 imap("<c-h>", "<c-w>", { silent = true })
 imap("<c-u>", "<esc>viwUea", { silent = true })
 imap("<esc>", "<esc>zz", { silent = true })
-imap("<c-_>", function()
-  local api = require("Comment.api")
-  api.toggle.linewise.current()
+vim.keymap.set({ "i", "s" }, "<C-_>", function()
+  local ls = require("luasnip")
+  if ls.choice_active() then
+    ls.change_choice(1)
+  end
 end, { silent = true })
 
 -- navigation

@@ -94,7 +94,5 @@ return {
   config = function()
     require("todo-comments").setup(opts)
     nmap("<leader>dL", cmd)
-    vim.cmd([[iabbrev jk NOTE:]])
-    vim.cmd([[iabbrev kj TODO:]])
   end,
 }
