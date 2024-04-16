@@ -27,6 +27,7 @@ local ensure_installed = {
   "markdown_inline",
   -- docker
   "dockerfile",
+  -- misc
   "gitignore",
 }
 

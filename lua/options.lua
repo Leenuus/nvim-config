@@ -23,3 +23,7 @@ vim.o.smartcase = true
 -- Decrease update time
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
+
+-- split right
+vim.o.splitright = true
+vim.o.splitbelow = true

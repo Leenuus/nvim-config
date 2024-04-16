@@ -59,6 +59,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
   end,
 })
+
 -- NOTE: check whether a reload is needed
 -- steal from lazyvim
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
@@ -113,3 +114,4 @@ vim.cmd([[Abolish teh the]])
 vim.cmd([[Abolish cahr char]])
 vim.cmd([[Abolish bsaic basic]])
 vim.cmd([[Abolish suage usage]])
+vim.cmd([[Abolish functoin function]])

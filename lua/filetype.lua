@@ -11,6 +11,7 @@ local pattern = {}
 
 local filename = {
   ["urls"] = "rssfeed",
+  [".fishrc"] = "fish",
 }
 
 vim.filetype.add({
