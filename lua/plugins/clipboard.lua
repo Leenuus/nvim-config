@@ -1,8 +1,8 @@
 return {
   "AckslD/nvim-neoclip.lua",
   dependencies = {
-    'kkharji/sqlite.lua',
-    "nvim-telescope/telescope.nvim"
+    "kkharji/sqlite.lua",
+    "nvim-telescope/telescope.nvim",
   },
   config = function()
     require("neoclip").setup({
@@ -48,10 +48,8 @@ return {
             custom = {},
           },
           n = {
-            select = "<cr>",
-            paste = "p",
-            --- It is possible to map to more than one key.
-            -- paste = { 'p', '<c-p>' },
+            -- select = "<cr>",
+            paste = { "p", "cr" },
             paste_behind = "P",
             replay = "q",
             delete = "d",
