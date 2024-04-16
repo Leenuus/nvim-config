@@ -1,7 +1,4 @@
--- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
--- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
-
 local ensure_installed = {
   "c",
   "cpp",
@@ -44,14 +41,23 @@ vim.defer_fn(function()
     ignore_install = {},
     -- You can specify additional Treesitter modules here: -- For example: -- playground = {--enable = true,-- },
     modules = {},
-    highlight = { enable = true },
+    highlight = {
+      enable = true,
+      disable = function(lang, buf)
+        local max_filesize = 100 * 1024 -- 100 KB
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        if ok and stats and stats.size > max_filesize then
+          return true
+        end
+      end,
+    },
     indent = { enable = true },
     incremental_selection = {
       enable = true,
       keymaps = {
         init_selection = "<c-c>",
         node_incremental = "<c-d>",
-        -- scope_incremental = '<c-c>',
+        scope_incremental = false,
         node_decremental = "<bs>",
       },
     },
@@ -71,24 +77,24 @@ vim.defer_fn(function()
         },
       },
       move = {
-        enable = false,
+        enable = true,
         set_jumps = true, -- whether to set jumps in the jumplist
-        -- goto_next_start = {
-        --   [']m'] = '@function.outer',
-        --   [']]'] = '@class.outer',
-        -- },
-        -- goto_next_end = {
-        --   [']M'] = '@function.outer',
-        --   [']['] = '@class.outer',
-        -- },
-        -- goto_previous_start = {
-        --   ['[m'] = '@function.outer',
-        --   ['[['] = '@class.outer',
-        -- },
-        -- goto_previous_end = {
-        --   ['[M'] = '@function.outer',
-        --   ['[]'] = '@class.outer',
-        -- },
+        goto_next_start = {
+          ["]f"] = "@function.outer",
+          ["]c"] = "@class.outer",
+        },
+        goto_next_end = {
+          --   [']M'] = '@function.outer',
+          --   [']['] = '@class.outer',
+        },
+        goto_previous_start = {
+          ["[f"] = "@function.outer",
+          ["[c"] = "@class.outer",
+        },
+        goto_previous_end = {
+          -- ['<leader>pf'] = '@function.outer',
+          -- ['[]'] = '@class.outer',
+        },
       },
       swap = {
         enable = false,
