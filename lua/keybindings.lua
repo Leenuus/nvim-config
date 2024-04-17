@@ -63,11 +63,9 @@ omap("L", "$")
 
 nmap("J", '<cmd>execute "normal!" .. winheight(0) / 4 .. "gjzz"<cr>')
 vmap("J", '<cmd>execute "normal!" .. winheight(0) / 4 .. "gjzz"<cr>')
-omap("J", '<cmd>execute "normal!" .. winheight(0) / 4 .. "gjzz"<cr>')
 
 nmap("K", '<cmd>execute "normal!" .. winheight(0) / 4 .. "gkzz"<cr>')
 vmap("K", '<cmd>execute "normal!" .. winheight(0) / 4 .. "gkzz"<cr>')
-omap("K", '<cmd>execute "normal!" .. winheight(0) / 4 .. "gkzz"<cr>')
 
 vmap("<", "<gv")
 vmap(">", ">gv")
@@ -81,16 +79,16 @@ nmap("<leader>Q", "<cmd>q!<cr>")
 nmap("U", "<cmd>redo<cr>")
 
 -- operators
-omap("p", "i(")
-omap("P", "a(")
-omap("q", 'i"')
-omap("Q", "i'")
-omap("o", "i[")
-omap("O", "i{")
--- omap("w", "iw")
--- omap("W", "iW")
-omap(",", "i<")
-omap(".", "a<")
+omap("q", 'i"', "<q> double quotes")
+omap("Q", "a'", "<q> double quotes")
+omap("j", "i'", "<j> single quote")
+omap("J", "a'", "<j> quote")
+omap("k", "i(", "<k> parenthesis")
+omap("K", "a(", "<k> parenthesis")
+omap("h", "i[", "<h> bracket")
+omap("H", "a[", "<h> bracket")
+omap("l", "i{", "<l> brace")
+omap("L", "a{", "<l> brace")
 
 -- Diagnostic keymaps
 nmap("<leader>dp", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
@@ -116,6 +114,7 @@ tmap("z", "<cmd>ZenMode<cr>", "[z]enMode")
 tmap("o", "<cmd>ZenMode<cr>", "[z]enMode")
 tmap("g", "<cmd>LazyGit<CR>", "LazyGit")
 tmap("n", "<CMD>Noice disable<CR>", "disable noice")
+tmap("p", "<CMD>TSPlaygroundToggle<CR>", "TreeSitter Playground")
 
 -- harpoon
 local harpoon = require("harpoon")
@@ -171,6 +170,3 @@ nmap("<leader>cc", function()
     no_ignore = true,
   })
 end)
-
--- NOTE: for plugin dev
-nmap("<leader>m", "<cmd>messages<cr>")

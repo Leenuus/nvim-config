@@ -1,8 +1,15 @@
 local h = require("helpers")
+local logger = h.logger
 local nmap = h.map_normal
 
 local function smap(lhs, rhs, opts)
-  vim.keymap.set("n", "<leader>s" .. lhs, rhs, opts)
+  if type(opts) == "string" then
+    vim.keymap.set("n", "<leader>s" .. lhs, rhs, { desc = opts })
+  elseif type(opts) == "table" or type(opts) == "nil" then
+    vim.keymap.set("n", "<leader>s" .. lhs, rhs, opts)
+  else
+    logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+  end
 end
 
 local actions = require("telescope.actions")
@@ -55,12 +62,13 @@ vim.api.nvim_create_user_command("LiveGrepFileDir", live_grep_file_dir, {})
 
 smap("l", require("telescope.builtin").resume)
 smap("h", require("telescope.builtin").help_tags)
-smap("m", function()
+smap("M", function()
   require("telescope.builtin").man_pages({ sections = { "ALL" } })
 end)
-smap("s", require("telescope.builtin").builtin)
-smap("g", "<cmd>LiveGrepGitRoot<cr>")
-smap("G", "<cmd>LiveGrepFileDir<cr>")
+smap("s", require("telescope.builtin").builtin, "Show telescopes")
+smap("g", "<cmd>LiveGrepGitRoot<cr>", "Grep Git root")
+smap("G", "<cmd>LiveGrepFileDir<cr>", "Grep current File dir")
+smap("k", "<cmd>Telescope keymaps<cr>", "Show Keymaps")
 
 local find_command = {
   "fd",
@@ -106,4 +114,10 @@ smap("c", function()
 end)
 
 smap("C", "<cmd>Telescope colorscheme<cr>")
-smap("M", "<CMD>Noice telescope<CR>", { desc = "search for messages" })
+smap("m", function()
+  if package.loaded["noice"] ~= nil then
+    return "<cmd>Telescope noice<cr>"
+  else
+    return "<cmd>messages<cr>"
+  end
+end, { expr = true, desc = "search for messages" })

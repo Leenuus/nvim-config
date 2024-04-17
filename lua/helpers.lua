@@ -1,5 +1,7 @@
 local M = {}
 
+M.logger = require("plenary.log")
+
 function M.toggle_scrolloff()
   if vim.o.scrolloff ~= 0 then
     vim.o.scrolloff = 0
@@ -17,24 +19,54 @@ function M.toggle_scrolloff()
   end
 end
 
-function M.map_insert(lhs, rhs, options)
-  vim.keymap.set("i", lhs, rhs, options)
+function M.map_insert(lhs, rhs, opts)
+  if type(opts) == "string" then
+    vim.keymap.set("i", lhs, rhs, { desc = opts })
+  elseif type(opts) == "table" or type(opts) == "nil" then
+    vim.keymap.set("i", lhs, rhs, opts)
+  else
+    M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+  end
 end
 
-function M.map_normal(lhs, rhs, options)
-  vim.keymap.set("n", lhs, rhs, options)
+function M.map_normal(lhs, rhs, opts)
+  if type(opts) == "string" then
+    vim.keymap.set("n", lhs, rhs, { desc = opts })
+  elseif type(opts) == "table" or type(opts) == "nil" then
+    vim.keymap.set("n", lhs, rhs, opts)
+  else
+    M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+  end
 end
 
-function M.map_visual(lhs, rhs, options)
-  vim.keymap.set("v", lhs, rhs, options)
+function M.map_visual(lhs, rhs, opts)
+  if type(opts) == "string" then
+    vim.keymap.set("v", lhs, rhs, { desc = opts })
+  elseif type(opts) == "table" or type(opts) == "nil" then
+    vim.keymap.set("v", lhs, rhs, opts)
+  else
+    M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+  end
 end
 
-function M.map_operator(lhs, rhs, options)
-  vim.keymap.set("o", lhs, rhs, options)
+function M.map_operator(lhs, rhs, opts)
+  if type(opts) == "string" then
+    vim.keymap.set("o", lhs, rhs, { desc = opts })
+  elseif type(opts) == "table" or type(opts) == "nil" then
+    vim.keymap.set("o", lhs, rhs, opts)
+  else
+    M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+  end
 end
 
-function M.map_command(lhs, rhs, options)
-  vim.keymap.set("c", lhs, rhs, options)
+function M.map_command(lhs, rhs, opts)
+  if type(opts) == "string" then
+    vim.keymap.set("c", lhs, rhs, opts)
+  elseif type(opts) == "table" or type(opts) == "nil" then
+    vim.keymap.set("c", lhs, rhs, opts)
+  else
+    M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+  end
 end
 
 -- toggle options
