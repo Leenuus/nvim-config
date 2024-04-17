@@ -1,6 +1,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+vim.cmd([[colorscheme habamax]])
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -14,8 +16,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins", {})
 
+require("lazy").setup("plugins", {})
 
 require("options")
 require("keybindings")
@@ -26,6 +28,7 @@ require("snippets")
 require("filetype")
 require("autocmd")
 
--- vim.cmd([[colorscheme habamax]])
-vim.cmd([[colorscheme tokyonight]])
+vim.cmd([[colorscheme ayu-mirage]])
+-- vim.cmd([[colorscheme tokyonight]])
+
 -- vim: ts=2 sts=2 sw=2 et

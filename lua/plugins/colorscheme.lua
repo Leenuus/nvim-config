@@ -1,5 +1,5 @@
 local opts = {
-  transparent = false,     -- Enable this to disable setting the background color
+  transparent = false,    -- Enable this to disable setting the background color
   terminal_colors = true, -- Configure the colors used when opening a `:terminal` in [Neovim](https://github.com/neovim/neovim)
 }
 
@@ -13,5 +13,8 @@ return {
       vim.o.termguicolors = true
       require("tokyonight").setup(opts)
     end,
+  },
+  {
+    "Shatur/neovim-ayu",
   },
 }
