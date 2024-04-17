@@ -36,11 +36,11 @@ return {
       "hrsh7th/cmp-path",
 
       -- Adds a number of user-friendly snippets
-      {
-        -- "rafamadriz/friendly-snippets",
-        -- NOTE: replace it with local modified repo
-        dir = "~/Projects/Neovims/friendly-snippets",
-      },
+      -- {
+      --   -- "rafamadriz/friendly-snippets",
+      --   -- NOTE: replace it with local modified repo
+      --   dir = "~/Projects/Neovims/friendly-snippets",
+      -- },
     },
   },
 }
