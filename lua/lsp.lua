@@ -75,12 +75,10 @@ local ensure_installed_servers = {
   },
 }
 
--- Setup neovim lua configuration
-require("neodev").setup()
-
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities) or capabilities
+-- pcall(require, "cmp_nvim_lsp")
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require("mason-lspconfig")

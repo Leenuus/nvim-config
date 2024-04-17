@@ -41,6 +41,11 @@ vim.defer_fn(function()
     ignore_install = {},
     -- You can specify additional Treesitter modules here: -- For example: -- playground = {--enable = true,-- },
     modules = {},
+    playground = {
+      enable = true,
+      updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
+      persist_queries = false, -- Whether the query persists across vim sessions
+    },
     highlight = {
       enable = true,
       disable = function(lang, buf)

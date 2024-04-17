@@ -33,18 +33,25 @@ require("telescope").setup({
 pcall(require("telescope").load_extension, "fzf")
 pcall(require("telescope").load_extension, "ui-select")
 
-local find_git_root = require('helpers').find_git_root
+local find_git_root = require("helpers").find_git_root
+
+local function live_grep_file_dir()
+  local file = vim.fn.expand("%:p")
+  local dir = vim.fs.dirname(file)
+  require("telescope.builtin").live_grep({
+    cwd = dir,
+  })
+end
 
 local function live_grep_git_root()
   local git_root = find_git_root()
-  if git_root then
-    require("telescope.builtin").live_grep({
-      search_dirs = { git_root },
-    })
-  end
+  require("telescope.builtin").live_grep({
+    cwd = git_root,
+  })
 end
 
 vim.api.nvim_create_user_command("LiveGrepGitRoot", live_grep_git_root, {})
+vim.api.nvim_create_user_command("LiveGrepFileDir", live_grep_file_dir, {})
 
 smap("l", require("telescope.builtin").resume)
 smap("h", require("telescope.builtin").help_tags)
@@ -53,6 +60,7 @@ smap("m", function()
 end)
 smap("s", require("telescope.builtin").builtin)
 smap("g", "<cmd>LiveGrepGitRoot<cr>")
+smap("G", "<cmd>LiveGrepFileDir<cr>")
 
 local find_command = {
   "fd",
@@ -96,3 +104,5 @@ end)
 smap("c", function()
   vim.cmd("Telescope neoclip")
 end)
+
+smap("C", "<cmd>Telescope colorscheme<cr>")
