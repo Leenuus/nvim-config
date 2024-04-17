@@ -16,6 +16,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins", {})
 
+require("globals")
 require("options")
 require("keybindings")
 require("tree-sitter")
