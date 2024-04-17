@@ -1,6 +1,3 @@
--- [[ Setting options ]]
--- See `:help vim.o`
-
 local helpers = require("helpers")
 helpers.toggle_scrolloff()
 
@@ -27,3 +24,6 @@ vim.o.timeoutlen = 300
 -- split right
 vim.o.splitright = true
 vim.o.splitbelow = true
+
+vim.o.virtualedit = 'block'
+vim.o.inccommand = 'split'
