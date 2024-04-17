@@ -7,8 +7,22 @@ return {
     end,
   },
   {
+    "ggandor/flit.nvim",
+    config = function()
+      require("flit").setup({
+        keys = { f = "f", F = "F", t = "t", T = "T" },
+        -- A string like "nv", "nvo", "o", etc.
+        labeled_modes = "v",
+        multiline = false,
+        -- Like `leap`s similar argument (call-specific overrides).
+        -- E.g.: opts = { equivalence_classes = {} }
+        opts = {},
+      })
+    end,
+  },
+  {
     "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    version = "*",
     config = function()
       local keymap = {
         insert = "<C-g>s",

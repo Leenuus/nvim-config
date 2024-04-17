@@ -7,7 +7,8 @@ local omap = helpers.map_operator
 local cmap = helpers.map_command
 
 -- See `:help vim.keymap.set()`
-vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+nmap("<Space>", "<Nop>", { silent = true })
+vmap("<Space>", "<Nop>", { silent = true })
 
 nmap("Q", "<nop>")
 
@@ -38,7 +39,7 @@ cmap("<C-k>", 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true, noremap = t
 imap("<c-h>", "<c-w>", { silent = true })
 imap("<c-u>", "<esc>viwUea", { silent = true })
 imap("<esc>", "<esc>zz", { silent = true })
-vim.keymap.set({ "i", "s" }, "<C-_>", function()
+vim.keymap.set({ "i", "s" }, "<C-]>", function()
   local ls = require("luasnip")
   if ls.choice_active() then
     ls.change_choice(1)
@@ -114,6 +115,7 @@ tmap("s", helpers.toggle_scrolloff, "[s]crolloff")
 tmap("z", "<cmd>ZenMode<cr>", "[z]enMode")
 tmap("o", "<cmd>ZenMode<cr>", "[z]enMode")
 tmap("g", "<cmd>LazyGit<CR>", "LazyGit")
+tmap("n", "<CMD>Noice disable<CR>", "disable noice")
 
 -- harpoon
 local harpoon = require("harpoon")
@@ -170,4 +172,5 @@ nmap("<leader>cc", function()
   })
 end)
 
--- move between textobjects
+-- NOTE: for plugin dev
+nmap("<leader>m", "<cmd>messages<cr>")

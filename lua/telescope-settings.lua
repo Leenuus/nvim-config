@@ -106,3 +106,4 @@ smap("c", function()
 end)
 
 smap("C", "<cmd>Telescope colorscheme<cr>")
+smap("M", "<CMD>Noice telescope<CR>", { desc = "search for messages" })
