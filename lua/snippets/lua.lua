@@ -70,11 +70,25 @@ local smart_require = s(
   )
 )
 
+-- TODO: udpate to choice node for more or fewer snippets expansion
+local check_type = s(
+  "ty",
+  fmt(
+    [[if type({}) == 'string' then
+    {}
+elseif type({}) == 'table' then
+    {}
+end]],
+    { i(1, "var"), i(2, "command"), rep(1), i(3, "command") }
+  )
+)
+
 local lua_snips = {
   main,
   pp,
   smart_require,
   logger,
+  check_type,
 }
 
 return lua_snips
