@@ -165,15 +165,6 @@ tmap("E", function()
   require("oil").open(dir)
 end, "[e]plorer git root")
 
--- edit config
-nmap("<leader>cc", function()
-  local configpath = vim.fn.stdpath("config")
-  require("telescope.builtin").find_files({
-    cwd = configpath,
-    hidden = false,
-    no_ignore = true,
-  })
-end)
 
 -- previous/next
 nmap("]t", "<cmd>tabNext<cr>", "next tab")

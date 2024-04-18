@@ -158,7 +158,18 @@ smap("c", function()
   vim.cmd("Telescope neoclip")
 end, "Search Clipboard")
 
-smap("C", "<cmd>Telescope colorscheme<cr>")
+smap("t", "<cmd>Telescope colorscheme<cr>", "search colorscheme")
+
+-- edit config
+smap("C", function()
+  local configpath = vim.fn.stdpath("config")
+  require("telescope.builtin").find_files({
+    cwd = configpath,
+    hidden = false,
+    no_ignore = true,
+  })
+end, "search config")
+
 smap("m", function()
   if package.loaded["noice"] ~= nil then
     return "<cmd>Telescope noice<cr>"
