@@ -71,59 +71,47 @@ smap("g", "<cmd>LiveGrepGitRoot<cr>", "Grep Git root")
 smap("G", "<cmd>LiveGrepFileDir<cr>", "Grep current File dir")
 smap("k", "<cmd>Telescope keymaps<cr>", "Show Keymaps")
 
-local default_find_files_mode = "(default) git root, nohidden, noignore, no *build*,*target*,node_modules"
-local find_files_mode = default_find_files_mode
+local DEFAULT_FIND_FILES_MODE = "default"
+local find_files_mode = DEFAULT_FIND_FILES_MODE
 
 local find_files_options = {
-  [default_find_files_mode] = {
-    cwd = find_git_root(),
+  [DEFAULT_FIND_FILES_MODE] = {
+    cwd = find_git_root,
     find_command = {
       "fd",
       "-E",
-      ".git",
-      "-E",
-      "*build*",
-      "-E",
-      "*target*",
-      "-E",
-      "node_modules",
+      "\\.git",
       "-t",
       "f",
     },
   },
-  ["cwd, hidden, ignore"] = {
-    cwd = vim.fn.getcwd(),
+  ["git root, with hidden"] = {
+    cwd = find_git_root,
+    -- NOTE: pitfall here, `vim.list_extend` change the dst list and return it
     find_command = {
       "fd",
+      "-E",
+      "\\.git",
+      "-t",
+      "f",
+      "-H",
+    },
+  },
+  ["cwd, all files"] = {
+    -- NOTE: pitfall
+    -- wrap it to avoid being evaluated at startup time
+    -- this should be evaluated at runtime
+    cwd = function()
+      return vim.fn.expand("%:p:h")
+    end,
+    find_command = {
+      "fd",
+      "-E",
+      "\\.git",
+      "-t",
+      "f",
       "-H",
       "-I",
-      "-E",
-      ".git",
-      "-t",
-      "f",
-    },
-  },
-  ["git root, hidden, noignore"] = {
-    cwd = find_git_root(),
-    find_command = {
-      "fd",
-      "-H",
-      "-E",
-      ".git",
-      "-t",
-      "f",
-    },
-  },
-  ["cwd, all files(excluding .git)"] = {
-    cwd = vim.fn.getcwd(),
-    find_command = {
-      "fd",
-      "-H",
-      "-I",
-      "-E",
-      ".git",
-      "-t",
-      "f",
     },
   },
 }
@@ -136,15 +124,19 @@ smap("f", function()
       return item
     end,
   }, function(choice)
+    logger.info("choice: ", choice)
     find_files_mode = choice
   end)
 end, "Change File Searching Mode")
 
 local function find_files()
-  require("telescope.builtin").find_files(find_files_options[find_files_mode])
+  -- NOTE: pitfall, deep copy!
+  local opts = vim.deepcopy(find_files_options[find_files_mode])
+  opts["cwd"] = opts["cwd"]()
+  -- logger.info("options: ", opts)
+  require("telescope.builtin").find_files(opts)
 end
 vim.api.nvim_create_user_command("FindFiles", find_files, {})
-
 nmap("<leader><space>", find_files)
 
 smap("/", function()
