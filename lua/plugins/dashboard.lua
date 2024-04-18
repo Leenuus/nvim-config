@@ -42,28 +42,21 @@ return {
     require("dashboard").setup({
       theme = "doom",
       config = {
-        header = header1,
+        header = header,
         center = {
           {
             icon = "",
             desc = "New File",
-            key = "n",
+            key = "e",
             key_format = " %s",
             action = "enew",
           },
           {
             icon = "",
-            desc = "Edit Config",
-            key = "c",
+            desc = "Help",
+            key = "h",
             key_format = " %s",
-            action = "cd" .. vim.fn.stdpath("config") .. "|" .. "Telescope find_files",
-          },
-          {
-            icon = "",
-            desc = "Edit Notes",
-            key = "n",
-            key_format = " %s",
-            action = "cd" .. notes_root .. "|" .. "Telescope find_files",
+            action = "Telescope help_tags",
           },
           {
             icon = "",
@@ -72,6 +65,22 @@ return {
             key_format = " %s",
             action = "Telescope colorscheme",
           },
+          -- TODO: implement my news reader neovim frontend
+          -- {
+          --   icon = "",
+          --   desc = "News Reader",
+          --   key = "r",
+          --   key_format = " %s",
+          --   action = ":Reader",
+          -- },
+          -- TODO: Project Manager
+          -- {
+          --   icon = "",
+          --   desc = "Projects",
+          --   key = "r",
+          --   key_format = " %s",
+          --   action = ":Projects",
+          -- },
           {
             icon = "",
             desc = "Quit Neovim",
