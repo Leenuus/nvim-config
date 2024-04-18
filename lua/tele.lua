@@ -70,36 +70,77 @@ smap("g", "<cmd>LiveGrepGitRoot<cr>", "Grep Git root")
 smap("G", "<cmd>LiveGrepFileDir<cr>", "Grep current File dir")
 smap("k", "<cmd>Telescope keymaps<cr>", "Show Keymaps")
 
-local find_command = {
-  "fd",
-  "-H",
-  "-E",
-  ".git",
-  "-E",
-  "*build*",
-  "-E",
-  "*target*",
+local default_find_files_mode = "(default) git root, nohidden, noignore, no *build*,*target*,node_modules"
+local find_files_mode = default_find_files_mode
+
+local find_files_options = {
+  [default_find_files_mode] = {
+    cwd = find_git_root(),
+    find_command = {
+      "fd",
+      "-E",
+      ".git",
+      "-E",
+      "*build*",
+      "-E",
+      "*target*",
+      "-E",
+      "node_modules",
+      "-t",
+      "f",
+    },
+  },
+  ["cwd, hidden, ignore"] = {
+    cwd = vim.fn.getcwd(),
+    find_command = {
+      "fd",
+      "-H",
+      '-I',
+      "-E",
+      ".git",
+      "-t",
+      "f",
+    },
+  },
+  ["git root, hidden, noignore"] = {
+    cwd = find_git_root(),
+    find_command = {
+      "fd",
+      "-H",
+      "-E",
+      ".git",
+      "-t",
+      "f",
+    },
+  },
+  ["cwd, all files(excluding .git)"] = {
+    cwd = vim.fn.getcwd(),
+    find_command = {
+      "fd",
+      "-H",
+      '-I',
+      "-E",
+      ".git",
+      "-t",
+      "f",
+    },
+  },
 }
 
 smap("f", function()
-  require("telescope.builtin").find_files({
-    hidden = true,
-    no_ignore = true,
-    cwd = find_git_root(),
-    find_command = find_command,
-  })
-end)
-nmap("<leader><space>", function()
-  require("telescope.builtin").find_files({ cwd = find_git_root() })
+  vim.ui.select(vim.tbl_keys(find_files_options), {
+    prompt = "Select File Searching mode",
+    -- how to display item to user
+    format_item = function(item)
+      return item
+    end,
+  }, function(choice)
+    find_files_mode = choice
+  end)
 end)
 
-smap("F", function()
-  require("telescope.builtin").find_files({
-    cwd = vim.fn.getcwd(),
-    hidden = true,
-    no_ignore = false,
-    find_command = find_command,
-  })
+nmap("<leader><space>", function()
+  require("telescope.builtin").find_files(find_files_options[find_files_mode])
 end)
 
 smap("/", function()
