@@ -36,3 +36,31 @@ add_snippets("all", {
     })
   ),
 })
+
+add_snippets("editorconfig", {
+  s(
+    "m",
+    t([[
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = false
+charset = utf-8
+indent_style = space
+indent_size = 2
+
+[Makefile]
+indent_style = tab
+indent_size = 1
+
+[*.py]
+indent_style = space
+indent_size = 4
+]])
+  ),
+})
