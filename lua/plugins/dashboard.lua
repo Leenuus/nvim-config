@@ -31,6 +31,7 @@ local header1 = {
   [[                                            ]],
 }
 
+
 return {
   "nvimdev/dashboard-nvim",
   event = "VimEnter",
@@ -42,7 +43,7 @@ return {
     require("dashboard").setup({
       theme = "doom",
       config = {
-        header = header,
+        header = header1,
         center = {
           {
             icon = "",
@@ -50,6 +51,13 @@ return {
             key = "e",
             key_format = " %s",
             action = "enew",
+          },
+          {
+            icon = "",
+            desc = "Search Files",
+            key = "s",
+            key_format = " %s",
+            action = "FindFiles",
           },
           {
             icon = "",
