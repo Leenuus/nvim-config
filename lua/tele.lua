@@ -60,12 +60,13 @@ end
 vim.api.nvim_create_user_command("LiveGrepGitRoot", live_grep_git_root, {})
 vim.api.nvim_create_user_command("LiveGrepFileDir", live_grep_file_dir, {})
 
-smap("l", require("telescope.builtin").resume)
-smap("h", require("telescope.builtin").help_tags)
+smap("l", require("telescope.builtin").resume, "Resume telescope")
+smap("h", require("telescope.builtin").help_tags, "Find Helps")
 smap("M", function()
   require("telescope.builtin").man_pages({ sections = { "ALL" } })
-end)
+end, "Find man pages")
 smap("s", require("telescope.builtin").builtin, "Show telescopes")
+-- TODO: change live grep mode
 smap("g", "<cmd>LiveGrepGitRoot<cr>", "Grep Git root")
 smap("G", "<cmd>LiveGrepFileDir<cr>", "Grep current File dir")
 smap("k", "<cmd>Telescope keymaps<cr>", "Show Keymaps")
@@ -137,7 +138,8 @@ smap("f", function()
   }, function(choice)
     find_files_mode = choice
   end)
-end)
+end, "Change File Searching Mode")
+
 local function find_files()
   require("telescope.builtin").find_files(find_files_options[find_files_mode])
 end
@@ -150,11 +152,11 @@ smap("/", function()
     winblend = 10,
     previewer = false,
   }))
-end)
+end, "Search Current buffer")
 
 smap("c", function()
   vim.cmd("Telescope neoclip")
-end)
+end, "Search Clipboard")
 
 smap("C", "<cmd>Telescope colorscheme<cr>")
 smap("m", function()

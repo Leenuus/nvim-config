@@ -25,8 +25,9 @@ vim.o.timeoutlen = 300
 vim.o.splitright = true
 vim.o.splitbelow = true
 
-vim.o.virtualedit = 'block'
-vim.o.inccommand = 'split'
+vim.o.virtualedit = "block"
+-- vim.o.inccommand = "split"
+
 -- @diagnostic disable-next-line: undefined-field
 if vim.g.neovide then -- ignore
   -- neovim gui neovide

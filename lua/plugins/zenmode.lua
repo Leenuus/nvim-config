@@ -1,4 +1,13 @@
--- NOTE: this is zen mode setting
+local width = function()
+  if vim.g.neovide then
+    return 1
+  else
+    return 0.65
+  end
+end
+
+local height = 0.9
+
 local opts = {
   window = {
     backdrop = 0.95, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
@@ -6,8 +15,8 @@ local opts = {
     -- * an absolute number of cells when > 1
     -- * a percentage of the width / height of the editor when <= 1
     -- * a function that returns the width or the height
-    width = 0.65, -- width of the Zen window
-    height = 1,   -- height of the Zen window
+    width = width(),   -- width of the Zen window
+    height = height, -- height of the Zen window
     -- by default, no options are changed for the Zen window
     -- uncomment any of the options below, or add other vim.wo options you want to apply
     options = {

@@ -7,28 +7,27 @@ local omap = helpers.map_operator
 local cmap = helpers.map_command
 
 -- See `:help vim.keymap.set()`
-nmap("<Space>", "<Nop>", { silent = true })
-vmap("<Space>", "<Nop>", { silent = true })
+nmap("<Space>", "<Nop>")
+vmap("<Space>", "<Nop>")
 
 nmap("Q", "<nop>")
 
 -- jump around windows
-nmap("<C-h>", "<cmd>wincmd h<cr>", { silent = true })
-nmap("<C-j>", "<cmd>wincmd j<cr>", { silent = true })
-nmap("<C-k>", "<cmd>wincmd k<cr>", { silent = true })
-nmap("<C-l>", "<cmd>wincmd l<cr>", { silent = true })
+nmap("<C-h>", "<cmd>wincmd h<cr>")
+nmap("<C-j>", "<cmd>wincmd j<cr>")
+nmap("<C-k>", "<cmd>wincmd k<cr>")
+nmap("<C-l>", "<cmd>wincmd l<cr>")
 
 -- resize window
-nmap("<leader>wj", "<cmd>resize +3<cr>", { silent = true })
-nmap("<leader>wk", "<cmd>resize -3<cr>", { silent = true })
-nmap("<leader>wl", "<cmd>vertical resize +3<cr>", { silent = true })
-nmap("<leader>wh", "<cmd>vertical resize -3<cr>", { silent = true })
+nmap("<leader>w=", "<cmd>resize +3<cr>")
+nmap("<leader>w+", "<cmd>resize -3<cr>")
+nmap("<leader>w-", "<cmd>vertical resize +3<cr>")
+nmap("<leader>w_", "<cmd>vertical resize -3<cr>")
 
 -- split window
-nmap("<c-\\>", "<C-W>v")
-imap("<c-\\>", "<esc><C-W>va")
-nmap("<c-s>", "<C-W>s")
-imap("<c-s>", "<esc><C-W>sa")
+nmap("<c-\\>", "<cmd>vnew<cr>")
+nmap("<c-s>", "<cmd>new<cr>")
+
 -- @diagnostic disable-next-line: undefined-field
 if vim.g.neovide then
   -- control + backspace
@@ -40,27 +39,25 @@ else
 end
 
 -- cmdline mode
-cmap("<C-h>", "<C-w>")
-cmap("<C-j>", 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = true, noremap = true })
-cmap("<C-k>", 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true, noremap = true })
+cmap("<C-j>", 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = true })
+cmap("<C-k>", 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true })
 
 -- insertion
-imap("<c-h>", "<c-w>", { silent = true })
-imap("<c-u>", "<esc>viwUea", { silent = true })
-imap("<esc>", "<esc>zz", { silent = true })
+imap("<c-u>", "<esc>viwUea")
 vim.keymap.set({ "i", "s" }, "<C-]>", function()
   local ls = require("luasnip")
   if ls.choice_active() then
     ls.change_choice(1)
   end
-end, { silent = true })
+end)
 
 -- navigation
 nmap("<esc>", "<cmd>noh<cr><esc>zz")
-nmap("k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-nmap("j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-vmap("k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vmap("j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+imap("<esc>", "<esc>zz<cmd>noh<cr>")
+nmap("k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
+nmap("j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
+vmap("k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
+vmap("j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
 nmap("H", "_")
 vmap("H", "_")
@@ -88,16 +85,14 @@ nmap("<leader>Q", "<cmd>q!<cr>")
 nmap("U", "<cmd>redo<cr>")
 
 -- operators
-omap("q", 'i"', "<q> double quotes")
-omap("Q", "a'", "<q> double quotes")
-omap("j", "i'", "<j> single quote")
-omap("J", "a'", "<j> quote")
-omap("k", "i(", "<k> parenthesis")
-omap("K", "a(", "<k> parenthesis")
+omap("q", "i(", "<q> parenthesis")
+omap("Q", "a(", "<q> parenthesis")
+omap("k", "i'", "<k> single quote")
+omap("K", "a'", "<k> single quote")
+omap("j", 'i"', "<j> double quotes")
+omap("J", 'a"', "<j> double quotes")
 omap("h", "i[", "<h> bracket")
-omap("H", "a[", "<h> bracket")
 omap("l", "i{", "<l> brace")
-omap("L", "a{", "<l> brace")
 
 -- Diagnostic keymaps
 nmap("<leader>dp", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
@@ -179,3 +174,7 @@ nmap("<leader>cc", function()
     no_ignore = true,
   })
 end)
+
+-- previous/next
+nmap("]t", "<cmd>tabNext<cr>", "next tab")
+nmap("[t", "<cmd>tabprevious<cr>", "prev tab")
