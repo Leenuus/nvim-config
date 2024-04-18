@@ -95,7 +95,7 @@ local find_files_options = {
     find_command = {
       "fd",
       "-H",
-      '-I',
+      "-I",
       "-E",
       ".git",
       "-t",
@@ -118,7 +118,7 @@ local find_files_options = {
     find_command = {
       "fd",
       "-H",
-      '-I',
+      "-I",
       "-E",
       ".git",
       "-t",
@@ -138,10 +138,12 @@ smap("f", function()
     find_files_mode = choice
   end)
 end)
-
-nmap("<leader><space>", function()
+local function find_files()
   require("telescope.builtin").find_files(find_files_options[find_files_mode])
-end)
+end
+vim.api.nvim_create_user_command("FindFiles", find_files, {})
+
+nmap("<leader><space>", find_files)
 
 smap("/", function()
   require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
