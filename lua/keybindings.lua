@@ -29,6 +29,15 @@ nmap("<c-\\>", "<C-W>v")
 imap("<c-\\>", "<esc><C-W>va")
 nmap("<c-s>", "<C-W>s")
 imap("<c-s>", "<esc><C-W>sa")
+-- @diagnostic disable-next-line: undefined-field
+if vim.g.neovide then
+  -- control + backspace
+  imap("<C-BS>", "<c-w>")
+  cmap("<C-BS>", "<C-w>")
+else
+  imap("<C-h>", "<c-w>")
+  cmap("<C-h>", "<C-w>")
+end
 
 -- cmdline mode
 cmap("<C-h>", "<C-w>")
