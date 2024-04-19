@@ -1,3 +1,18 @@
+local function filesize()
+  local size = vim.fn.getfsize(vim.fn.expand("%"))
+  if size == -1 then
+    return ""
+  elseif size >= 1000 then
+    return size / 1000 .. "KB"
+  else
+    return size .. "B"
+  end
+end
+
+local function wordir()
+  return vim.fn.getcwd()
+end
+
 return {
   {
     -- Set lualine as statusline
@@ -25,11 +40,11 @@ return {
           },
         },
         sections = {
-          lualine_a = { "mode" },
-          lualine_b = { "branch" },
+          lualine_a = { "branch" },
+          lualine_b = { wordir },
           lualine_c = { "filename" },
           lualine_x = { "encoding", "fileformat", "filetype" },
-          lualine_y = { "progress" },
+          lualine_y = { filesize },
           lualine_z = { "location" },
         },
         inactive_sections = {
