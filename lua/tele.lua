@@ -78,7 +78,7 @@ local find_files_options = {
   },
 }
 
-smap("f", function()
+smap("F", function()
   vim.ui.select(vim.tbl_keys(find_files_options), {
     prompt = "Select File Searching mode",
     -- how to display item to user
@@ -87,7 +87,9 @@ smap("f", function()
     end,
   }, function(choice)
     logger.info("choice: ", choice)
-    find_files_mode = choice
+    if choice then
+      find_files_mode = choice
+    end
   end)
 end, "Change File Searching Mode")
 
@@ -99,14 +101,18 @@ local no_search_dirs = {
 local function find_files()
   -- NOTE: pitfall, deep copy!
   local opts = vim.deepcopy(find_files_options[find_files_mode])
-  logger.info("mode: ", find_files_mode)
-  logger.info("options: ", opts)
+  -- logger.info("mode: ", find_files_mode)
+  -- logger.info("options: ", opts)
   -- NOTE: some dir should never be searched
   if vim.tbl_contains(no_search_dirs, vim.fn.getcwd()) then
     vim.cmd("cd %:p:h")
   end
-  opts["cwd"] = opts["cwd"]()
-  require("telescope.builtin").find_files(opts)
+  if vim.tbl_contains(no_search_dirs, vim.fn.getcwd()) then
+    print("This is not a good idea to search in " .. vim.fn.getcwd())
+  else
+    opts["cwd"] = opts["cwd"]()
+    require("telescope.builtin").find_files(opts)
+  end
 end
 vim.api.nvim_create_user_command("FindFiles", find_files, {})
 nmap("<leader><space>", find_files)
@@ -159,3 +165,27 @@ smap("m", function()
     return "<cmd>messages<cr>"
   end
 end, { expr = true, desc = "search for messages" })
+
+-- open common file
+local common_files = {
+  "Makefile",
+  ".gitignore",
+  "README.md",
+}
+
+smap("f", function()
+  vim.ui.select(common_files, {
+    prompt = "Open common Used Files",
+    format_item = function(item)
+      return item
+    end,
+  }, function(choice)
+    -- logger.info("choice: ", choice)
+    if choice then
+      -- TODO: find that file in workdir root
+      vim.cmd("e " .. choice)
+    end
+  end)
+end)
+
+smap("j", require("telescope.builtin").jumplist, "Jump list")
