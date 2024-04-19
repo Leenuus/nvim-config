@@ -5,13 +5,12 @@ local tmap = helpers.map_toggle
 local vmap = helpers.map_visual
 local omap = helpers.map_operator
 local cmap = helpers.map_command
+local lmap = helpers.map_leader
+local map = helpers.map
 
 -- disable keymaps
-nmap("<Space>", "<Nop>")
-vmap("<Space>", "<Nop>")
+map({ "n", "v" }, "<Space>", "<Nop>")
 nmap("gf", "<Nop>")
-
-nmap("Q", "<nop>")
 
 -- jump around windows
 nmap("<C-h>", "<cmd>wincmd h<cr>")
@@ -45,7 +44,7 @@ cmap("<C-k>", 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true })
 
 -- insertion
 imap("<c-u>", "<esc>viwUea")
-vim.keymap.set({ "i", "s" }, "<C-]>", function()
+map({ "i", "s" }, "<C-]>", function()
   local ls = require("luasnip")
   if ls.choice_active() then
     ls.change_choice(1)
@@ -55,23 +54,16 @@ end)
 -- navigation
 nmap("<esc>", "<cmd>noh<cr><esc>zz")
 imap("<esc>", "<esc>zz<cmd>noh<cr>")
-nmap("k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
-nmap("j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
-vmap("k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
-vmap("j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
+map({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
+map({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
-nmap("H", "_")
-vmap("H", "_")
-omap("H", "_")
+map({ "n", "v", "o" }, "H", "_")
 
-nmap("L", "$")
+map({ "n", "o" }, "L", "$")
 vmap("L", "$h")
-omap("L", "$")
 
-nmap("J", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gjzz"<cr>')
-vmap("J", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gjzz"<cr>')
-nmap("K", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gkzz"<cr>')
-vmap("K", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gkzz"<cr>')
+map({ "n", "v" }, "J", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gjzz"<cr>')
+map({ "n", "v" }, "K", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gkzz"<cr>')
 
 vmap("<", "<gv")
 vmap(">", ">gv")

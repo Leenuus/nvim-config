@@ -19,6 +19,16 @@ function M.toggle_scrolloff()
   end
 end
 
+function M.map(modes, lhs, rhs, opts)
+  if type(opts) == "string" then
+    vim.keymap.set(modes, lhs, rhs, { desc = opts })
+  elseif type(opts) == "table" or type(opts) == "nil" then
+    vim.keymap.set(modes, lhs, rhs, opts)
+  else
+    M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+  end
+end
+
 function M.map_insert(lhs, rhs, opts)
   if type(opts) == "string" then
     vim.keymap.set("i", lhs, rhs, { desc = opts })
@@ -81,13 +91,24 @@ M.augroup = function(name)
 end
 
 M.find_git_root = function()
-  local current_dir = vim.fn.expand('%:p:h')
+  local current_dir = vim.fn.expand("%:p:h")
 
   local git_root = vim.fn.systemlist("git -C " .. vim.fn.escape(current_dir, " ") .. " rev-parse --show-toplevel")[1]
   if vim.v.shell_error ~= 0 then
     return current_dir
   end
   return git_root
+end
+
+function M.map_leader(lhs, rhs, opts)
+  lhs = "<leader>" .. lhs
+  if type(opts) == "string" then
+    vim.keymap.set("n", lhs, rhs, { desc = opts })
+  elseif type(opts) == "table" or type(opts) == "nil" then
+    vim.keymap.set("n", lhs, rhs, opts)
+  else
+    M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+  end
 end
 
 return M

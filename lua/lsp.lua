@@ -1,42 +1,27 @@
 local logger = require("helpers").logger
+local lmap = require("helpers").map_leader
+local nmap = require("helpers").map_normal
+local imap = require("helpers").map_insert
+local map = require("helpers").map
 
+-- TODO: look up more functions in vim.lsp.buf[]
 local on_attach = function(_, bufnr)
-  local nmap = function(keys, func, desc)
-    if desc then
-      desc = "LSP: " .. desc
-    end
-
-    vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
-  end
-  local imap = function(keys, func, desc)
-    if desc then
-      desc = "LSP: " .. desc
-    end
-
-    vim.keymap.set("i", keys, func, { buffer = bufnr, desc = desc })
-  end
-
-  -- TODO: look up more functions in vim.lsp.buf[]
-  nmap("<leader>la", function()
+  lmap("la", function()
     vim.lsp.buf.code_action({ context = { only = { "quickfix", "refactor", "source" } } })
-  end, "[C]ode [A]ction")
-  nmap("<leader>ls", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-  nmap("<leader>lS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-  nmap("Q", vim.lsp.buf.format, "Format")
-  nmap("gh", vim.lsp.buf.hover, "[G]oto [H]over")
-  nmap("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-  nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-  nmap("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-  nmap("gt", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-  nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+  end, "Code Action")
+  lmap("ls", require("telescope.builtin").lsp_document_symbols, "Doc Symbols")
+  lmap("lS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
+  nmap("gh", vim.lsp.buf.hover, "goto [H]over")
+  nmap("gd", require("telescope.builtin").lsp_definitions, "Goto Definition")
+  nmap("gr", require("telescope.builtin").lsp_references, "Goto References")
+  nmap("gi", require("telescope.builtin").lsp_implementations, "Goto Implementation")
+  nmap("gt", require("telescope.builtin").lsp_type_definitions, "Type Definition")
+  nmap("gD", vim.lsp.buf.declaration, "goto Declaration")
 
-  nmap("<C-p>", vim.lsp.buf.signature_help, "Signature Documentation")
-  imap("<C-p>", function()
-    vim.lsp.buf.signature_help()
-  end, "Open signature help")
+  map({ "i", "n" }, "<C-P>", vim.lsp.buf.signature_help, "Signature Documentation")
 end
 
-require("helpers").map_normal("<leader>lr", function()
+lmap("lr", function()
   -- NOTE: seems this function return false when no acitve clients attached to buffer
   local clients = vim.lsp.get_active_clients({ bufnr = 0 }) == nil
   if clients == false then
@@ -46,7 +31,18 @@ require("helpers").map_normal("<leader>lr", function()
     logger.info(vim.inspect(clients))
     vim.lsp.buf.rename()
   end
-end, "[R]e[n]ame")
+end, "Rename Variable")
+
+nmap("Q", function()
+  -- NOTE: seems this function return false when no acitve clients attached to buffer
+  local clients = vim.lsp.get_active_clients({ bufnr = 0 }) == nil
+  if clients == false then
+    logger.info("no formatter")
+  else
+    logger.info(vim.inspect(clients))
+    vim.lsp.buf.format()
+  end
+end, "Format Code")
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
