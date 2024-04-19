@@ -8,6 +8,9 @@
 
 - `nullls` custom source, `typos` is a good example to parse
 - `noice` routes deep dive
+- a keybindings making use of treesitter to copy current statement, multi-line aware
+- a live_grep telescope implementation, which can work with my file search mode, more flexible than the buildtin one
+- a keybinding to jump to the corresponding snippets file
 
 ## NOTES
 
@@ -21,11 +24,11 @@ this is dangerous to use this function to build mutiple list sharing the same pa
 make use of `vim.deepcopy` to avoid it:
 
 ```lua
-local dst = { 1, 2}
+local dst = { 1, 2 }
 local tail_of_t1 = { 3, 4 }
 local tail_of_t2 = { 5, 6 }
-local tb1  = vim.list_extend(vim.deepcopy(dst), tail_of_t1))
-local tb2  = vim.list_extend(vim.deepcopy(dst), tail_of_t2))
+local tb1  = vim.list_extend(vim.deepcopy(dst), tail_of_t1)
+local tb2  = vim.list_extend(vim.deepcopy(dst), tail_of_t2)
 ```
 
 - when dealing with file path relative keybindings, make sure expand/get the path as the keybinding function is invoked, making sure **these codes are not evaluated at neovim startup**. So you may need a closure for most of the times.
