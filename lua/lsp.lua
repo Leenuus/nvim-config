@@ -1,3 +1,5 @@
+local logger = require("helpers").logger
+
 local on_attach = function(_, bufnr)
   local nmap = function(keys, func, desc)
     if desc then
@@ -15,7 +17,6 @@ local on_attach = function(_, bufnr)
   end
 
   -- TODO: look up more functions in vim.lsp.buf[]
-  nmap("<leader>lr", vim.lsp.buf.rename, "[R]e[n]ame")
   nmap("<leader>la", function()
     vim.lsp.buf.code_action({ context = { only = { "quickfix", "refactor", "source" } } })
   end, "[C]ode [A]ction")
@@ -34,6 +35,18 @@ local on_attach = function(_, bufnr)
     vim.lsp.buf.signature_help()
   end, "Open signature help")
 end
+
+require("helpers").map_normal("<leader>lr", function()
+  -- NOTE: seems this function return false when no acitve clients attached to buffer
+  local clients = vim.lsp.get_active_clients({ bufnr = 0 }) == nil
+  if clients == false then
+    require("nvim-treesitter-refactor.smart_rename").smart_rename(0)
+  else
+    logger.info("attach!")
+    logger.info(vim.inspect(clients))
+    vim.lsp.buf.rename()
+  end
+end, "[R]e[n]ame")
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
