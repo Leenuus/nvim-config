@@ -23,17 +23,6 @@ return M
   )
 )
 
-local pp = s(
-  "pp",
-  fmt(
-    [[local function pp(arg)
-  print(vim.inspect(arg))
-end
-  ]],
-    {}
-  )
-)
-
 -- TODO: use treesitter to detact whether to insert the require part
 local logger = s(
   "log",
@@ -83,12 +72,20 @@ end]],
   )
 )
 
+local deep_extend = s(
+  "ex",
+  fmt([[vim.list_extend(vim.deepcopy({}), {})]], {
+    i(1, "dst"),
+    i(2, "src"),
+  })
+)
+
 local lua_snips = {
   main,
-  pp,
   smart_require,
   logger,
   check_type,
+  deep_extend,
 }
 
 return lua_snips

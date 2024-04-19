@@ -2,6 +2,7 @@ local ls = require("luasnip")
 local s = ls.snippet
 local insert = ls.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
+local rep = require("luasnip.extras").rep
 
 local discard_output = s(
   "dd",
@@ -32,6 +33,21 @@ local if_tmux = s(
 end]],
     {
       insert(0, "rename-window"),
+    }
+  )
+)
+
+local abbr = s(
+  "abbr",
+  fmt(
+    [[if type {} >/dev/null 2>&1
+  abbr -a {} {}
+end
+]],
+    {
+      insert(1, "program"),
+      insert(2, "alias"),
+      rep(1),
     }
   )
 )
