@@ -45,46 +45,53 @@ return {
         header = header1,
         center = {
           {
-            icon = "",
+            icon = " ",
             desc = "New File",
             key = "e",
             key_format = " %s",
             action = "enew",
           },
           {
-            icon = "",
+            icon = " ",
             desc = "Search Files",
             key = "s",
             key_format = " %s",
             action = "FindFiles",
           },
           {
-            icon = "",
+            icon = "󰎚 ",
             desc = "Notes",
             key = "n",
             key_format = " %s",
             action = "cd" .. notes_root .. "| FindFiles",
           },
           {
-            icon = "",
+            icon = " ",
             desc = "Config",
             key = "c",
             key_format = " %s",
             action = "cd" .. vim.fn.stdpath("config") .. "| FindFiles",
           },
           {
-            icon = "",
+            icon = "󰋖 ",
             desc = "Help",
             key = "h",
             key_format = " %s",
             action = "Telescope help_tags",
           },
           {
-            icon = "",
+            icon = " ",
             desc = "Change Colorscheme",
             key = "t",
             key_format = " %s",
             action = "Telescope colorscheme",
+          },
+          {
+            icon = " ",
+            desc = "Music Player",
+            key = "m",
+            key_format = " %s",
+            action = "Telescope mpc",
           },
           -- TODO: implement my news reader neovim frontend
           -- {
@@ -103,7 +110,7 @@ return {
           --   action = ":Projects",
           -- },
           {
-            icon = "",
+            icon = " ",
             desc = "Quit Neovim",
             key = "q",
             key_format = " %s",
