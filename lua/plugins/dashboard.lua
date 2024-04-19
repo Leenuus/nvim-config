@@ -37,7 +37,7 @@ return {
   -- enabled = false,
   dependencies = { { "nvim-tree/nvim-web-devicons" } },
   config = function()
-    local notes_root = vim.fn.expand("$HOME/Projects/notes")
+    local notes_root = vim.env['NOTES_ROOT']
 
     require("dashboard").setup({
       theme = "doom",
@@ -45,49 +45,49 @@ return {
         header = header1,
         center = {
           {
-            icon = " ",
+            icon = "  ",
             desc = "New File",
             key = "e",
             key_format = " %s",
             action = "enew",
           },
           {
-            icon = " ",
+            icon = "  ",
             desc = "Search Files",
             key = "s",
             key_format = " %s",
             action = "FindFiles",
           },
           {
-            icon = "󰎚 ",
+            icon = "󰎚  ",
             desc = "Notes",
             key = "n",
             key_format = " %s",
             action = "cd" .. notes_root .. "| FindFiles",
           },
           {
-            icon = " ",
+            icon = "  ",
             desc = "Config",
             key = "c",
             key_format = " %s",
             action = "cd" .. vim.fn.stdpath("config") .. "| FindFiles",
           },
           {
-            icon = "󰋖 ",
+            icon = "󰋖  ",
             desc = "Help",
             key = "h",
             key_format = " %s",
             action = "Telescope help_tags",
           },
           {
-            icon = " ",
+            icon = "  ",
             desc = "Change Colorscheme",
             key = "t",
             key_format = " %s",
             action = "Telescope colorscheme",
           },
           {
-            icon = " ",
+            icon = "  ",
             desc = "Music Player",
             key = "m",
             key_format = " %s",
@@ -110,7 +110,7 @@ return {
           --   action = ":Projects",
           -- },
           {
-            icon = " ",
+            icon = "  ",
             desc = "Quit Neovim",
             key = "q",
             key_format = " %s",
