@@ -31,7 +31,6 @@ local header1 = {
   [[                                            ]],
 }
 
-
 return {
   "nvimdev/dashboard-nvim",
   event = "VimEnter",
@@ -58,6 +57,20 @@ return {
             key = "s",
             key_format = " %s",
             action = "FindFiles",
+          },
+          {
+            icon = "",
+            desc = "Notes",
+            key = "n",
+            key_format = " %s",
+            action = "cd" .. notes_root .. "| FindFiles",
+          },
+          {
+            icon = "",
+            desc = "Config",
+            key = "c",
+            key_format = " %s",
+            action = "cd" .. vim.fn.stdpath("config") .. "| FindFiles",
           },
           {
             icon = "",
