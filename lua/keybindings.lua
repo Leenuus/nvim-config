@@ -6,9 +6,10 @@ local vmap = helpers.map_visual
 local omap = helpers.map_operator
 local cmap = helpers.map_command
 
--- See `:help vim.keymap.set()`
+-- disable keymaps
 nmap("<Space>", "<Nop>")
 vmap("<Space>", "<Nop>")
+nmap("gf", "<Nop>")
 
 nmap("Q", "<nop>")
 
@@ -67,17 +68,15 @@ nmap("L", "$")
 vmap("L", "$h")
 omap("L", "$")
 
-nmap("J", '<cmd>execute "normal!" .. winheight(0) / 4 .. "gjzz"<cr>')
-vmap("J", '<cmd>execute "normal!" .. winheight(0) / 4 .. "gjzz"<cr>')
-
-nmap("K", '<cmd>execute "normal!" .. winheight(0) / 4 .. "gkzz"<cr>')
-vmap("K", '<cmd>execute "normal!" .. winheight(0) / 4 .. "gkzz"<cr>')
+nmap("J", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gjzz"<cr>')
+vmap("J", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gjzz"<cr>')
+nmap("K", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gkzz"<cr>')
+vmap("K", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gkzz"<cr>')
 
 vmap("<", "<gv")
 vmap(">", ">gv")
 
 -- quit
-nmap("<leader>w", "<cmd>wall<cr>")
 nmap("<leader>q", "<cmd>x<cr>")
 nmap("<leader>Q", "<cmd>q!<cr>")
 
@@ -165,7 +164,22 @@ tmap("E", function()
   require("oil").open(dir)
 end, "[e]plorer git root")
 
+nmap("<leader>cc", "<cmd>cd %:p:h<cr>", "Change work dir")
 
 -- previous/next
 nmap("]t", "<cmd>tabNext<cr>", "next tab")
 nmap("[t", "<cmd>tabprevious<cr>", "prev tab")
+
+-- for debugging lua codes
+nmap("<leader>w", function()
+  if DEBUG then
+    -- TODO: only source lua code
+    if vim.bo.filetype == "lua" then
+      return "<cmd>wall<cr><cmd>source %<cr>"
+    else
+      return "<cmd>wall<cr>"
+    end
+  else
+    return "<cmd>wall<cr>"
+  end
+end, { expr = true })

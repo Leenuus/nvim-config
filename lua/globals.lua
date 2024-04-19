@@ -1,6 +1,8 @@
 -- a module define some global things
 -- for easy use in lua dev
 
-function pp(arg)
+function P(arg)
   print(vim.inspect(arg))
 end
+
+DEBUG = false
