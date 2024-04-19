@@ -80,12 +80,98 @@ local deep_extend = s(
   })
 )
 
+-- TODO: dynamic node to detect whether fmt and s are imported
+local snippets = s(
+  "snip",
+  fmt(
+    string.format(
+      [[local <> = s('<>',
+  fmt([[<>%s,
+  {
+
+  },
+  {delimiters = '<<>>'}))]],
+      "]]"
+    ),
+    {
+      i(1, "name"),
+      i(2, "trigger"),
+      i(0, "snip"),
+    },
+    {
+      delimiters = "<>",
+    }
+  )
+)
+
+-- todo select tempaltes
+local ui_select = s(
+  "se",
+  fmt(
+    [[vim.ui.select(<>,{
+    prompt = "<>",
+    format_item = function(item)
+      <>
+      return item
+    end,
+  }, function(choice)
+    logger.info("choice: ", choice)
+    if choice then
+      <>
+    end
+  end)
+
+  ]],
+    {
+      i(1, "items"),
+      i(2, "prompt"),
+      i(3, "-- format item"),
+      i(4, "callback"),
+    },
+    { delimiters = "<>" }
+  )
+)
+
+local if_nil = s(
+  "ifn",
+  fmt(
+    [[if <> == nil then
+  <> = <>
+end]],
+    {
+      i(1, 'var'),
+      rep(1),
+      i(2, 'default'),
+    },
+    { delimiters = "<>" }
+  )
+)
+
+
+local if_not_nil = s(
+  "ifnn",
+  fmt(
+    [[if <> ~= nil then
+  <>
+end]],
+    {
+      i(1, 'var'),
+      i(0, 'command')
+    },
+    { delimiters = "<>" }
+  )
+)
+
 local lua_snips = {
   main,
   smart_require,
   logger,
   check_type,
   deep_extend,
+  snippets,
+  ui_select,
+  if_nil,
+  if_not_nil
 }
 
 return lua_snips
