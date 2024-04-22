@@ -18,9 +18,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
 vim.api.nvim_create_autocmd({ "VimLeave" }, {
   pattern = "*",
   callback = function()
-    vim.cmd([[
-    set guicursor=a:ver90"
-    ]])
+    vim.cmd('set guicursor=a:ver90"')
   end,
   group = cursor_setting,
 })
@@ -72,7 +70,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
   end,
 })
 
-local gp = vim.api.nvim_create_augroup("recording-notifications", { clear = true })
+local recording_gp = vim.api.nvim_create_augroup("recording-notifications", { clear = true })
 
 local noption = {
   title = "Recording",
@@ -87,7 +85,7 @@ vim.api.nvim_create_autocmd("RecordingEnter", {
   callback = function()
     require("notify")("Start Recording", level, noption)
   end,
-  group = gp,
+  group = recording_gp,
 })
 
 vim.api.nvim_create_autocmd("RecordingLeave", {
@@ -95,7 +93,7 @@ vim.api.nvim_create_autocmd("RecordingLeave", {
   callback = function()
     require("notify")("Stop Recording", level, noption)
   end,
-  group = gp,
+  group = recording_gp,
 })
 
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
@@ -128,3 +126,50 @@ vim.cmd([[Abolish scritp script]])
 vim.cmd([[Abolish fasle false]])
 vim.cmd([[Abolish optoin option]])
 vim.cmd([[Abolish amp map]])
+vim.cmd([[Abolish edn end]])
+
+-- filetype
+local gp = augroup("filetype-detection")
+
+local extension = {
+  todo = "markdown",
+  sshconfig = "sshconfig",
+}
+
+-- NOTE: never work, seem bugs
+local pattern = {}
+
+local filename = {
+  ["urls"] = "rssfeed",
+  [".fishrc"] = "fish",
+}
+
+vim.filetype.add({
+  extension = extension,
+  pattern = pattern,
+  filename = filename,
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  group = gp,
+  pattern = {
+    "bash-fc*",
+  },
+  callback = function()
+    vim.bo.filetype = "bash"
+  end,
+})
+
+-- themes
+local themes = {
+  "tokyonight-moon",
+  "tokyonight-storm",
+  "tokyonight-night",
+  "tokyonight",
+  "ayu-mirage",
+  "ayu-dark",
+}
+local ok, _ = pcall(vim.cmd, "colorscheme " .. themes[math.random(#themes)])
+if not ok then
+  vim.cmd("colorscheme default")
+end

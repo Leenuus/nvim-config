@@ -1,6 +1,5 @@
-local h = require("helpers")
-local logger = h.logger
-local nmap = h.map_normal
+local logger = require("plenary.log").new({ level = "info", plugin = "telescope-config" })
+local nmap = require("helpers").map_normal
 
 local function smap(lhs, rhs, opts)
   if type(opts) == "string" then
@@ -8,59 +7,10 @@ local function smap(lhs, rhs, opts)
   elseif type(opts) == "table" or type(opts) == "nil" then
     vim.keymap.set("n", "<leader>s" .. lhs, rhs, opts)
   else
+    -- @diagnostic disable-next-line: undefined-field
     logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
   end
 end
-
-local actions = require("telescope.actions")
-
-require("telescope").setup({
-  defaults = {
-    mappings = {
-      n = {
-        ["<Tab>"] = actions.toggle_selection,
-        ["\\"] = actions.select_vertical,
-        ["-"] = actions.select_horizontal,
-      },
-      i = {
-        ["<C-P>"] = actions.select_vertical,
-        ["<C-S>"] = actions.select_horizontal,
-      },
-    },
-  },
-  pickers = {
-    lsp_references = {
-      theme = "dropdown",
-      initial_mode = "normal",
-    },
-
-    lsp_definitions = {
-      theme = "dropdown",
-      initial_mode = "normal",
-    },
-
-    lsp_declarations = {
-      theme = "dropdown",
-      initial_mode = "normal",
-    },
-
-    lsp_implementations = {
-      theme = "dropdown",
-      initial_mode = "normal",
-    },
-  },
-  extensions = {
-    ["ui-select"] = {
-      require("telescope.themes").get_dropdown({}),
-    },
-    fzf = {
-      fuzzy = true,
-      override_generic_sorter = true,
-      override_file_sorter = true,
-      case_mode = "smart_case",
-    },
-  },
-})
 
 local find_git_root = require("helpers").find_git_root
 

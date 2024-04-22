@@ -86,12 +86,6 @@ require("lazy").setup("plugins", {
     custom_keys = {},
   },
   diff = {
-    -- diff command <d> can be one of:
-    -- * browser: opens the github compare view. Note that this is always mapped to <K> as well,
-    --   so you can have a different command for diff <d>
-    -- * git: will run git diff and open a buffer with filetype git
-    -- * terminal_git: will open a pseudo terminal with git diff
-    -- * diffview.nvim: will open Diffview to show the diff
     cmd = "git",
   },
   checker = {
@@ -103,7 +97,6 @@ require("lazy").setup("plugins", {
     check_pinned = false,
   },
   change_detection = {
-    -- automatically check for config file changes and reload the ui
     enabled = false,
     notify = false,
   },
@@ -148,16 +141,8 @@ require("lazy").setup("plugins", {
 require("globals")
 require("options")
 require("keybindings")
-require("tree-sitter")
-require('tele')
-require("lsp")
+require("tele")
 require("snippets")
-require("filetype")
 require("autocmd")
 
--- vim.cmd([[colorscheme ayu-mirage]])
-vim.cmd([[colorscheme tokyonight-moon]])
--- vim.cmd([[ZenMode]])
-
 -- vim: ts=2 sts=2 sw=2 et
-
