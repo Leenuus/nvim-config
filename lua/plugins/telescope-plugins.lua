@@ -6,6 +6,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
+
   },
   {
     -- Fuzzy Finder Algorithm which requires local dependencies to be built.
@@ -16,11 +17,13 @@ return {
     --       refer to the README for telescope-fzf-native for more instructions.
     build = "make",
     cond = function()
+      pcall(require("telescope").load_extension, "fzf")
       return vim.fn.executable("make") == 1
     end,
   },
   {
     dir = "~/Projects/Neovims/mpc.nvim",
+    enabled = false,
     config = function ()
       require('telescope').load_extension('mpc')
     end

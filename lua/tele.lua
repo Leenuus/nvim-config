@@ -28,17 +28,39 @@ require("telescope").setup({
       },
     },
   },
+  pickers = {
+    lsp_references = {
+      theme = "dropdown",
+      initial_mode = "normal",
+    },
+
+    lsp_definitions = {
+      theme = "dropdown",
+      initial_mode = "normal",
+    },
+
+    lsp_declarations = {
+      theme = "dropdown",
+      initial_mode = "normal",
+    },
+
+    lsp_implementations = {
+      theme = "dropdown",
+      initial_mode = "normal",
+    },
+  },
   extensions = {
     ["ui-select"] = {
-      require("telescope.themes").get_dropdown({
-        -- even more opts
-      }),
+      require("telescope.themes").get_dropdown({}),
+    },
+    fzf = {
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
+      case_mode = "smart_case",
     },
   },
 })
-
-pcall(require("telescope").load_extension, "fzf")
-pcall(require("telescope").load_extension, "ui-select")
 
 local find_git_root = require("helpers").find_git_root
 
@@ -59,6 +81,14 @@ local base_find_command = {
   "\\.git",
   "-E",
   "__pycache__",
+  "-E",
+  "venv",
+  "-E",
+  "node_modules",
+  "-E",
+  "*build*",
+  "-E",
+  "*target*",
   "-t",
   "f",
 }
