@@ -19,33 +19,24 @@ local on_attach = function(_, bufnr)
   nmap("gD", vim.lsp.buf.declaration, "goto Declaration")
 
   map({ "i", "n" }, "<C-P>", vim.lsp.buf.signature_help, "Signature Documentation")
+  nmap("Q", vim.lsp.buf.format, "Format Code")
+  lmap("lr", vim.lsp.buf.rename, "Rename with Lsp")
 end
 
 lmap("lr", function()
-  -- NOTE: seems this function return false when no acitve clients attached to buffer
-  local clients = vim.lsp.get_active_clients({ bufnr = 0 }) == nil
-  if clients == false then
-    require("nvim-treesitter-refactor.smart_rename").smart_rename(0)
-  else
-    logger.info("attach!")
-    logger.info(vim.inspect(clients))
-    vim.lsp.buf.rename()
-  end
-end, "Rename Variable")
+  require("nvim-treesitter-refactor.smart_rename").smart_rename(0)
+end, "Rename Variable With TreeSitter")
 
 nmap("Q", function()
   -- NOTE: seems this function return false when no acitve clients attached to buffer
-  local clients = vim.lsp.get_active_clients({ bufnr = 0 }) == nil
-  if clients == false then
-    logger.info("no formatter")
-  else
-    logger.info(vim.inspect(clients))
-    vim.lsp.buf.format()
-  end
+  -- local clients = vim.lsp.get_active_clients({ bufnr = 0 }) == nil
+  -- if clients == false then
+  -- logger.info("no formatter")
+  -- else
+  -- logger.info(vim.inspect(clients))
+  -- end
 end, "Format Code")
 
--- mason-lspconfig requires that these setup functions are called in this order
--- before setting up the servers.
 require("mason").setup()
 require("mason-lspconfig").setup()
 
@@ -60,7 +51,7 @@ local ensure_installed_servers = {
   bashls = {},
   cmake = {},
   -- NOTE: for makefile
-  -- ["autotools-language-server"] = {},
+  ["autotools_ls"] = {},
   vimls = {},
   yamlls = {},
   clangd = {},
@@ -107,15 +98,12 @@ mason_lspconfig.setup_handlers({
   end,
 })
 
--- [[ Configure nvim-cmp ]]
--- See `:help cmp`
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 require("luasnip.loaders.from_vscode").lazy_load()
 -- TODO: luasnip setup
 luasnip.config.setup({})
 
--- TODO:  ui design, virtual text in next line
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -126,37 +114,69 @@ cmp.setup({
     completeopt = "menu,menuone,noinsert",
   },
   mapping = cmp.mapping.preset.insert({
-    ["<Down>"] = cmp.mapping.select_next_item(),
-    ["<Up>"] = cmp.mapping.select_prev_item(),
-    ["<C-k>"] = cmp.mapping.scroll_docs(-4),
+    ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+    ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
     ["<C-j>"] = cmp.mapping.scroll_docs(4),
+    ["<C-k>"] = cmp.mapping.scroll_docs(-4),
     ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-e>"] = cmp.mapping({
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
+    }),
+    ["<C-N>"] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.mapping.confirm({
-          behavior = cmp.ConfirmBehavior.Replace,
-          select = true,
+          behavior = cmp.ConfirmBehavior.Insert,
+          select = false,
         })()
+      elseif luasnip.expandable() then
+        luasnip.expand()
       elseif luasnip.expand_or_locally_jumpable() then
         luasnip.expand_or_jump()
       else
         fallback()
       end
-    end, { "i", "s" }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
+    end, { "i", "s", "c" }),
+    ["<S-Tab>"] = cmp.config.disable,
     ["<C-P>"] = cmp.config.disable,
+    ["<C-y>"] = cmp.config.disable,
   }),
   sources = {
     { name = "nvim_lsp" },
     { name = "luasnip" },
     { name = "path" },
+    { name = "buffer" },
+  },
+  window = {
+    completion = {
+      border = "rounded",
+      scrollbar = true,
+    },
+    documentation = {
+      border = "rounded",
+    },
+  },
+  experimental = {
+    ghost_text = false,
+  },
+  formatting = {
+    fields = {
+      "kind",
+      "abbr",
+      "menu",
+    },
+    format = function(entry, vim_item)
+      vim_item.menu = ({
+        nvim_lsp = "Lsp",
+        luasnip = "Luasnip",
+        path = "Path",
+        buffer = "Buffer",
+      })[entry.source.name]
+      return vim_item
+    end,
   },
 })
