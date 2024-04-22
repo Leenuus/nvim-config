@@ -52,6 +52,6 @@ end
   )
 )
 
-local fish_snips = { discard_output, if_installed, if_tmux }
+local fish_snips = { discard_output, if_installed, if_tmux, abbr }
 
 return fish_snips

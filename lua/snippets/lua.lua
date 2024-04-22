@@ -139,14 +139,13 @@ local if_nil = s(
   <> = <>
 end]],
     {
-      i(1, 'var'),
+      i(1, "var"),
       rep(1),
-      i(2, 'default'),
+      i(2, "default"),
     },
     { delimiters = "<>" }
   )
 )
-
 
 local if_not_nil = s(
   "ifnn",
@@ -155,12 +154,17 @@ local if_not_nil = s(
   <>
 end]],
     {
-      i(1, 'var'),
-      i(0, 'command')
+      i(1, "var"),
+      i(0, "command"),
     },
     { delimiters = "<>" }
   )
 )
+
+local disable_diagnositcs = s("diag", {
+  t("-- @diagnostic disable-next-line: "),
+  i(0, "type"),
+})
 
 local lua_snips = {
   main,
@@ -171,7 +175,8 @@ local lua_snips = {
   snippets,
   ui_select,
   if_nil,
-  if_not_nil
+  if_not_nil,
+  disable_diagnositcs,
 }
 
 return lua_snips

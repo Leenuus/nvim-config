@@ -248,6 +248,8 @@ NC='\033[0m'
   )
 )
 
+local script_self = s("self", t({ 'SCRIPT=$(realpath "$0")', 'DIR=$(dirname "$SCRIPT")' }))
+
 -- FIXME: problematic somehow
 local source = s("source?", t("(return 0 2>/dev/null) && sourced=1 || not_sourced=1"))
 
@@ -272,6 +274,7 @@ local bash_snips = {
   last_pid,
   color,
   source,
+  script_self,
 }
 
 return bash_snips
