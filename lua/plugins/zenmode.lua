@@ -1,9 +1,8 @@
-local width = function()
-  if vim.g.neovide then
-    return 1
-  else
-    return 0.65
-  end
+local width
+if vim.g.neovide then
+  width = 1
+else
+  width = 0.65
 end
 
 local height = 0.9
@@ -15,7 +14,7 @@ local opts = {
     -- * an absolute number of cells when > 1
     -- * a percentage of the width / height of the editor when <= 1
     -- * a function that returns the width or the height
-    width = width(),   -- width of the Zen window
+    width = width, -- width of the Zen window
     height = height, -- height of the Zen window
     -- by default, no options are changed for the Zen window
     -- uncomment any of the options below, or add other vim.wo options you want to apply
