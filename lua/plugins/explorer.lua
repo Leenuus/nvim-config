@@ -1,3 +1,6 @@
+local tmap = require'helpers'.map_toggle
+
+
 return {
   {
     "stevearc/oil.nvim",
@@ -63,13 +66,21 @@ return {
         -- Set to `false` to remove a keymap
         -- See :help oil-actions for a list of all available actions
         keymaps = {
-          ["g?"] = "actions.show_help",
+          ["?"] = "actions.show_help",
           ["<CR>"] = "actions.select",
           ["gl"] = "actions.select",
           ["<C-p>"] = "actions.select_vsplit",
           ["<C-s>"] = "actions.select_split",
-          ["q"] = "actions.close",
-          ["<C-c>"] = "actions.refresh",
+          ["q"] = "actions.parent",
+          ["<leader>q"] = {
+            callback = function()
+              vim.cmd("close")
+            end,
+            mode = "n",
+            desc = "close",
+          },
+          ["<C-L>"] = false,
+          ["<C-H>"] = false,
           ["gh"] = "actions.parent",
           ["`"] = "actions.open_cwd",
           ["gL"] = "actions.cd",
@@ -77,15 +88,13 @@ return {
           ["gs"] = "actions.change_sort",
           ["g."] = "actions.toggle_hidden",
           ["g\\"] = "actions.toggle_trash",
-          -- ["<C-p>"] = "actions.preview",
-          -- ["gx"] = "actions.open_external",
         },
         -- Configuration for the floating keymaps help window
         keymaps_help = {
           border = "rounded",
         },
         -- Set to false to disable all of the above keymaps
-        use_default_keymaps = true,
+        use_default_keymaps = false,
         view_options = {
           -- Show files and directories that start with "."
           show_hidden = false,
@@ -167,6 +176,17 @@ return {
           border = "rounded",
         },
       })
+      -- file explorer
+      tmap("e", function()
+        vim.o.splitright = false
+        vim.cmd("vnew +Oil")
+        vim.o.splitright = true
+      end, "Files")
+
+      tmap("E", function()
+        local dir = require("helpers").find_git_root()
+        require("oil").open(dir)
+      end, "Files(git root)")
     end,
   },
 }

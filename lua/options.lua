@@ -28,16 +28,29 @@ vim.o.splitbelow = true
 vim.o.virtualedit = "block"
 -- vim.o.inccommand = "split"
 
+vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
+vim.opt.updatetime = 100 -- faster completion (4000ms default)
+vim.opt.undofile = true -- enable persistent undo
+vim.opt.list = true
+vim.opt.listchars='tab:>-,lead:.'
+
 -- @diagnostic disable-next-line: undefined-field
 if vim.g.neovide then -- ignore
   -- neovim gui neovide
-  vim.o.guifont = "Source Code Pro:h11"
   vim.g.neovide_window_blurred = true
   vim.g.neovide_scroll_animation_length = 0
   vim.g.neovide_scroll_animation_far_lines = 0
   vim.g.neovide_refresh_rate = 60
   vim.g.neovide_cursor_animation_length = 0
   vim.g.neovide_cursor_animate_in_insert_mode = false
+  vim.g.neovide_show_border = true
+  vim.g.neovide_transparency = 0.6
+  vim.g.neovide_theme = "auto"
+  vim.g.neovide_remember_window_size = true
+  vim.g.neovide_floating_shadow = true
+  vim.g.neovide_floating_z_height = 10
+  vim.g.neovide_light_angle_degrees = 45
+  vim.g.neovide_light_radius = 5
 
   vim.g.neovide_scale_factor = 1.0
   local change_scale_factor = function(delta)

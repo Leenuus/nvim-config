@@ -155,8 +155,8 @@ require("snippets")
 require("filetype")
 require("autocmd")
 
-vim.cmd([[colorscheme ayu-mirage]])
--- vim.cmd([[colorscheme tokyonight]])
+-- vim.cmd([[colorscheme ayu-mirage]])
+vim.cmd([[colorscheme tokyonight-moon]])
 -- vim.cmd([[ZenMode]])
 
 -- vim: ts=2 sts=2 sw=2 et

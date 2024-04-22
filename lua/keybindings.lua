@@ -13,16 +13,16 @@ map({ "n", "v" }, "<Space>", "<Nop>")
 nmap("gf", "<Nop>")
 
 -- jump around windows
-nmap("<C-h>", "<cmd>wincmd h<cr>")
-nmap("<C-j>", "<cmd>wincmd j<cr>")
-nmap("<C-k>", "<cmd>wincmd k<cr>")
-nmap("<C-l>", "<cmd>wincmd l<cr>")
+map({ "n", "t" }, "<C-h>", "<cmd>wincmd h<cr>")
+map({ "n", "t" }, "<C-j>", "<cmd>wincmd j<cr>")
+map({ "n", "t" }, "<C-k>", "<cmd>wincmd k<cr>")
+map({ "n", "t" }, "<C-l>", "<cmd>wincmd l<cr>")
 
 -- resize window
-nmap("<leader>w=", "<cmd>resize +3<cr>")
-nmap("<leader>w+", "<cmd>resize -3<cr>")
-nmap("<leader>w-", "<cmd>vertical resize +3<cr>")
-nmap("<leader>w_", "<cmd>vertical resize -3<cr>")
+nmap("<up>", "<cmd>resize +3<cr>")
+nmap("<down>", "<cmd>resize -3<cr>")
+nmap("<left>", "<cmd>vertical resize -3<cr>")
+nmap("<right>", "<cmd>vertical resize +3<cr>")
 
 -- split window
 nmap("<c-\\>", "<cmd>vnew<cr>")
@@ -56,6 +56,13 @@ nmap("<esc>", "<cmd>noh<cr><esc>zz")
 imap("<esc>", "<esc>zz<cmd>noh<cr>")
 map({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 map({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
+nmap("n", "nzz")
+nmap("N", "Nzz")
+nmap("*", "*zz")
+nmap("#", "#zz")
+nmap("g*", "g*zz")
+nmap("g#", "g#zz")
+map("x", "p", [["_dP]])
 
 map({ "n", "v", "o" }, "H", "_")
 
@@ -69,7 +76,18 @@ vmap("<", "<gv")
 vmap(">", ">gv")
 
 -- quit
-nmap("<leader>q", "<cmd>x<cr>")
+nmap("<leader>q", function()
+  local name = vim.api.nvim_buf_get_name(0)
+  if name == "" then
+    -- @diagnostic disable-next-line: assign-type-mismatch
+    local ok, _ = pcall(vim.cmd, "close")
+    if not ok then
+      vim.cmd("x")
+    end
+  else
+    vim.cmd("x")
+  end
+end)
 nmap("<leader>Q", "<cmd>q!<cr>")
 
 -- redo
@@ -86,11 +104,11 @@ omap("h", "i[", "<h> bracket")
 omap("l", "i{", "<l> brace")
 
 -- Diagnostic keymaps
-nmap("<leader>dp", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-nmap("<leader>dn", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-nmap("<leader>dh", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-nmap("<leader>dl", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
-nmap("<leader>ds", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
+lmap("dp", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
+lmap("dn", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
+lmap("dh", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+lmap("dl", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+lmap("ds", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
 
 -- document existing key chains
 require("which-key").register({
@@ -111,61 +129,22 @@ tmap("g", "<cmd>LazyGit<CR>", "LazyGit")
 tmap("n", "<CMD>Noice disable<CR>", "disable noice")
 tmap("p", "<CMD>TSPlaygroundToggle<CR>", "TreeSitter Playground")
 
--- harpoon
-local harpoon = require("harpoon")
-harpoon:setup({})
-
-require("which-key").register({
-  ["<leader>h"] = { name = "[H]arpoon", _ = "which_key_ignore" },
-})
-nmap("<leader>hl", function()
-  harpoon.ui:toggle_quick_menu(harpoon:list())
-end, { desc = "Harpoon list" })
-nmap("<leader>ha", function()
-  harpoon:list():add()
-end, { desc = "Append buffer to harpoon" })
-nmap("<f1>", function()
-  harpoon:list():select(1)
-end, { desc = "Switch to 1st harpoon buffer" })
-nmap("<f2>", function()
-  harpoon:list():select(2)
-end, { desc = "Switch to 2nd harpoon buffer" })
-nmap("<f3>", function()
-  harpoon:list():select(3)
-end, { desc = "Switch to 3rd harpoon buffer" })
-nmap("<f4>", function()
-  harpoon:list():select(4)
-end, { desc = "Switch to 4th harpoon buffer" })
-imap("<f1>", function()
-  harpoon:list():select(1)
-end, { desc = "Switch to 1st harpoon buffer" })
-imap("<f2>", function()
-  harpoon:list():select(2)
-end, { desc = "Switch to 2nd harpoon buffer" })
-imap("<f3>", function()
-  harpoon:list():select(3)
-end, { desc = "Switch to 3rd harpoon buffer" })
-imap("<f4>", function()
-  harpoon:list():select(4)
-end, { desc = "Switch to 4th harpoon buffer" })
-
--- file explorer
-tmap("e", "<cmd>Oil<CR>", "[e]xplorer")
-tmap("E", function()
-  local dir = require("helpers").find_git_root()
-  require("oil").open(dir)
-end, "[e]plorer git root")
-
 nmap("<leader>cc", "<cmd>cd %:p:h<cr>", "Change work dir")
 
 -- previous/next
-nmap("]t", "<cmd>tabNext<cr>", "next tab")
-nmap("[t", "<cmd>tabprevious<cr>", "prev tab")
+if vim.g.neovide then
+  nmap("<A-e>", "<cmd>tabNext<cr>", "next tab")
+  nmap("<A-w>", "<cmd>tabclose<cr>", "close tab")
+  nmap("<A-q>", "<cmd>tabprevious<cr>", "prev tab")
+  nmap("<A-t>", "<cmd>tabnew<cr>", "new tab")
+else
+  nmap("]t", "<cmd>tabNext<cr>", "next tab")
+  nmap("[t", "<cmd>tabprevious<cr>", "prev tab")
+end
 
 -- for debugging lua codes
 nmap("<leader>w", function()
   if DEBUG then
-    -- TODO: only source lua code
     if vim.bo.filetype == "lua" then
       return "<cmd>wall<cr><cmd>source %<cr>"
     else

@@ -98,8 +98,6 @@ vim.api.nvim_create_autocmd("RecordingLeave", {
   group = gp,
 })
 
--- [[ Highlight on yank ]]
--- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
@@ -109,6 +107,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",
 })
 
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  group = augroup("SpellCheck"),
+  pattern = { "gitcommit" },
+  callback = function()
+    vim.wo.spell = true
+  end,
+})
+
 -- abbr
 vim.cmd([[Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}]])
 vim.cmd([[Abolish teh the]])
@@ -116,3 +122,9 @@ vim.cmd([[Abolish cahr char]])
 vim.cmd([[Abolish bsaic basic]])
 vim.cmd([[Abolish suage usage]])
 vim.cmd([[Abolish functoin function]])
+vim.cmd([[Abolish lcoal local]])
+vim.cmd([[Abolish scrpit script]])
+vim.cmd([[Abolish scritp script]])
+vim.cmd([[Abolish fasle false]])
+vim.cmd([[Abolish optoin option]])
+vim.cmd([[Abolish amp map]])

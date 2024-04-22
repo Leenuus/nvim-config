@@ -1,6 +1,6 @@
 local M = {}
 
-M.logger = require("plenary.log")
+M.logger = pcall(require, "plenary.log")
 
 function M.toggle_scrolloff()
   if vim.o.scrolloff ~= 0 then
@@ -25,7 +25,9 @@ function M.map(modes, lhs, rhs, opts)
   elseif type(opts) == "table" or type(opts) == "nil" then
     vim.keymap.set(modes, lhs, rhs, opts)
   else
-    M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+    if M.logger ~= nil then
+      M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+    end
   end
 end
 
@@ -35,7 +37,9 @@ function M.map_insert(lhs, rhs, opts)
   elseif type(opts) == "table" or type(opts) == "nil" then
     vim.keymap.set("i", lhs, rhs, opts)
   else
-    M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+    if M.logger ~= nil then
+      M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+    end
   end
 end
 
@@ -45,7 +49,9 @@ function M.map_normal(lhs, rhs, opts)
   elseif type(opts) == "table" or type(opts) == "nil" then
     vim.keymap.set("n", lhs, rhs, opts)
   else
-    M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+    if M.logger ~= nil then
+      M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+    end
   end
 end
 
@@ -55,7 +61,9 @@ function M.map_visual(lhs, rhs, opts)
   elseif type(opts) == "table" or type(opts) == "nil" then
     vim.keymap.set("v", lhs, rhs, opts)
   else
-    M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+    if M.logger ~= nil then
+      M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+    end
   end
 end
 
@@ -65,7 +73,9 @@ function M.map_operator(lhs, rhs, opts)
   elseif type(opts) == "table" or type(opts) == "nil" then
     vim.keymap.set("o", lhs, rhs, opts)
   else
-    M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+    if M.logger ~= nil then
+      M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+    end
   end
 end
 
@@ -75,7 +85,9 @@ function M.map_command(lhs, rhs, opts)
   elseif type(opts) == "table" or type(opts) == "nil" then
     vim.keymap.set("c", lhs, rhs, opts)
   else
-    M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+    if M.logger ~= nil then
+      M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+    end
   end
 end
 
@@ -107,7 +119,9 @@ function M.map_leader(lhs, rhs, opts)
   elseif type(opts) == "table" or type(opts) == "nil" then
     vim.keymap.set("n", lhs, rhs, opts)
   else
-    M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+    if M.logger ~= nil then
+      M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+    end
   end
 end
 
