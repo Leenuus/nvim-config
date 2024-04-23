@@ -1,9 +1,11 @@
 local M = {}
 
--- TODO: restore some more metadata
+-- TODO:
+-- 1. restore some more metadata
+-- 2. delete existing sessions
 
 local default_session_opt =
-"blank,buffers,curdir,folds,globals,help,localoptions,options,skiprtp,resize,tabpages,terminal,winpos,winsize"
+  "blank,buffers,curdir,folds,globals,help,localoptions,options,skiprtp,resize,tabpages,terminal,winpos,winsize"
 
 local session_storage = vim.fn.stdpath("data") .. "/sessions"
 
@@ -72,6 +74,7 @@ local function restore_session()
   end)
 end
 
+vim.api.nvim_create_user_command("Projects", restore_session, {})
 M.restore_session = restore_session
 M.save_session = save_session
 

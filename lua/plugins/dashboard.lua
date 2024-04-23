@@ -70,6 +70,55 @@ if notes_root ~= nil or notes_root == "" then
   }
 end
 
+local projects = {}
+if vim.cmd["Projects"] ~= nil then
+  projects = {
+    icon = "  ",
+    desc = "Projects",
+    key = "p",
+    key_format = " %s",
+    action = "Projects",
+  }
+end
+
+local search_files = {}
+local config = {}
+if vim.cmd["FindFiles"] ~= nil then
+  search_files = {
+    icon = "  ",
+    desc = "Search Files",
+    key = "s",
+    key_format = " %s",
+    action = "FindFiles",
+  }
+  config = {
+    icon = "  ",
+    desc = "Config",
+    key = "c",
+    key_format = " %s",
+    action = "cd" .. vim.fn.stdpath("config") .. "| FindFiles",
+  }
+end
+
+local help = {}
+local color = {}
+if vim.cmd["Telescope"] ~= nil then
+  help = {
+    icon = "󰋖  ",
+    desc = "Help",
+    key = "h",
+    key_format = " %s",
+    action = "Telescope help_tags",
+  }
+  color = {
+    icon = "  ",
+    desc = "Change Colorscheme",
+    key = "t",
+    key_format = " %s",
+    action = "Telescope colorscheme",
+  }
+end
+
 return {
   dir = "~/Projects/Neovims/dashboard-nvim",
   -- "nvimdev/dashboard-nvim",
@@ -89,35 +138,12 @@ return {
             key_format = " %s",
             action = "enew",
           },
-          {
-            icon = "  ",
-            desc = "Search Files",
-            key = "s",
-            key_format = " %s",
-            action = "FindFiles",
-          },
+          search_files,
+          config,
           notes,
-          {
-            icon = "  ",
-            desc = "Config",
-            key = "c",
-            key_format = " %s",
-            action = "cd" .. vim.fn.stdpath("config") .. "| FindFiles",
-          },
-          {
-            icon = "󰋖  ",
-            desc = "Help",
-            key = "h",
-            key_format = " %s",
-            action = "Telescope help_tags",
-          },
-          {
-            icon = "  ",
-            desc = "Change Colorscheme",
-            key = "t",
-            key_format = " %s",
-            action = "Telescope colorscheme",
-          },
+          projects,
+          help,
+          color,
           {
             icon = "  ",
             desc = "Quit Neovim",
