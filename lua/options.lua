@@ -34,6 +34,10 @@ vim.opt.undofile = true -- enable persistent undo
 vim.opt.list = true
 vim.opt.listchars='tab:>-,lead:.'
 
+-- session
+vim.o.sessionoptions = 'blank,buffers,curdir,folds,globals,help,localoptions,options,skiprtp,resize,tabpages,terminal,winpos,winsize'
+
+
 -- @diagnostic disable-next-line: undefined-field
 if vim.g.neovide then -- ignore
   -- neovim gui neovide
