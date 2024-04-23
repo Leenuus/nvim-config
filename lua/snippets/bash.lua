@@ -253,6 +253,19 @@ local script_self = s("self", t({ 'SCRIPT=$(realpath "$0")', 'DIR=$(dirname "$SC
 -- FIXME: problematic somehow
 local source = s("source?", t("(return 0 2>/dev/null) && sourced=1 || not_sourced=1"))
 
+local fzf = s(
+  "fzf",
+  fmt(
+    [[SHELL=bash fzf \
+  --preview-window=40%,wrap \
+  --bind='ctrl-h:backward-kill-word,ctrl-j:preview-page-down,ctrl-k:preview-page-up' \
+  --border=rounded --inline-info -m
+]],
+    {},
+    { delimiters = "<>" }
+  )
+)
+
 local bash_snips = {
   if_installed,
   parse_opts,
@@ -275,6 +288,7 @@ local bash_snips = {
   color,
   source,
   script_self,
+  fzf,
 }
 
 return bash_snips
