@@ -6,6 +6,7 @@ local vmap = helpers.map_visual
 local omap = helpers.map_operator
 local cmap = helpers.map_command
 local lmap = helpers.map_leader
+local map_terminal = helpers.map_terminal
 local map = helpers.map
 
 -- disable keymaps
@@ -154,3 +155,7 @@ nmap("<leader>w", function()
     return "<cmd>wall<cr>"
   end
 end, { expr = true })
+-- terminal mode
+map_terminal("<esc>", [[<C-\><C-n>]], "normal mode")       -- enter normal mode
+map_terminal("<leader>q", "<cmd>close<cr>", "normal mode") -- quit
+

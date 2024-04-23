@@ -125,4 +125,16 @@ function M.map_leader(lhs, rhs, opts)
   end
 end
 
+function M.map_terminal(lhs, rhs, opts)
+  if type(opts) == "string" then
+    vim.keymap.set("t", lhs, rhs, { desc = opts })
+  elseif type(opts) == "table" or type(opts) == "nil" then
+    vim.keymap.set("t", lhs, rhs, opts)
+  else
+    if M.logger ~= nil then
+      M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
+    end
+  end
+end
+
 return M
