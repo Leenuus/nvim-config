@@ -97,14 +97,10 @@ nmap("<leader>Q", "<cmd>q!<cr>")
 nmap("U", "<cmd>redo<cr>")
 
 -- operators
-omap("q", "i(", "<q> parenthesis")
-omap("Q", "a(", "<q> parenthesis")
-omap("k", "i'", "<k> single quote")
-omap("K", "a'", "<k> single quote")
-omap("j", 'i"', "<j> double quotes")
-omap("J", 'a"', "<j> double quotes")
-omap("h", "i[", "<h> bracket")
-omap("l", "i{", "<l> brace")
+omap("q", 'i"', "q double quote")
+omap("Q", 'a"', "q double quote")
+omap("<HOME>", "i'", "single quote")
+omap("<END>", "a'", "single quote")
 
 -- Diagnostic keymaps
 lmap("dp", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
