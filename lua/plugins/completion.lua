@@ -24,7 +24,7 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-cmdline",
+      -- "hrsh7th/cmp-cmdline",
     },
     config = function()
       local lmap = require("helpers").map_leader
@@ -33,8 +33,9 @@ return {
       local map = require("helpers").map
 
       local on_attach = function(_, bufnr)
-        lmap("la", function()
-          vim.lsp.buf.code_action({ context = { only = { "quickfix", "refactor", "source" } } })
+        map({ "n", "v" }, "<leader>la", function()
+          -- vim.lsp.buf.code_action({ context = { only = { "quickfix", "refactor", "source" } } })
+          vim.lsp.buf.code_action()
         end, "Code Action")
         lmap("ls", require("telescope.builtin").lsp_document_symbols, "Doc Symbols")
         lmap("lS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
