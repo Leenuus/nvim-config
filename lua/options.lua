@@ -1,6 +1,6 @@
 local helpers = require("helpers")
 helpers.toggle_scrolloff()
-
+vim.o.jumpoptions = "stack"
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.o.relativenumber = true
@@ -12,6 +12,13 @@ vim.wo.signcolumn = "yes"
 vim.o.completeopt = "menuone,noselect"
 vim.o.hlsearch = true
 vim.o.termguicolors = true
+-- NOTE:
+-- help formatoptions
+-- without `o`: no auto comment signs insertion using `n_o` or `n_O`
+-- r: auto add comment signs when inserting
+-- j: auto join comment lines
+-- l: no autowrap
+vim.o.formatoptions = 'jcrql'
 
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.o.ignorecase = true
@@ -32,11 +39,11 @@ vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would sh
 vim.opt.updatetime = 100 -- faster completion (4000ms default)
 vim.opt.undofile = true -- enable persistent undo
 vim.opt.list = true
-vim.opt.listchars='tab:>-,lead:.'
+vim.opt.listchars = "tab:>-,lead:."
 
 -- session
-vim.o.sessionoptions = 'blank,buffers,curdir,folds,globals,help,localoptions,options,skiprtp,resize,tabpages,terminal,winpos,winsize'
-
+vim.o.sessionoptions =
+  "blank,buffers,curdir,folds,globals,help,localoptions,options,skiprtp,resize,tabpages,terminal,winpos,winsize"
 
 -- @diagnostic disable-next-line: undefined-field
 if vim.g.neovide then -- ignore

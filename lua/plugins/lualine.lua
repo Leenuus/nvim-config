@@ -10,8 +10,13 @@ local function filesize()
 end
 
 local function wordir()
-  return vim.fn.getcwd()
+  local dir = vim.fn.getcwd()
+  local home = vim.env["HOME"]
+  dir = string.gsub(dir, home, "~")
+  dir = string.gsub(dir, '~/Projects/', "")
+  return dir
 end
+
 
 return {
   {

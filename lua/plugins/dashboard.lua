@@ -87,7 +87,7 @@ if vim.cmd["FindFiles"] ~= nil then
   search_files = {
     icon = "  ",
     desc = "Search Files",
-    key = "s",
+    key = "f",
     key_format = " %s",
     action = "FindFiles",
   }

@@ -113,6 +113,17 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
+-- NOTE: clear jumplist when entering so
+-- no weird things happen when accidentally
+-- press ctrl-o
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
+  pattern = "*",
+  callback = function()
+    vim.cmd("clearjumps")
+  end,
+  group = augroup("jumps"),
+})
+
 -- abbr
 vim.cmd([[Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}]])
 vim.cmd([[Abolish teh the]])
@@ -127,6 +138,8 @@ vim.cmd([[Abolish fasle false]])
 vim.cmd([[Abolish optoin option]])
 vim.cmd([[Abolish amp map]])
 vim.cmd([[Abolish edn end]])
+vim.cmd([[Abolish retunr return]])
+vim.cmd([[Abolish retrun return]])
 
 -- filetype
 local gp = augroup("filetype-detection")
@@ -167,7 +180,7 @@ local themes = {
   "tokyonight-night",
   "tokyonight",
   "ayu-mirage",
-  "ayu-dark",
+  -- "ayu-dark",
 }
 local ok, _ = pcall(vim.cmd, "colorscheme " .. themes[math.random(#themes)])
 if not ok then

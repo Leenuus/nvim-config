@@ -13,6 +13,7 @@ local map = helpers.map
 -- disable keymaps
 map({ "n", "v" }, "<Space>", "<Nop>")
 nmap("gf", "<Nop>")
+nmap("gq", "<Nop>")
 
 -- jump around windows
 map({ "n", "t" }, "<C-h>", "<cmd>wincmd h<cr>")
@@ -58,12 +59,12 @@ nmap("<esc>", "<cmd>noh<cr><esc>zz")
 imap("<esc>", "<esc>zz<cmd>noh<cr>")
 map({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 map({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
-nmap("n", "nzz")
-nmap("N", "Nzz")
-nmap("*", "*zz")
-nmap("#", "#zz")
-nmap("g*", "g*zz")
-nmap("g#", "g#zz")
+nmap("n", "<cmd>keepjumps normal! nzz<cr>")
+nmap("N", "<cmd>keepjumps normal! Nzz<cr>")
+nmap("*", "<cmd>keepjumps normal! *zz<cr>")
+nmap("#", "<cmd>keepjumps normal! #zz<cr>")
+nmap("g*", "<cmd>keepjumps normal! g*zz<cr>")
+nmap("g#", "<cmd>keepjumps normal! g#zz<cr>")
 map("x", "p", [["_dP]])
 
 map({ "n", "v", "o" }, "H", "_")
@@ -110,28 +111,28 @@ lmap("dp", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message
 lmap("dn", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
 lmap("dh", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 lmap("dl", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
-lmap("ds", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
+lmap("ds", require("telescope.builtin").diagnostics, { desc = "Search Diagnostics" })
 
 -- document existing key chains
 require("which-key").register({
-  ["<leader>d"] = { name = "[D]iagnostics", _ = "which_key_ignore" },
-  ["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
-  ["<leader>t"] = { name = "[T]oggle", _ = "which_key_ignore" },
-  ["<leader>l"] = { name = "[L]sp", _ = "which_key_ignore" },
+  ["<leader>d"] = { name = "Diagnostics", _ = "which_key_ignore" },
+  ["<leader>s"] = { name = "Search", _ = "which_key_ignore" },
+  ["<leader>t"] = { name = "Toggle", _ = "which_key_ignore" },
+  ["<leader>l"] = { name = "Lsp", _ = "which_key_ignore" },
 })
 
 -- toggle options
-tmap("h", "<cmd>set invhlsearch<cr>", "[h]ighlight")
-tmap("t", "<cmd>TransparentToggle<cr>", "[t]ransparent")
-tmap("i", "<cmd>set invignorecase<cr>", "[i]gnorecase")
-tmap("s", helpers.toggle_scrolloff, "[s]crolloff")
-tmap("z", "<cmd>ZenMode<cr>", "[z]enMode")
-tmap("o", "<cmd>ZenMode<cr>", "[z]enMode")
+tmap("h", "<cmd>set invhlsearch<cr>", "highlight")
+tmap("t", "<cmd>TransparentToggle<cr>", "transparent")
+tmap("i", "<cmd>set invignorecase<cr>", "ignorecase")
+tmap("s", helpers.toggle_scrolloff, "scrolloff")
+tmap("o", "<cmd>ZenMode<cr>", "zenMode")
 tmap("g", "<cmd>LazyGit<CR>", "LazyGit")
 tmap("n", "<CMD>Noice disable<CR>", "disable noice")
 tmap("p", "<CMD>TSPlaygroundToggle<CR>", "TreeSitter Playground")
 
-nmap("<leader>cc", "<cmd>cd %:p:h<cr>", "Change work dir")
+nmap("<leader>cC", "<cmd>cd %:p:h<cr>", "Change work dir")
+nmap("<leader>cc", require("telescope.builtin").commands, "Change work dir")
 
 -- previous/next
 if vim.g.neovide then
@@ -148,20 +149,48 @@ end
 nmap("<leader>w", function()
   if DEBUG then
     if vim.bo.filetype == "lua" then
-      return "<cmd>wall<cr><cmd>source %<cr>"
+      return "<cmd>w<cr><cmd>source %<cr>"
     else
-      return "<cmd>wall<cr>"
+      return "<cmd>w<cr>"
     end
   else
-    return "<cmd>wall<cr>"
+    return "<cmd>w<cr>"
   end
 end, { expr = true })
 
 -- terminal mode
-map_terminal("<esc>", [[<C-\><C-n>]], "normal mode")       -- enter normal mode
+map_terminal("<esc>", [[<C-\><C-n>]], "normal mode") -- enter normal mode
 map_terminal("<leader>q", "<cmd>close<cr>", "normal mode") -- quit
 
 -- resession
 local resession = require("resession")
 lmap("Ss", resession.save_session, "Save Current Session")
 lmap("sp", resession.restore_session, "Restore Session")
+
+-- lsp related keybindings
+lmap("lr", function()
+  require("nvim-treesitter-refactor.smart_rename").smart_rename(0)
+end, "Rename Variable With TreeSitter")
+nmap("Q", "gq", "Format Code")
+vmap("Q", "gq", "Format Code")
+
+-- lsp related keybindings
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function()
+    map({ "n", "v" }, "<leader>la", function()
+      vim.lsp.buf.code_action()
+    end, { buffer = 0, desc = "Code Action" })
+    lmap("ls", require("telescope.builtin").lsp_document_symbols, { desc = "Doc Symbols", buffer = 0 })
+    lmap("lS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
+    nmap("gh", vim.lsp.buf.hover, { desc = "Hover", buffer = 0 })
+    nmap("gd", require("telescope.builtin").lsp_definitions, { desc = "Goto Definition", buffer = 0 })
+    nmap("gr", require("telescope.builtin").lsp_references, { desc = "Goto References", buffer = 0 })
+    nmap("gi", require("telescope.builtin").lsp_implementations, { desc = "Goto Implementation", buffer = 0 })
+    nmap("gt", require("telescope.builtin").lsp_type_definitions, { desc = "Type Definition", buffer = 0 })
+    nmap("gD", vim.lsp.buf.declaration, { desc = "Declaration", buffer = 0 })
+
+    map({ "i", "n" }, "<C-P>", vim.lsp.buf.signature_help, { desc = "Signature Documentation", buffer = 0 })
+    nmap("Q", vim.lsp.buf.format, { desc = "Format Code", buffer = 0 })
+    lmap("lr", vim.lsp.buf.rename, { desc = "Rename with Lsp", buffer = 0 })
+  end,
+})

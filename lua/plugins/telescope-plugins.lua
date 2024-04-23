@@ -18,6 +18,10 @@ return {
               ["\\"] = actions.select_vertical,
               ["-"] = actions.select_horizontal,
               ["'"] = actions.select_tab,
+              ["<Left>"] = actions.cycle_history_prev,
+              ["<Right>"] = actions.cycle_history_next,
+              ["<Up>"] = actions.cycle_history_prev,
+              ["<Down>"] = actions.cycle_history_next,
             },
             i = {
               ["<C-P>"] = actions.select_vertical,
@@ -25,6 +29,8 @@ return {
               ["<C-l>"] = actions.select_tab,
               ["<C-J>"] = actions.preview_scrolling_down,
               ["<C-K>"] = actions.preview_scrolling_up,
+              ["<Left>"] = actions.cycle_history_prev,
+              ["<Right>"] = actions.cycle_history_next,
             },
           },
         },
@@ -50,6 +56,7 @@ return {
           },
 
           colorscheme = {
+            theme = "dropdown",
             enable_preview = true,
           },
 
