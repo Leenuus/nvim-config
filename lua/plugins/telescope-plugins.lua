@@ -7,6 +7,9 @@ return {
     },
     config = function()
       local actions = require("telescope.actions")
+      local state = require("telescope.actions.state")
+      local log = require("plenary.log")
+
       require("telescope").setup({
         defaults = {
           mappings = {
@@ -14,10 +17,14 @@ return {
               ["<Tab>"] = actions.toggle_selection,
               ["\\"] = actions.select_vertical,
               ["-"] = actions.select_horizontal,
+              ["'"] = actions.select_tab,
             },
             i = {
               ["<C-P>"] = actions.select_vertical,
               ["<C-S>"] = actions.select_horizontal,
+              ["<C-l>"] = actions.select_tab,
+              ["<C-J>"] = actions.preview_scrolling_down,
+              ["<C-K>"] = actions.preview_scrolling_up,
             },
           },
         },
@@ -44,6 +51,20 @@ return {
 
           colorscheme = {
             enable_preview = true,
+          },
+
+          find_files = {
+            mappings = {
+              n = {
+                ["<Tab>"] = actions.toggle_selection,
+                ["\\"] = actions.select_vertical,
+                ["-"] = actions.select_horizontal,
+              },
+              i = {
+                ["<C-P>"] = actions.select_vertical,
+                ["<C-S>"] = actions.select_horizontal,
+              },
+            },
           },
         },
         extensions = {

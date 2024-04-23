@@ -139,8 +139,8 @@ if vim.g.neovide then
   nmap("<A-q>", "<cmd>tabprevious<cr>", "prev tab")
   nmap("<A-t>", "<cmd>tabnew<cr>", "new tab")
 else
-  nmap("]t", "<cmd>tabNext<cr>", "next tab")
-  nmap("[t", "<cmd>tabprevious<cr>", "prev tab")
+  lmap("'", "<cmd>tabNext<cr>", "next tab")
+  lmap(";", "<cmd>tabprevious<cr>", "prev tab")
 end
 
 -- for debugging lua codes
