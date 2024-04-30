@@ -18,7 +18,9 @@ vim.o.termguicolors = true
 -- r: auto add comment signs when inserting
 -- j: auto join comment lines
 -- l: no autowrap
-vim.o.formatoptions = 'jcrql'
+vim.defer_fn(function()
+  vim.o.formatoptions = 'jcrql'
+end, 0 )
 
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.o.ignorecase = true

@@ -6,7 +6,7 @@ local lspconfig = require("lspconfig")
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 -- https://vonheikemen.github.io/devlog/tools/neovim-lsp-client-guide/
-local servers = { "clangd", "rust_analyzer", "tsserver", "lua_ls", "jsonls", "bashls", "yamlls" }
+local servers = { "clangd", "rust_analyzer", "tsserver", "lua_ls", "jsonls", "bashls", "yamlls", "jedi_language_server", "pylsp" }
 
 -- NOTE: lua settings
 require("neodev").setup({

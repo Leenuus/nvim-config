@@ -14,6 +14,8 @@ local map = helpers.map
 map({ "n", "v" }, "<Space>", "<Nop>")
 nmap("gf", "<Nop>")
 nmap("gq", "<Nop>")
+nmap("dj", "<Nop>")
+nmap("dk", "<Nop>")
 
 -- jump around windows
 map({ "n", "t" }, "<C-h>", "<cmd>wincmd h<cr>")
@@ -56,7 +58,7 @@ end)
 
 -- navigation
 nmap("<esc>", "<cmd>noh<cr><esc>zz")
-imap("<esc>", "<esc>zz<cmd>noh<cr>")
+imap("<esc>", "<esc>zz")
 map({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 map({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
 nmap("n", "<cmd>keepjumps normal! nzz<cr>")
@@ -127,8 +129,8 @@ tmap("g", "<cmd>LazyGit<CR>", "LazyGit")
 tmap("n", "<CMD>Noice disable<CR>", "disable noice")
 tmap("p", "<CMD>TSPlaygroundToggle<CR>", "TreeSitter Playground")
 
-nmap("<leader>cC", "<cmd>cd %:p:h<cr>", "Change work dir")
-nmap("<leader>cc", require("telescope.builtin").commands, "Change work dir")
+-- nmap("<leader>cC", "<cmd>cd %:p:h<cr>", "Change work dir")
+nmap("<leader>sc", require("telescope.builtin").commands, "Commands")
 
 -- previous/next
 if vim.g.neovide then
@@ -155,7 +157,7 @@ nmap("<leader>w", function()
 end, { expr = true })
 
 -- terminal mode
-map_terminal("<esc>", [[<C-\><C-n>]], "normal mode") -- enter normal mode
+map_terminal("<esc>", [[<C-\><C-n>]], "normal mode")       -- enter normal mode
 map_terminal("<leader>q", "<cmd>close<cr>", "normal mode") -- quit
 
 -- resession
@@ -164,6 +166,9 @@ lmap("Ss", resession.save_session, "Save Current Session")
 lmap("sp", resession.restore_session, "Restore Session")
 
 -- lsp related keybindings
+vim.api.nvim_create_user_command("TSRename", function()
+  require("nvim-treesitter-refactor.smart_rename").smart_rename(0)
+end, { desc = "Rename variable with Treesitter" })
 lmap("lr", function()
   require("nvim-treesitter-refactor.smart_rename").smart_rename(0)
 end, "Rename Variable With TreeSitter")
@@ -180,10 +185,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
     lmap("lS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
     nmap("gh", vim.lsp.buf.hover, { desc = "Hover", buffer = 0 })
     nmap("gd", require("telescope.builtin").lsp_definitions, { desc = "Goto Definition", buffer = 0 })
+    nmap("gD", function()
+      vim.lsp.buf.definition()
+      vim.cmd([[tabnew %]])
+    end, { desc = "Goto Definition", buffer = 0 })
+    -- nmap("gD", vim.lsp.buf.declaration, { desc = "Declaration", buffer = 0 })
     nmap("gr", require("telescope.builtin").lsp_references, { desc = "Goto References", buffer = 0 })
     nmap("gi", require("telescope.builtin").lsp_implementations, { desc = "Goto Implementation", buffer = 0 })
     nmap("gt", require("telescope.builtin").lsp_type_definitions, { desc = "Type Definition", buffer = 0 })
-    nmap("gD", vim.lsp.buf.declaration, { desc = "Declaration", buffer = 0 })
 
     map({ "i", "n" }, "<C-P>", vim.lsp.buf.signature_help, { desc = "Signature Documentation", buffer = 0 })
     nmap("Q", vim.lsp.buf.format, { desc = "Format Code", buffer = 0 })

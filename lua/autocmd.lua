@@ -126,7 +126,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
 
 -- abbr
 vim.cmd([[Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}]])
-vim.cmd([[Abolish teh the]])
+vim.cmd([[Abolish teh{n,} the{n,}]])
 vim.cmd([[Abolish cahr char]])
 vim.cmd([[Abolish bsaic basic]])
 vim.cmd([[Abolish suage usage]])
