@@ -1,11 +1,5 @@
 return {
-  {
-    "mrcjkb/haskell-tools.nvim",
-    version = "^3", -- Recommended
-    ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
-  },
-  {
-    -- renpy
-    "chaimleib/vim-renpy",
-  },
+  -- renpy
+  "chaimleib/vim-renpy",
+  "folke/neodev.nvim",
 }

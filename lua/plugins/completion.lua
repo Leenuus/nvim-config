@@ -1,12 +1,8 @@
 return {
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      { "williamboman/mason.nvim", config = true },
-      "williamboman/mason-lspconfig.nvim",
-      { "j-hui/fidget.nvim",       opts = {} },
-    },
-  },
+  { "williamboman/mason.nvim", config = true },
+  -- "williamboman/mason-lspconfig.nvim",
+  { "j-hui/fidget.nvim", opts = {} },
+  { "neovim/nvim-lspconfig" },
 
   {
     "hrsh7th/nvim-cmp",
@@ -24,91 +20,12 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-buffer",
-      -- "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-nvim-lua",
+      "hrsh7th/cmp-cmdline",
     },
     config = function()
-      local lmap = require("helpers").map_leader
-      local nmap = require("helpers").map_normal
-      local imap = require("helpers").map_insert
-      local map = require("helpers").map
-
-      local on_attach = function(_, bufnr)
-        map({ "n", "v" }, "<leader>la", function()
-          -- vim.lsp.buf.code_action({ context = { only = { "quickfix", "refactor", "source" } } })
-          vim.lsp.buf.code_action()
-        end, "Code Action")
-        lmap("ls", require("telescope.builtin").lsp_document_symbols, "Doc Symbols")
-        lmap("lS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
-        nmap("gh", vim.lsp.buf.hover, "goto [H]over")
-        nmap("gd", require("telescope.builtin").lsp_definitions, "Goto Definition")
-        nmap("gr", require("telescope.builtin").lsp_references, "Goto References")
-        nmap("gi", require("telescope.builtin").lsp_implementations, "Goto Implementation")
-        nmap("gt", require("telescope.builtin").lsp_type_definitions, "Type Definition")
-        nmap("gD", vim.lsp.buf.declaration, "goto Declaration")
-
-        map({ "i", "n" }, "<C-P>", vim.lsp.buf.signature_help, "Signature Documentation")
-        nmap("Q", vim.lsp.buf.format, "Format Code")
-        lmap("lr", vim.lsp.buf.rename, "Rename with Lsp")
-      end
-
-      lmap("lr", function()
-        require("nvim-treesitter-refactor.smart_rename").smart_rename(0)
-      end, "Rename Variable With TreeSitter")
-
-      nmap("Q", function() end, "Format Code")
-
-      require("mason").setup()
-      require("mason-lspconfig").setup()
-
-      -- NOTE: for supported lsp list, checkout here
-      -- https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
-      local ensure_installed_servers = {
-        -- awk_ls = {},
-        ast_grep = {},
-        asm_lsp = {},
-        bashls = {},
-        cmake = {},
-        ["autotools_ls"] = {},
-        vimls = {},
-        yamlls = {},
-        clangd = {},
-        taplo = {},
-        gopls = {},
-        pyright = {},
-        rust_analyzer = {},
-        tsserver = {},
-        html = { filetypes = { "html", "twig", "hbs" } },
-        zls = {},
-        lua_ls = {
-          Lua = {
-            workspace = { checkThirdParty = false },
-            telemetry = { enable = false },
-          },
-        },
-      }
-
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities) or capabilities
-      local mason_lspconfig = require("mason-lspconfig")
-
-      mason_lspconfig.setup({
-        ensure_installed = vim.tbl_keys(ensure_installed_servers),
-      })
-
-      mason_lspconfig.setup_handlers({
-        function(server_name)
-          require("lspconfig")[server_name].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-            settings = ensure_installed_servers[server_name],
-            filetypes = (ensure_installed_servers[server_name] or {}).filetypes,
-          })
-        end,
-      })
-
       local cmp = require("cmp")
       local luasnip = require("luasnip")
-      require("luasnip.loaders.from_vscode").lazy_load()
       luasnip.config.setup({ enable_autosnippets = true })
 
       cmp.setup({
@@ -150,7 +67,7 @@ return {
             else
               fallback()
             end
-          end, { "i", "s", "c" }),
+          end, { "i", "s" }),
           ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
@@ -170,7 +87,8 @@ return {
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },
-          { name = "buffer" },
+          { name = "buffer", keyword_length = 3 },
+          -- { name = "nvim_lua" },
         },
         window = {
           completion = {
@@ -196,6 +114,7 @@ return {
               luasnip = "Luasnip",
               path = "Path",
               buffer = "Buffer",
+              nvim_lua = "Vim",
             })[entry.source.name]
             return vim_item
           end,
