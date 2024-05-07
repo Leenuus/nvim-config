@@ -266,6 +266,10 @@ local fzf = s(
   )
 )
 
+local shell_bang = s("bang", {
+  t("#!/bin/bash"),
+}, { delimiters = "<>" })
+
 local bash_snips = {
   if_installed,
   parse_opts,
@@ -289,6 +293,7 @@ local bash_snips = {
   source,
   script_self,
   fzf,
+  shell_bang,
 }
 
 return bash_snips
