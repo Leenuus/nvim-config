@@ -268,7 +268,26 @@ local fzf = s(
 
 local shell_bang = s("bang", {
   t("#!/bin/bash"),
-}, { delimiters = "<>" })
+})
+
+local disable_shell_check = s("shellcheck", {
+  t("# shellcheck disable="),
+})
+
+local if_file_not_exist = s(
+  "iffn",
+  fmt(
+    [[if [ ! -f "<>" ];then
+  <>
+fi
+  ]],
+    {
+      insert(1, "file"),
+      insert(0),
+    },
+    { delimiters = "<>" }
+  )
+)
 
 local bash_snips = {
   if_installed,
@@ -294,6 +313,8 @@ local bash_snips = {
   script_self,
   fzf,
   shell_bang,
+  disable_shell_check,
+  if_file_not_exist
 }
 
 return bash_snips
