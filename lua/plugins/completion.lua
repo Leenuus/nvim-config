@@ -1,7 +1,7 @@
 return {
   { "williamboman/mason.nvim", config = true },
   -- "williamboman/mason-lspconfig.nvim",
-  { "j-hui/fidget.nvim", opts = {} },
+  { "j-hui/fidget.nvim",       opts = {} },
   { "neovim/nvim-lspconfig" },
 
   {
@@ -27,6 +27,13 @@ return {
       local cmp = require("cmp")
       local luasnip = require("luasnip")
       luasnip.config.setup({ enable_autosnippets = true })
+
+      vim.keymap.set({ "i", "s" }, "<C-]>", function()
+        local ls = require("luasnip")
+        if ls.choice_active() then
+          ls.change_choice(1)
+        end
+      end)
 
       cmp.setup({
         snippet = {
@@ -87,7 +94,7 @@ return {
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },
-          { name = "buffer", keyword_length = 3 },
+          { name = "buffer",  keyword_length = 3 },
           -- { name = "nvim_lua" },
         },
         window = {

@@ -12,6 +12,7 @@ local map = helpers.map
 
 -- disable keymaps
 map({ "n", "v" }, "<Space>", "<Nop>")
+map({ "n", "v" }, "<BS>", "<Nop>")
 nmap("gf", "<Nop>")
 nmap("gq", "<Nop>")
 nmap("dj", "<Nop>")
@@ -29,10 +30,6 @@ nmap("<down>", "<cmd>resize -3<cr>")
 nmap("<left>", "<cmd>vertical resize -3<cr>")
 nmap("<right>", "<cmd>vertical resize +3<cr>")
 
--- split window
-nmap("<c-\\>", "<cmd>vnew<cr>")
-nmap("<c-s>", "<cmd>new<cr>")
-
 -- @diagnostic disable-next-line: undefined-field
 if vim.g.neovide then
   -- control + backspace
@@ -49,13 +46,6 @@ cmap("<C-k>", 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true })
 
 -- insertion
 imap("<c-u>", "<esc>viwUea")
-map({ "i", "s" }, "<C-]>", function()
-  local ls = require("luasnip")
-  if ls.choice_active() then
-    ls.change_choice(1)
-  end
-end)
-
 -- navigation
 nmap("<esc>", "<cmd>noh<cr><esc>zz")
 imap("<esc>", "<esc>zz")
@@ -104,17 +94,9 @@ omap("Q", 'a"', "q double quote")
 omap("<HOME>", "i'", "single quote")
 omap("<END>", "a'", "single quote")
 
--- Diagnostic keymaps
-lmap("dp", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-lmap("dn", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-lmap("dh", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-lmap("dl", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
-lmap("ds", require("telescope.builtin").diagnostics, { desc = "Search Diagnostics" })
-
 -- document existing key chains
 require("which-key").register({
-  ["<leader>d"] = { name = "Diagnostics", _ = "which_key_ignore" },
-  ["<leader>s"] = { name = "Search", _ = "which_key_ignore" },
+  ["<leader>s"] = { name = "Telescope", _ = "which_key_ignore" },
   ["<leader>t"] = { name = "Toggle", _ = "which_key_ignore" },
   ["<leader>l"] = { name = "Lsp", _ = "which_key_ignore" },
 })
@@ -126,7 +108,6 @@ tmap("i", "<cmd>set invignorecase<cr>", "ignorecase")
 tmap("s", helpers.toggle_scrolloff, "scrolloff")
 tmap("o", "<cmd>ZenMode<cr>", "zenMode")
 tmap("g", "<cmd>LazyGit<CR>", "LazyGit")
-tmap("n", "<CMD>Noice disable<CR>", "disable noice")
 tmap("p", "<CMD>TSPlaygroundToggle<CR>", "TreeSitter Playground")
 
 -- nmap("<leader>cC", "<cmd>cd %:p:h<cr>", "Change work dir")
@@ -157,8 +138,8 @@ nmap("<leader>w", function()
 end, { expr = true })
 
 -- terminal mode
-map_terminal("<esc>", [[<C-\><C-n>]], "normal mode")       -- enter normal mode
-map_terminal("<leader>q", "<cmd>close<cr>", "normal mode") -- quit
+map_terminal("<esc>", [[<C-\><C-n>]], "normal mode")
+map_terminal("<leader>q", "<cmd>close<cr>", "quit")
 
 -- resession
 local resession = require("resession")
@@ -199,3 +180,22 @@ vim.api.nvim_create_autocmd("LspAttach", {
     lmap("lr", vim.lsp.buf.rename, { desc = "Rename with Lsp", buffer = 0 })
   end,
 })
+
+-- TODO: surround things faster
+-- nmap('gq', 'ysaw"', 'quote the word')
+
+-- NOTE: go back to previous buffer
+-- the latter C-R is much easier to press than C-T, so map it
+nmap("<C-t>", "<C-^>", "quick back to preivous file")
+nmap("<C-r>", "<C-^>", "quick back to preivous file")
+
+nmap("[b", "<cmd>bp<cr>", "previous buffer")
+nmap("]b", "<cmd>bnext<cr>", "next buffer")
+nmap("[q", "<cmd>cprev<cr>", "previous quickfix")
+nmap("]q", "<cmd>cnext<cr>", "next quickfix")
+nmap("[t", "<cmd>tabprevious<cr>", "previous tab")
+nmap("]t", "<cmd>tabnext<cr>", "next tab")
+
+lmap("at", "<cmd>tabnew %<cr>", "new tab")
+lmap("al", "<cmd>vnew %<cr>", "new vertical split")
+lmap("aj", "<cmd>new %<cr>", "new split")
