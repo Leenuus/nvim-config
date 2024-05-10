@@ -23,42 +23,6 @@ vim.api.nvim_create_autocmd({ "VimLeave" }, {
   group = cursor_setting,
 })
 
--- NOTE: close man page easily
--- steal from lazyvim
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("man_unlisted"),
-  pattern = { "man" },
-  callback = function(event)
-    vim.bo[event.buf].buflisted = false
-  end,
-})
-
--- NOTE: quit some buf with `q`
--- steal from lazyvim
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("close_with_q"),
-  pattern = {
-    "PlenaryTestPopup",
-    "help",
-    "lspinfo",
-    "notify",
-    "qf",
-    "query",
-    "spectre_panel",
-    "startuptime",
-    "tsplayground",
-    "neotest-output",
-    "checkhealth",
-    "neotest-summary",
-    "neotest-output-panel",
-  },
-  callback = function(event)
-    vim.bo[event.buf].buflisted = false
-    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
-    vim.keymap.set("n", "<leader>q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
-  end,
-})
-
 -- NOTE: check whether a reload is needed
 -- steal from lazyvim
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
@@ -140,6 +104,8 @@ vim.cmd([[Abolish amp map]])
 vim.cmd([[Abolish edn end]])
 vim.cmd([[Abolish retunr return]])
 vim.cmd([[Abolish retrun return]])
+vim.cmd([[Abolish possible possible]])
+vim.cmd([[Abolish resouce{,s} resource{,s}]])
 
 -- filetype
 local gp = augroup("filetype-detection")
