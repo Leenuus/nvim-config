@@ -22,7 +22,7 @@ end, "Find man pages")
 smap("s", require("telescope.builtin").builtin, "Show telescopes")
 smap("k", "<cmd>Telescope keymaps<cr>", "Show Keymaps")
 
-local DEFAULT_FIND_FILES_MODE = "default"
+local DEFAULT_FIND_FILES_MODE = "(gitroot)"
 local find_files_mode = DEFAULT_FIND_FILES_MODE
 
 local base_find_command = {
@@ -48,13 +48,21 @@ local find_files_options = {
     cwd = find_git_root,
     find_command = base_find_command,
   },
-  ["hidden"] = {
-    cwd = find_git_root,
-    find_command = vim.list_extend(vim.deepcopy(base_find_command), { "-H" }),
-  },
-  ["hidden, ignore"] = {
+  ["(gitroot)hidden, ignore"] = {
     cwd = find_git_root,
     find_command = vim.list_extend(vim.deepcopy(base_find_command), { "-H", "-I" }),
+  },
+  ["(cwd)hidden, ignore"] = {
+    cwd = function()
+      return vim.fn.expand("%:h")
+    end,
+    find_command = vim.list_extend(vim.deepcopy(base_find_command), { "-H", "-I" }),
+  },
+  ["(cwd)"] = {
+    cwd = function()
+      return vim.fn.expand("%:h")
+    end,
+    find_command = base_find_command,
   },
 }
 
@@ -169,3 +177,4 @@ smap("f", function()
 end)
 
 smap("j", require("telescope.builtin").jumplist, "Jump list")
+smap("H", require("telescope.builtin").command_history, "Command History")
