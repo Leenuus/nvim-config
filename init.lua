@@ -1,4 +1,6 @@
+-- EXPORT
 vim.g.mapleader = " "
+-- EXPORT
 vim.g.maplocalleader = "\\"
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

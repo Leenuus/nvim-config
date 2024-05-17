@@ -1,40 +1,61 @@
 local helpers = require("helpers")
 helpers.toggle_scrolloff()
+-- EXPORT
 vim.o.jumpoptions = "stack"
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
+-- EXPORT
 vim.o.relativenumber = true
+-- EXPORT
 vim.wo.number = true
+-- EXPORT
 vim.o.mouse = "a"
+-- EXPORT
 vim.o.clipboard = "unnamedplus"
+-- EXPORT
 vim.o.breakindent = true
+-- EXPORT
 vim.wo.signcolumn = "yes"
+-- EXPORT
 vim.o.completeopt = "menuone,noselect"
+-- EXPORT
 vim.o.hlsearch = true
+-- EXPORT
 vim.o.termguicolors = true
 
 -- Case-insensitive searching UNLESS \C or capital in search
+-- EXPORT
 vim.o.ignorecase = true
+-- EXPORT
 vim.o.smartcase = true
 
 -- Decrease update time
+-- EXPORT
 vim.o.updatetime = 250
+-- EXPORT
 vim.o.timeoutlen = 300
 
 -- split right
+-- EXPORT
 vim.o.splitright = true
+-- EXPORT
 vim.o.splitbelow = true
 
+-- EXPORT
 vim.o.virtualedit = "block"
 -- vim.o.inccommand = "split"
 
+-- EXPORT
 vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
+-- EXPORT
 vim.opt.updatetime = 100 -- faster completion (4000ms default)
+-- EXPORT
 vim.opt.undofile = true -- enable persistent undo
+-- EXPORT
 vim.opt.list = true
+-- EXPORT
 vim.opt.listchars = "tab:>-,lead:."
 
 -- session
+-- EXPORT
 vim.o.sessionoptions =
   "blank,buffers,curdir,folds,globals,help,localoptions,options,skiprtp,resize,tabpages,terminal,winpos,winsize"
 

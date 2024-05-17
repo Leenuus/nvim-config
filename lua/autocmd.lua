@@ -1,5 +1,7 @@
+-- EXPORT
 local cursor_setting = vim.api.nvim_create_augroup("cursor_setting", { clear = true })
 
+-- EXPORT
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
   pattern = "*",
   callback = function()
@@ -15,6 +17,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
   group = cursor_setting,
 })
 
+-- EXPORT
 vim.api.nvim_create_autocmd({ "VimLeave" }, {
   pattern = "*",
   callback = function()
@@ -23,6 +26,7 @@ vim.api.nvim_create_autocmd({ "VimLeave" }, {
   group = cursor_setting,
 })
 
+-- EXPORT
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
   group = vim.api.nvim_create_augroup("checktime", { clear = true }),
   callback = function()
@@ -58,7 +62,9 @@ vim.api.nvim_create_autocmd("RecordingLeave", {
   group = recording_gp,
 })
 
+-- EXPORT
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+-- EXPORT
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()
@@ -67,6 +73,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",
 })
 
+-- EXPORT
 vim.api.nvim_create_autocmd({ "FileType" }, {
   group = vim.api.nvim_create_augroup("SpellCheck", { clear = true }),
   pattern = { "gitcommit" },
@@ -78,6 +85,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 -- NOTE: clear jumplist when entering so
 -- no weird things happen when accidentally
 -- press ctrl-o
+-- EXPORT
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
   pattern = "*",
   callback = function()
@@ -86,6 +94,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
   group = vim.api.nvim_create_augroup("jumps", { clear = true }),
 })
 
+-- EXPORT
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("filetype-config", {
     clear = true,
@@ -155,6 +164,7 @@ vim.filetype.add({
   filename = filename,
 })
 
+-- EXPORT
 vim.api.nvim_create_autocmd("BufEnter", {
   group = gp,
   pattern = {
