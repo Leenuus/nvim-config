@@ -102,6 +102,7 @@ end
 
 local help = {}
 local color = {}
+local old_files = {}
 if vim.cmd["Telescope"] ~= nil then
   help = {
     icon = "󰋖  ",
@@ -117,11 +118,30 @@ if vim.cmd["Telescope"] ~= nil then
     key_format = " %s",
     action = "Telescope colorscheme",
   }
+  old_files = {
+    icon = "󱋡  ",
+    desc = "Recent Files",
+    key = "o",
+    key_format = " %s",
+    action = "Telescope oldfiles",
+  }
 end
+
+local diary = {}
+if vim.env['DIARY_TODAY'] then
+  local dir = vim.fs.dirname(vim.env['DIARY_TODAY'])
+  diary = {
+    icon = "󱋡  ",
+    desc = "Diary Today",
+    key = "d",
+    key_format = " %s",
+    action = "cd " .. dir .. "| e $DIARY_TODAY",
+  }
+end
+
 
 return {
   dir = "~/Projects/Neovims/dashboard-nvim",
-  -- "nvimdev/dashboard-nvim",
   event = "VimEnter",
   -- enabled = false,
   dependencies = { { "nvim-tree/nvim-web-devicons" } },
@@ -139,11 +159,13 @@ return {
             action = "enew",
           },
           search_files,
+          old_files,
           config,
           notes,
           projects,
           help,
           color,
+          diary,
           {
             icon = "  ",
             desc = "Quit Neovim",
