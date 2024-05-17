@@ -8,7 +8,6 @@ return {
   },
   -- Useful plugin to show you pending keybinds.
   { "folke/which-key.nvim",  event = "VeryLazy", opts = {} },
-
   {
     -- Add indentation guides even on blank lines
     "lukas-reineke/indent-blankline.nvim",
@@ -18,8 +17,10 @@ return {
     lazy = true,
     opts = {},
   },
+  -- TODO: use dbus bindings to write my own
   {
     "keaising/im-select.nvim",
+    enabled = false,
     config = function()
       require("im_select").setup({})
     end,

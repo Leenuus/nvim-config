@@ -7,9 +7,10 @@
 
 - a keybindings making use of treesitter to copy current statement, multi-line aware
 - a keybinding to jump to the corresponding snippets file
-- quickfix list integration, more to see in `vim.fn.setqflist()`, see telescope implementation using this function in `action/init.lua`
 - a treesitter program to remove trailing spaces, without compromising string literal
 - More to read in `:help function-list`
+- write a `im-select` alternative using simple shell script working with dbus
+- learning mode for new keybindings, floating window on the right top or notification when pressing an old one
 
 ## NOTES
 
@@ -17,7 +18,8 @@ Common pitfalls I met this night:
 
 - `vim.tbl_extend` not work for list-like table
 
-- `vim.list_extend(dst, src, start, end)` change the dst and return it, this means
+- `vim.list_extend(dst, src, start, end)` change the dst and return it, this means:
+
 this is dangerous to use this function to build mutiple list sharing the same part, meaning that the later call of this func changes the value it returned before!!
 
 make use of `vim.deepcopy` to avoid it:
