@@ -28,8 +28,6 @@ return {
         -- hover
         printenv,
         -- dia
-        null_ls.builtins.diagnostics.checkmake,
-        null_ls.builtins.diagnostics.markdownlint_cli2,
         null_ls.builtins.diagnostics.fish,
         -- FIXME: not work for multiline literal string, fix it with treesitter
         -- TODO: a formatter for it

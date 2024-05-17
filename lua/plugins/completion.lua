@@ -1,9 +1,9 @@
 return {
   { "williamboman/mason.nvim", config = true },
   -- "williamboman/mason-lspconfig.nvim",
-  { "j-hui/fidget.nvim",       opts = {} },
+  { "j-hui/fidget.nvim" },
   { "neovim/nvim-lspconfig" },
-
+  -- { dir = "~/Projects/Neovims/friendly-snippets" },
   {
     "hrsh7th/nvim-cmp",
     dependencies = {

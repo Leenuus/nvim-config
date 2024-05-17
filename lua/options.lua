@@ -46,18 +46,21 @@ vim.o.virtualedit = "block"
 -- EXPORT
 vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
 -- EXPORT
-vim.opt.updatetime = 100 -- faster completion (4000ms default)
+vim.opt.updatetime = 100   -- faster completion (4000ms default)
 -- EXPORT
-vim.opt.undofile = true -- enable persistent undo
+vim.opt.undofile = true    -- enable persistent undo
 -- EXPORT
 vim.opt.list = true
 -- EXPORT
 vim.opt.listchars = "tab:>-,lead:."
 
+-- EXPORT
+vim.o.shell = "bash"
+
 -- session
 -- EXPORT
 vim.o.sessionoptions =
-  "blank,buffers,curdir,folds,globals,help,localoptions,options,skiprtp,resize,tabpages,terminal,winpos,winsize"
+"blank,buffers,curdir,folds,globals,help,localoptions,options,skiprtp,resize,tabpages,terminal,winpos,winsize"
 
 -- @diagnostic disable-next-line: undefined-field
 if vim.g.neovide then -- ignore

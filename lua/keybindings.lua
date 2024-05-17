@@ -42,8 +42,6 @@ vim.keymap.set("i", "<c-u>", "<esc>viwUea")
 -- EXPORT
 vim.keymap.set("n", "<esc>", "<cmd>noh<cr><esc>zz")
 -- EXPORT
-vim.keymap.set("n", "<esc>", "<esc>zz")
--- EXPORT
 vim.keymap.set({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 -- EXPORT
 vim.keymap.set({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
@@ -88,13 +86,21 @@ vim.keymap.set("n", "<leader>Q", "<cmd>q!<cr>")
 vim.keymap.set("n", "U", "<cmd>redo<cr>", { desc = "redo" })
 
 -- EXPORT
-vim.keymap.set("o", "q", 'i"', { desc = "q double quote" })
+-- vim.keymap.set({ "o", "v" }, "q", 'i"', { desc = "q double quote" })
 -- EXPORT
-vim.keymap.set("o", "Q", 'a"', { desc = "q double quote" })
+-- vim.keymap.set({ "o", "v" }, "Q", 'a"', { desc = "q double quote" })
 -- EXPORT
-vim.keymap.set("o", "<HOME>", "i'", { desc = "single quote" })
+vim.keymap.set({ "o", "v" }, "<HOME>", "i'", { desc = "single quote" })
 -- EXPORT
-vim.keymap.set("o", "<END>", "a'", { desc = "single quote" })
+vim.keymap.set({ "o", "v" }, "<END>", "a'", { desc = "single quote" })
+-- EXPORT
+vim.keymap.set({ "o", "v" }, "o", "i[", { desc = "o bracket" })
+-- EXPORT
+vim.keymap.set({ "o", "v" }, "O", "a[", { desc = "o bracket" })
+-- EXPORT
+vim.keymap.set({ "o", "v" }, "[", "i{", { desc = "p brace" })
+-- EXPORT
+vim.keymap.set({ "o", "v" }, "]", "a{", { desc = "p brace" })
 
 -- document existing key chains
 require("which-key").register({
@@ -108,11 +114,12 @@ require("which-key").register({
 vim.keymap.set("n", "<leader>th", "<cmd>set invhlsearch<cr>", { desc = "highlight" })
 vim.keymap.set("n", "<leader>tt", "<cmd>TransparentToggle<cr>", { desc = "transparent" })
 -- EXPORT
-vim.keymap.set("n", "<leader>tc", "<cmd>set invignorecase<cr>", { desc = "ignorecase" })
+vim.keymap.set("n", "<leader>tC", "<cmd>set invignorecase<cr>", { desc = "ignorecase" })
 vim.keymap.set("n", "<leader>ts", require("helpers").toggle_scrolloff, { desc = "scrolloff" })
 vim.keymap.set("n", "<leader>to", "<cmd>ZenMode<cr>", { desc = "ZenMode" })
 -- EXPORT
 vim.keymap.set("n", "<leader>tp", "<CMD>InspectTree<CR>", { desc = "Inspect AST Tree" })
+vim.keymap.set("n", "<leader>tc", "<CMD>TSContextToggle<CR>", { desc = "Toggle Treesitter Context" })
 
 -- nmap("<leader>cC", "<cmd>cd %:p:h<cr>", "Change work dir")
 vim.keymap.set("n", "<leader>sc", require("telescope.builtin").commands, { desc = "Open Commands" })
@@ -157,17 +164,20 @@ end, { desc = "Rename Variable With TreeSitter" })
 vim.keymap.set("n", "<leader>li", "<CMD>LspInfo<CR>", { desc = "Lsp Info" })
 
 -- lsp related keybindings
+-- EXPORT
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function()
     vim.keymap.set({ "n", "v" }, "<leader>la", function()
       vim.lsp.buf.code_action()
     end, { buffer = 0, desc = "Code Action" })
+
     vim.keymap.set(
       "n",
       "<leader>ls",
       require("telescope.builtin").lsp_document_symbols,
       { desc = "Doc Symbols", buffer = 0 }
     )
+
     vim.keymap.set(
       "n",
       "<leader>lS",
@@ -175,25 +185,39 @@ vim.api.nvim_create_autocmd("LspAttach", {
       { desc = "Workspace Symbols" }
     )
     vim.keymap.set("n", "gh", vim.lsp.buf.hover, { desc = "Hover", buffer = 0 })
-    vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, { desc = "Goto Definition", buffer = 0 })
+
+    vim.keymap.set("n", "gd", function()
+      local ok, _ = pcall(require("telescope.builtin").lsp_definitions)
+      if not ok then
+        vim.lsp.buf.definition()
+      end
+    end, { desc = "Goto Definition", buffer = 0 })
+
     vim.keymap.set("n", "gD", function()
       vim.lsp.buf.definition()
       vim.cmd([[tabnew %]])
     end, { desc = "Goto Definition", buffer = 0 })
-    -- nmap("gD", vim.lsp.buf.declaration, { desc = "Declaration", buffer = 0 })
-    vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, { desc = "Goto References", buffer = 0 })
-    vim.keymap.set(
-      "n",
-      "gi",
-      require("telescope.builtin").lsp_implementations,
-      { desc = "Goto Implementation", buffer = 0 }
-    )
-    vim.keymap.set(
-      "n",
-      "gt",
-      require("telescope.builtin").lsp_type_definitions,
-      { desc = "Type Definition", buffer = 0 }
-    )
+
+    vim.keymap.set("n", "gr", function()
+      local ok, _ = pcall(require("telescope.builtin").lsp_references)
+      if not ok then
+        vim.lsp.buf.references()
+      end
+    end, { desc = "Goto References", buffer = 0 })
+
+    vim.keymap.set("n", "gi", function()
+      local ok, _ = pcall(require("telescope.builtin").lsp_implementations)
+      if not ok then
+        vim.lsp.buf.implementation()
+      end
+    end, { desc = "Goto Implementation", buffer = 0 })
+
+    vim.keymap.set("n", "gt", function()
+      local ok, _ = pcall(require("telescope.builtin").lsp_type_definitions)
+      if not ok then
+        vim.lsp.buf.type_definition()
+      end
+    end, { desc = "Type Definition", buffer = 0 })
 
     vim.keymap.set({ "i", "n" }, "<C-P>", vim.lsp.buf.signature_help, { desc = "Signature Documentation", buffer = 0 })
     vim.keymap.set("n", "Q", vim.lsp.buf.format, { desc = "Format Code", buffer = 0 })

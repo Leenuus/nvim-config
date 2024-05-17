@@ -105,7 +105,6 @@ vim.api.nvim_create_autocmd("FileType", {
     "lspinfo",
     "notify",
     "qf",
-    "query",
     "spectre_panel",
     "startuptime",
     "tsplayground",
@@ -142,9 +141,6 @@ vim.cmd([[Abolish possbile possible]])
 vim.cmd([[Abolish resouce{,s} resource{,s}]])
 vim.cmd([[Abolish waht what]])
 
--- filetype
-local gp = vim.api.nvim_create_augroup("filetype-detection", { clear = true })
-
 local extension = {
   todo = "markdown",
   sshconfig = "sshconfig",
@@ -166,7 +162,7 @@ vim.filetype.add({
 
 -- EXPORT
 vim.api.nvim_create_autocmd("BufEnter", {
-  group = gp,
+  group = vim.api.nvim_create_augroup("filetype-detection", { clear = true }),
   pattern = {
     "bash-fc*",
   },
