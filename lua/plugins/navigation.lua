@@ -60,6 +60,7 @@ return {
       -- your configuration comes here
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
+      auto_close = true,
       position = "left",                    -- position of the list can be: bottom, top, left, right
       mode = "workspace_diagnostics",       -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
       action_keys = {                       -- key mappings for actions in the trouble list

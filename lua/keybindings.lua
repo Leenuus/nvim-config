@@ -17,7 +17,6 @@ nmap("gf", "<Nop>")
 nmap("gq", "<Nop>")
 nmap("dj", "<Nop>")
 nmap("dk", "<Nop>")
-
 nmap("Q", "<Nop>")
 
 -- resize window
@@ -89,9 +88,9 @@ require("which-key").register({
 -- toggle options
 tmap("h", "<cmd>set invhlsearch<cr>", "highlight")
 tmap("t", "<cmd>TransparentToggle<cr>", "transparent")
-tmap("i", "<cmd>set invignorecase<cr>", "ignorecase")
+tmap("c", "<cmd>set invignorecase<cr>", "ignorecase")
 tmap("s", helpers.toggle_scrolloff, "scrolloff")
-tmap("o", "<cmd>ZenMode<cr>", "zenMode")
+tmap("o", "<cmd>ZenMode<cr>", "ZenMode")
 tmap("p", "<CMD>InspectTree<CR>", "Inspect AST Tree")
 
 -- nmap("<leader>cC", "<cmd>cd %:p:h<cr>", "Change work dir")
@@ -166,14 +165,22 @@ nmap("<C-r>", "<C-^>", "quick back to preivous file")
 
 nmap("[b", "<cmd>bprevious<cr>", "previous buffer")
 nmap("]b", "<cmd>bnext<cr>", "next buffer")
-nmap("[q", "<cmd>cprev<cr>", "previous quickfix")
-nmap("]q", "<cmd>cnext<cr>", "next quickfix")
 nmap("[t", "<cmd>tabprevious<cr>", "previous tab")
 nmap("]t", "<cmd>tabnext<cr>", "next tab")
 
 lmap("at", "<cmd>tabnew %<cr>", "new tab")
 lmap("al", "<cmd>vnew %<cr>", "new vertical split")
 lmap("aj", "<cmd>new %<cr>", "new split")
+
+nmap("]q", function()
+  require("trouble").open()
+  require("trouble").next({ skip_groups = true, jump = true })
+end, "previous trouble")
+
+nmap("[q", function()
+  require("trouble").open()
+  require("trouble").previous({ skip_groups = true, jump = true })
+end, "next trouble")
 
 -- NOTE: quick paste
 lmap("p", "v$hP", "quick paste to the end")
