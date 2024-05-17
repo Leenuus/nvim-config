@@ -18,6 +18,7 @@ nmap("gq", "<Nop>")
 nmap("dj", "<Nop>")
 nmap("dk", "<Nop>")
 
+nmap("Q", "<Nop>")
 
 -- resize window
 nmap("<up>", "<cmd>resize +3<cr>")
@@ -66,18 +67,7 @@ vmap("<", "<gv")
 vmap(">", ">gv")
 
 -- quit
-nmap("<leader>q", function()
-  local name = vim.api.nvim_buf_get_name(0)
-  if name == "" then
-    -- @diagnostic disable-next-line: assign-type-mismatch
-    local ok, _ = pcall(vim.cmd, "close")
-    if not ok then
-      vim.cmd("x")
-    end
-  else
-    vim.cmd("x")
-  end
-end)
+nmap("<leader>q", "<cmd>x<cr>")
 nmap("<leader>Q", "<cmd>q!<cr>")
 
 -- redo
@@ -119,18 +109,7 @@ else
   lmap(";", "<cmd>tabprevious<cr>", "prev tab")
 end
 
--- for debugging lua codes
-nmap("<leader>w", function()
-  if DEBUG then
-    if vim.bo.filetype == "lua" then
-      return "<cmd>w<cr><cmd>source %<cr>"
-    else
-      return "<cmd>w<cr>"
-    end
-  else
-    return "<cmd>w<cr>"
-  end
-end, { expr = true })
+nmap("<leader>w", "<CMD>w<cr>")
 
 -- terminal mode
 map_terminal("<esc>", [[<C-\><C-n>]], "normal mode")
@@ -148,8 +127,7 @@ end, { desc = "Rename variable with Treesitter" })
 lmap("lr", function()
   require("nvim-treesitter-refactor.smart_rename").smart_rename(0)
 end, "Rename Variable With TreeSitter")
-nmap("Q", "gq", "Format Code")
-vmap("Q", "gq", "Format Code")
+lmap("li", "<CMD>LspInfo<CR>")
 
 -- lsp related keybindings
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -184,7 +162,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 nmap("<C-t>", "<C-^>", "quick back to preivous file")
 nmap("<C-r>", "<C-^>", "quick back to preivous file")
 
-nmap("[b", "<cmd>bp<cr>", "previous buffer")
+nmap("[b", "<cmd>bprevious<cr>", "previous buffer")
 nmap("]b", "<cmd>bnext<cr>", "next buffer")
 nmap("[q", "<cmd>cprev<cr>", "previous quickfix")
 nmap("]q", "<cmd>cnext<cr>", "next quickfix")
@@ -194,3 +172,6 @@ nmap("]t", "<cmd>tabnext<cr>", "next tab")
 lmap("at", "<cmd>tabnew %<cr>", "new tab")
 lmap("al", "<cmd>vnew %<cr>", "new vertical split")
 lmap("aj", "<cmd>new %<cr>", "new split")
+
+-- NOTE: quick paste
+lmap("p", "v$hP", "quick paste to the end")
