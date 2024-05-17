@@ -18,11 +18,6 @@ nmap("gq", "<Nop>")
 nmap("dj", "<Nop>")
 nmap("dk", "<Nop>")
 
--- jump around windows
-map({ "n", "t" }, "<C-h>", "<cmd>wincmd h<cr>")
-map({ "n", "t" }, "<C-j>", "<cmd>wincmd j<cr>")
-map({ "n", "t" }, "<C-k>", "<cmd>wincmd k<cr>")
-map({ "n", "t" }, "<C-l>", "<cmd>wincmd l<cr>")
 
 -- resize window
 nmap("<up>", "<cmd>resize +3<cr>")

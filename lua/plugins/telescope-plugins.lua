@@ -26,7 +26,7 @@ return {
             i = {
               ["<C-P>"] = actions.select_vertical,
               ["<C-S>"] = actions.select_horizontal,
-              ["<C-l>"] = actions.select_tab,
+              ["<C-t>"] = actions.select_tab,
               ["<C-J>"] = actions.preview_scrolling_down,
               ["<C-K>"] = actions.preview_scrolling_up,
               ["<Left>"] = actions.cycle_history_prev,
