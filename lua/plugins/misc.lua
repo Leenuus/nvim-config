@@ -18,9 +18,6 @@ return {
     lazy = true,
     opts = {},
   },
-
-  -- "gc" to comment visual regions/lines
-  { "numToStr/Comment.nvim", event = "VeryLazy", opts = {} },
   {
     "keaising/im-select.nvim",
     config = function()

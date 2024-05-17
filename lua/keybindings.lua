@@ -93,7 +93,7 @@ tmap("i", "<cmd>set invignorecase<cr>", "ignorecase")
 tmap("s", helpers.toggle_scrolloff, "scrolloff")
 tmap("o", "<cmd>ZenMode<cr>", "zenMode")
 tmap("g", "<cmd>LazyGit<CR>", "LazyGit")
-tmap("p", "<CMD>TSPlaygroundToggle<CR>", "TreeSitter Playground")
+tmap("p", "<CMD>InspectTree<CR>", "Inspect AST Tree")
 
 -- nmap("<leader>cC", "<cmd>cd %:p:h<cr>", "Change work dir")
 nmap("<leader>sc", require("telescope.builtin").commands, "Commands")
