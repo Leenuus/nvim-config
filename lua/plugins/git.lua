@@ -1,20 +1,5 @@
 return {
   {
-    -- "kdheepak/lazygit.nvim",
-    enabled = false,
-    dir = "~/Projects/Neovims/lazygit.nvim",
-    cmd = {
-      "LazyGit",
-      "LazyGitConfig",
-      "LazyGitCurrentFile",
-      "LazyGitFilter",
-      "LazyGitFilterCurrentFile",
-    },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-  },
-  {
     "lewis6991/gitsigns.nvim",
     enabled = true,
     config = function()
