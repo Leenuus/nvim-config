@@ -1,16 +1,15 @@
 ## WIP
 
-- More Telescope integration
-- More Snippets
 - More Treesitter
+
 
 ## TODO
 
-- `nullls` custom source, `typos` is a good example to parse
-- `noice` routes deep dive
 - a keybindings making use of treesitter to copy current statement, multi-line aware
-- a live_grep telescope implementation, which can work with my file search mode, more flexible than the buildtin one
 - a keybinding to jump to the corresponding snippets file
+- quickfix list integration, more to see in `vim.fn.setqflist()`, see telescope implementation using this function in `action/init.lua`
+- a treesitter program to remove trailing spaces, without compromising string literal
+- More to read in `:help function-list`
 
 ## NOTES
 
