@@ -110,14 +110,14 @@ require("lazy").setup("plugins", {
       paths = {},
       ---@type string[] list any plugins you want to disable here
       disabled_plugins = {
-        -- "gzip",
+        "gzip",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
         -- "matchit",
         -- "matchparen",
         -- "netrwPlugin",
-        -- "tarPlugin",
-        -- "tohtml",
-        -- "tutor",
-        -- "zipPlugin",
       },
     },
   },
@@ -146,5 +146,6 @@ require("autocmd")
 require("lsp")
 require("options")
 require("filetypesplugins")
+
 
 -- vim: ts=2 sts=2 sw=2 et

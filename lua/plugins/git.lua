@@ -1,6 +1,7 @@
 return {
   {
     -- "kdheepak/lazygit.nvim",
+    enabled = false,
     dir = "~/Projects/Neovims/lazygit.nvim",
     cmd = {
       "LazyGit",
@@ -15,7 +16,7 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
-    enabled = false,
+    enabled = true,
     config = function()
       require("gitsigns").setup({
         signs = {

@@ -104,8 +104,9 @@ vim.cmd([[Abolish amp map]])
 vim.cmd([[Abolish edn end]])
 vim.cmd([[Abolish retunr return]])
 vim.cmd([[Abolish retrun return]])
-vim.cmd([[Abolish possible possible]])
+vim.cmd([[Abolish possbile possible]])
 vim.cmd([[Abolish resouce{,s} resource{,s}]])
+vim.cmd([[Abolish waht what]])
 
 -- filetype
 local gp = augroup("filetype-detection")

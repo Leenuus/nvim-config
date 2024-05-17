@@ -14,7 +14,6 @@ local servers = {
   "jsonls",
   "bashls",
   "yamlls",
-  "jedi_language_server",
   "pylsp",
   "gopls",
 }

@@ -1,8 +1,8 @@
 local helpers = require("helpers")
 helpers.toggle_scrolloff()
 vim.o.jumpoptions = "stack"
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
 vim.o.relativenumber = true
 vim.wo.number = true
 vim.o.mouse = "a"
