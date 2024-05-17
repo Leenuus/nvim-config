@@ -12,15 +12,6 @@ vim.wo.signcolumn = "yes"
 vim.o.completeopt = "menuone,noselect"
 vim.o.hlsearch = true
 vim.o.termguicolors = true
--- NOTE:
--- help formatoptions
--- without `o`: no auto comment signs insertion using `n_o` or `n_O`
--- r: auto add comment signs when inserting
--- j: auto join comment lines
--- l: no autowrap
-vim.defer_fn(function()
-  vim.o.formatoptions = 'jcrql'
-end, 0 )
 
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.o.ignorecase = true

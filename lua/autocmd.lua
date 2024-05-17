@@ -11,6 +11,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
     let &t_SI = "\e[5 q"
     let &t_EI = "\e[2 q"
     ]])
+    vim.o.formatoptions = 'jcrql'
   end,
   group = cursor_setting,
 })
