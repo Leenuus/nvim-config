@@ -1,5 +1,4 @@
-local augroup = require("helpers").augroup
-local cursor_setting = augroup("cursor_setting")
+local cursor_setting = vim.api.nvim_create_augroup("cursor_setting", { clear = true })
 
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
   pattern = "*",
@@ -24,10 +23,8 @@ vim.api.nvim_create_autocmd({ "VimLeave" }, {
   group = cursor_setting,
 })
 
--- NOTE: check whether a reload is needed
--- steal from lazyvim
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
-  group = augroup("checktime"),
+  group = vim.api.nvim_create_augroup("checktime", { clear = true }),
   callback = function()
     if vim.o.buftype ~= "nofile" then
       vim.cmd("checktime")
@@ -71,7 +68,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = augroup("SpellCheck"),
+  group = vim.api.nvim_create_augroup("SpellCheck", { clear = true }),
   pattern = { "gitcommit" },
   callback = function()
     vim.wo.spell = true
@@ -86,7 +83,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
   callback = function()
     vim.cmd("clearjumps")
   end,
-  group = augroup("jumps"),
+  group = vim.api.nvim_create_augroup("jumps", { clear = true }),
 })
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -137,7 +134,7 @@ vim.cmd([[Abolish resouce{,s} resource{,s}]])
 vim.cmd([[Abolish waht what]])
 
 -- filetype
-local gp = augroup("filetype-detection")
+local gp = vim.api.nvim_create_augroup("filetype-detection", { clear = true })
 
 local extension = {
   todo = "markdown",

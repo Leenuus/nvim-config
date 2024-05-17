@@ -1,5 +1,4 @@
 local logger = require("plenary.log").new({ level = "info", plugin = "telescope-config" })
-local nmap = require("helpers").map_normal
 
 local function smap(lhs, rhs, opts)
   if type(opts) == "string" then
@@ -14,13 +13,13 @@ end
 
 local find_git_root = require("helpers").find_git_root
 
-smap("l", require("telescope.builtin").resume, "Resume telescope")
-smap("h", require("telescope.builtin").help_tags, "Find Helps")
-smap("M", function()
+vim.keymap.set("n", "<leader>sl", require("telescope.builtin").resume, { desc = "Resume telescope" })
+vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "Find Helps" })
+vim.keymap.set("n", "<leader>sM", function()
   require("telescope.builtin").man_pages({ sections = { "ALL" } })
-end, "Find man pages")
-smap("s", require("telescope.builtin").builtin, "Show telescopes")
-smap("k", "<cmd>Telescope keymaps<cr>", "Show Keymaps")
+end, { desc = "Find man pages" })
+vim.keymap.set("n", "<leader>ss", require("telescope.builtin").builtin, { desc = "Show telescopes" })
+vim.keymap.set("n", "<leader>sk", "<cmd>Telescope keymaps<cr>", { desc = "Show Keymaps" })
 
 local DEFAULT_FIND_FILES_MODE = "(gitroot)"
 local find_files_mode = DEFAULT_FIND_FILES_MODE
@@ -43,6 +42,8 @@ local base_find_command = {
   "f",
 }
 
+local find_all_command = vim.list_extend(vim.deepcopy(base_find_command), { "-H", "-I" })
+
 local find_files_options = {
   [DEFAULT_FIND_FILES_MODE] = {
     cwd = find_git_root,
@@ -50,23 +51,35 @@ local find_files_options = {
   },
   ["(gitroot)hidden, ignore"] = {
     cwd = find_git_root,
-    find_command = vim.list_extend(vim.deepcopy(base_find_command), { "-H", "-I" }),
+    find_command = find_all_command,
   },
-  ["(cwd)hidden, ignore"] = {
-    cwd = function()
-      return vim.fn.expand("%:h")
-    end,
-    find_command = vim.list_extend(vim.deepcopy(base_find_command), { "-H", "-I" }),
-  },
-  ["(cwd)"] = {
+  ["(current file)"] = {
     cwd = function()
       return vim.fn.expand("%:h")
     end,
     find_command = base_find_command,
   },
+  ["(current file)hidden, ignore"] = {
+    cwd = function()
+      return vim.fn.expand("%:h")
+    end,
+    find_command = find_all_command,
+  },
+  ["(workdir)"] = {
+    cwd = function()
+      return vim.fn.getcwd()
+    end,
+    find_command = base_find_command,
+  },
+  ["(workdir)hidden, ignore"] = {
+    cwd = function()
+      return vim.fn.getcwd()
+    end,
+    find_command = find_all_command,
+  },
 }
 
-smap("F", function()
+vim.keymap.set("n", "<leader>sF", function()
   vim.ui.select(vim.tbl_keys(find_files_options), {
     prompt = "Select File Searching mode",
     -- how to display item to user
@@ -79,7 +92,7 @@ smap("F", function()
       find_files_mode = choice
     end
   end)
-end, "Change File Searching Mode")
+end, { desc = "Change File Searching Mode" })
 
 local no_search_dirs = {
   vim.env["HOME"],
@@ -103,7 +116,7 @@ local function find_files()
   end
 end
 vim.api.nvim_create_user_command("FindFiles", find_files, {})
-nmap("<leader><space>", find_files)
+vim.keymap.set("n", "<leader><space>", find_files)
 
 -- live grep
 local function live_grep_file_dir()
@@ -120,33 +133,23 @@ local function live_grep_git_root()
   })
 end
 
-smap("g", live_grep_git_root, "Grep Git root")
-smap("G", live_grep_file_dir, "Grep current File dir")
+vim.keymap.set("n", "<leader>sg", live_grep_git_root, { desc = "Grep Git root" })
+vim.keymap.set("n", "<leader>sG", live_grep_file_dir, { desc = "Grep current File dir" })
 
-smap("/", function()
+vim.keymap.set("n", "<leader>s/", function()
   require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
     winblend = 10,
     previewer = false,
   }))
-end, "Search Current buffer")
+end, { desc = "Search Current buffer" })
 
-smap("C", function()
+vim.keymap.set("n", "<leader>sC", function()
   vim.cmd("Telescope neoclip")
-end, "Search Clipboard")
+end, { desc = "Search Clipboard" })
 
-smap("t", "<cmd>Telescope colorscheme<cr>", "search colorscheme")
+vim.keymap.set("n", "<leader>st", "<cmd>Telescope colorscheme<cr>", { desc = "search colorscheme" })
 
--- edit config
--- smap("C", function()
---   local configpath = vim.fn.stdpath("config")
---   require("telescope.builtin").find_files({
---     cwd = configpath,
---     hidden = false,
---     no_ignore = true,
---   })
--- end, "search config")
-
-smap("m", function()
+vim.keymap.set("n", "<leader>sm", function()
   if package.loaded["noice"] ~= nil then
     return "<cmd>Telescope noice<cr>"
   else
@@ -161,20 +164,18 @@ local common_files = {
   "README.md",
 }
 
-smap("f", function()
+vim.keymap.set("n", "<leader>sf", function()
   vim.ui.select(common_files, {
     prompt = "Open common Used Files",
     format_item = function(item)
       return item
     end,
   }, function(choice)
-    -- logger.info("choice: ", choice)
     if choice then
-      -- TODO: find that file in workdir root
       vim.cmd("e " .. choice)
     end
   end)
 end)
 
-smap("j", require("telescope.builtin").jumplist, "Jump list")
-smap("H", require("telescope.builtin").command_history, "Command History")
+vim.keymap.set("n", "<leader>sj", require("telescope.builtin").jumplist, { desc = "Jump list" })
+vim.keymap.set("n", "<leader>sH", require("telescope.builtin").command_history, { desc = "Command History" })

@@ -1,82 +1,69 @@
-local helpers = require("helpers")
-local imap = helpers.map_insert
-local nmap = helpers.map_normal
-local tmap = helpers.map_toggle
-local vmap = helpers.map_visual
-local omap = helpers.map_operator
-local cmap = helpers.map_command
-local lmap = helpers.map_leader
-local map_terminal = helpers.map_terminal
-
-local map = helpers.map
-
 -- disable keymaps
-map({ "n", "v" }, "<Space>", "<Nop>")
-map({ "n", "v" }, "<BS>", "<Nop>")
-nmap("gf", "<Nop>")
-nmap("gq", "<Nop>")
-nmap("dj", "<Nop>")
-nmap("dk", "<Nop>")
-nmap("Q", "<Nop>")
+vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>")
+vim.keymap.set({ "n", "v" }, "<BS>", "<Nop>")
+vim.keymap.set("n", "gf", "<Nop>")
+vim.keymap.set("n", "gq", "<Nop>")
+vim.keymap.set("n", "dj", "<Nop>")
+vim.keymap.set("n", "dk", "<Nop>")
+vim.keymap.set("n", "Q", "<Nop>")
 
 -- resize window
-nmap("<up>", "<cmd>resize +3<cr>")
-nmap("<down>", "<cmd>resize -3<cr>")
-nmap("<left>", "<cmd>vertical resize -3<cr>")
-nmap("<right>", "<cmd>vertical resize +3<cr>")
+vim.keymap.set("n", "<up>", "<cmd>resize +3<cr>")
+vim.keymap.set("n", "<down>", "<cmd>resize -3<cr>")
+vim.keymap.set("n", "<left>", "<cmd>vertical resize -3<cr>")
+vim.keymap.set("n", "<right>", "<cmd>vertical resize +3<cr>")
 
 -- @diagnostic disable-next-line: undefined-field
 if vim.g.neovide then
   -- control + backspace
-  imap("<C-BS>", "<c-w>")
-  cmap("<C-BS>", "<C-w>")
+  vim.keymap.set("i", "<C-BS>", "<c-w>")
+  vim.keymap.set("c", "<C-BS>", "<C-w>")
 else
-  imap("<C-h>", "<c-w>")
-  cmap("<C-h>", "<C-w>")
+  vim.keymap.set("i", "<C-h>", "<c-w>")
+  vim.keymap.set("c", "<C-h>", "<C-w>")
 end
 
 -- cmdline mode
-cmap("<C-j>", 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = true })
-cmap("<C-k>", 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true })
+vim.keymap.set("c", "<C-j>", 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = true })
+vim.keymap.set("c", "<C-k>", 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true })
 
 -- insertion
-imap("<c-u>", "<esc>viwUea")
+vim.keymap.set("i", "<c-u>", "<esc>viwUea")
 -- navigation
-nmap("<esc>", "<cmd>noh<cr><esc>zz")
-imap("<esc>", "<esc>zz")
-map({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
-map({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
-nmap("n", "<cmd>keepjumps normal! nzz<cr>")
-nmap("N", "<cmd>keepjumps normal! Nzz<cr>")
-nmap("*", "<cmd>keepjumps normal! *zz<cr>")
-nmap("#", "<cmd>keepjumps normal! #zz<cr>")
-nmap("g*", "<cmd>keepjumps normal! g*zz<cr>")
-nmap("g#", "<cmd>keepjumps normal! g#zz<cr>")
-map("x", "p", [["_dP]])
+vim.keymap.set("n", "<esc>", "<cmd>noh<cr><esc>zz")
+vim.keymap.set("n", "<esc>", "<esc>zz")
+vim.keymap.set({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
+vim.keymap.set({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
+vim.keymap.set("n", "n", "<cmd>keepjumps normal! nzz<cr>")
+vim.keymap.set("n", "N", "<cmd>keepjumps normal! Nzz<cr>")
+vim.keymap.set("n", "*", "<cmd>keepjumps normal! *zz<cr>")
+vim.keymap.set("n", "#", "<cmd>keepjumps normal! #zz<cr>")
+vim.keymap.set("n", "g*", "<cmd>keepjumps normal! g*zz<cr>")
+vim.keymap.set("n", "g#", "<cmd>keepjumps normal! g#zz<cr>")
+vim.keymap.set("x", "p", [["_dP]])
+vim.keymap.set({ "n", "v", "o" }, "H", "_")
 
-map({ "n", "v", "o" }, "H", "_")
+vim.keymap.set({ "n", "o" }, "L", "$")
+vim.keymap.set("v", "L", "$h")
 
-map({ "n", "o" }, "L", "$")
-vmap("L", "$h")
+vim.keymap.set({ "n", "v" }, "J", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gjzz"<cr>')
+vim.keymap.set({ "n", "v" }, "K", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gkzz"<cr>')
 
-map({ "n", "v" }, "J", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gjzz"<cr>')
-map({ "n", "v" }, "K", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gkzz"<cr>')
-
-vmap("<", "<gv")
-vmap(">", ">gv")
+vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("v", ">", ">gv")
 
 -- quit
-nmap("<leader>q", "<cmd>x<cr>")
-nmap("<leader>Q", "<cmd>q!<cr>")
+vim.keymap.set("n", "<leader>q", "<cmd>x<cr>")
+vim.keymap.set("n", "<leader>Q", "<cmd>q!<cr>")
 
 -- redo
-nmap("U", "<cmd>redo<cr>")
+vim.keymap.set("n", "U", "<cmd>redo<cr>")
 
 -- operators
-omap("q", 'i"', "q double quote")
-omap("Q", 'a"', "q double quote")
-omap("<HOME>", "i'", "single quote")
-omap("<END>", "a'", "single quote")
+vim.keymap.set("o", "q", 'i"', { desc = "q double quote" })
+vim.keymap.set("o", "Q", 'a"', { desc = "q double quote" })
+vim.keymap.set("o", "<HOME>", "i'", { desc = "single quote" })
+vim.keymap.set("o", "<END>", "a'", { desc = "single quote" })
 
 -- document existing key chains
 require("which-key").register({
@@ -86,72 +73,87 @@ require("which-key").register({
 })
 
 -- toggle options
-tmap("h", "<cmd>set invhlsearch<cr>", "highlight")
-tmap("t", "<cmd>TransparentToggle<cr>", "transparent")
-tmap("c", "<cmd>set invignorecase<cr>", "ignorecase")
-tmap("s", helpers.toggle_scrolloff, "scrolloff")
-tmap("o", "<cmd>ZenMode<cr>", "ZenMode")
-tmap("p", "<CMD>InspectTree<CR>", "Inspect AST Tree")
+vim.keymap.set("n", "<leader>th", "<cmd>set invhlsearch<cr>", { desc = "highlight" })
+vim.keymap.set("n", "<leader>tt", "<cmd>TransparentToggle<cr>", { desc = "transparent" })
+vim.keymap.set("n", "<leader>tc", "<cmd>set invignorecase<cr>", { desc = "ignorecase" })
+vim.keymap.set("n", "<leader>ts", require("helpers").toggle_scrolloff, { desc = "scrolloff" })
+vim.keymap.set("n", "<leader>to", "<cmd>ZenMode<cr>", { desc = "ZenMode" })
+vim.keymap.set("n", "<leader>tp", "<CMD>InspectTree<CR>", { desc = "Inspect AST Tree" })
 
 -- nmap("<leader>cC", "<cmd>cd %:p:h<cr>", "Change work dir")
-nmap("<leader>sc", require("telescope.builtin").commands, "Commands")
-nmap("<leader>sJ", function()
+vim.keymap.set("n", "<leader>sc", require("telescope.builtin").commands, { desc = "Open Commands" })
+vim.keymap.set("n", "<leader>sJ", function()
   require("trouble").toggle()
-end, "Commands")
+end, { desc = "Open Trouble" })
 
 -- previous/next
 if vim.g.neovide then
-  nmap("<A-e>", "<cmd>tabNext<cr>", "next tab")
-  nmap("<A-w>", "<cmd>tabclose<cr>", "close tab")
-  nmap("<A-q>", "<cmd>tabprevious<cr>", "prev tab")
-  nmap("<A-t>", "<cmd>tabnew<cr>", "new tab")
+  vim.keymap.set("n", "<A-e>", "<cmd>tabNext<cr>", { desc = "next tab" })
+  vim.keymap.set("n", "<A-w>", "<cmd>tabclose<cr>", { desc = "close tab" })
+  vim.keymap.set("n", "<A-q>", "<cmd>tabprevious<cr>", { desc = "prev tab" })
+  vim.keymap.set("n", "<A-t>", "<cmd>tabnew<cr>", { desc = "new tab" })
 else
-  lmap("'", "<cmd>tabNext<cr>", "next tab")
-  lmap(";", "<cmd>tabprevious<cr>", "prev tab")
+  vim.keymap.set("n", "<leader>'", "<cmd>tabNext<cr>", { desc = "next tab" })
+  vim.keymap.set("n", "<leader>;", "<cmd>tabprevious<cr>", { desc = "prev tab" })
 end
 
-nmap("<leader>w", "<CMD>w<cr>")
+vim.keymap.set("n", "<leader>w", "<CMD>w<cr>")
 
 -- terminal mode
-map_terminal("<esc>", [[<C-\><C-n>]], "normal mode")
-map_terminal("<leader>q", "<cmd>close<cr>", "quit")
+vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], { desc = "normal mode" })
+vim.keymap.set("t", "<leader>q", "<cmd>close<cr>", { desc = "quit" })
 
 -- resession
 local resession = require("resession")
-lmap("Ss", resession.save_session, "Save Current Session")
-lmap("sp", resession.restore_session, "Restore Session")
+vim.keymap.set("n", "<leader>Ss", resession.save_session, { desc = "Save Current Session" })
+vim.keymap.set("n", "<leader>sp", resession.restore_session, { desc = "Restore Session" })
 
 -- lsp related keybindings
 vim.api.nvim_create_user_command("TSRename", function()
   require("nvim-treesitter-refactor.smart_rename").smart_rename(0)
 end, { desc = "Rename variable with Treesitter" })
-lmap("lr", function()
+vim.keymap.set("n", "<leader>lr", function()
   require("nvim-treesitter-refactor.smart_rename").smart_rename(0)
-end, "Rename Variable With TreeSitter")
-lmap("li", "<CMD>LspInfo<CR>")
+end, { desc = "Rename Variable With TreeSitter" })
+vim.keymap.set("n", "<leader>li", "<CMD>LspInfo<CR>", { desc = "Lsp Info" })
 
 -- lsp related keybindings
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function()
-    map({ "n", "v" }, "<leader>la", function()
+    vim.keymap.set({ "n", "v" }, "<leader>la", function()
       vim.lsp.buf.code_action()
     end, { buffer = 0, desc = "Code Action" })
-    lmap("ls", require("telescope.builtin").lsp_document_symbols, { desc = "Doc Symbols", buffer = 0 })
-    lmap("lS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
-    nmap("gh", vim.lsp.buf.hover, { desc = "Hover", buffer = 0 })
-    nmap("gd", require("telescope.builtin").lsp_definitions, { desc = "Goto Definition", buffer = 0 })
-    nmap("gD", function()
+    vim.keymap.set("n", "<leader>ls", require("telescope.builtin").lsp_document_symbols, { desc = "Doc Symbols", buffer = 0 })
+    vim.keymap.set(
+      "n",
+      "<leader>lS",
+      require("telescope.builtin").lsp_dynamic_workspace_symbols,
+      { desc = "Workspace Symbols" }
+    )
+    vim.keymap.set("n", "gh", vim.lsp.buf.hover, { desc = "Hover", buffer = 0 })
+    vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions, { desc = "Goto Definition", buffer = 0 })
+    vim.keymap.set("n", "gD", function()
       vim.lsp.buf.definition()
       vim.cmd([[tabnew %]])
     end, { desc = "Goto Definition", buffer = 0 })
     -- nmap("gD", vim.lsp.buf.declaration, { desc = "Declaration", buffer = 0 })
-    nmap("gr", require("telescope.builtin").lsp_references, { desc = "Goto References", buffer = 0 })
-    nmap("gi", require("telescope.builtin").lsp_implementations, { desc = "Goto Implementation", buffer = 0 })
-    nmap("gt", require("telescope.builtin").lsp_type_definitions, { desc = "Type Definition", buffer = 0 })
+    vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, { desc = "Goto References", buffer = 0 })
+    vim.keymap.set(
+      "n",
+      "gi",
+      require("telescope.builtin").lsp_implementations,
+      { desc = "Goto Implementation", buffer = 0 }
+    )
+    vim.keymap.set(
+      "n",
+      "gt",
+      require("telescope.builtin").lsp_type_definitions,
+      { desc = "Type Definition", buffer = 0 }
+    )
 
-    map({ "i", "n" }, "<C-P>", vim.lsp.buf.signature_help, { desc = "Signature Documentation", buffer = 0 })
-    nmap("Q", vim.lsp.buf.format, { desc = "Format Code", buffer = 0 })
-    lmap("lr", vim.lsp.buf.rename, { desc = "Rename with Lsp", buffer = 0 })
+    vim.keymap.set({ "i", "n" }, "<C-P>", vim.lsp.buf.signature_help, { desc = "Signature Documentation", buffer = 0 })
+    vim.keymap.set("n", "Q", vim.lsp.buf.format, { desc = "Format Code", buffer = 0 })
+    vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = "Rename with Lsp", buffer = 0 })
   end,
 })
 
@@ -159,28 +161,29 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- nmap('gq', 'ysaw"', 'quote the word')
 
 -- NOTE: go back to previous buffer
--- the latter C-R is much easier to press than C-T, so map it
-nmap("<C-t>", "<C-^>", "quick back to preivous file")
-nmap("<C-r>", "<C-^>", "quick back to preivous file")
+-- the latter C-R is
+vim.keymap.set("n", "<BS>", "<C-^>", { desc = "quick back to preivous file" })
+vim.keymap.set("n", "<C-t>", "<C-^>", { desc = "quick back to preivous file" })
+vim.keymap.set("n", "<C-r>", "<C-^>", { desc = "quick back to preivous file" })
 
-nmap("[b", "<cmd>bprevious<cr>", "previous buffer")
-nmap("]b", "<cmd>bnext<cr>", "next buffer")
-nmap("[t", "<cmd>tabprevious<cr>", "previous tab")
-nmap("]t", "<cmd>tabnext<cr>", "next tab")
+vim.keymap.set("n", "[b", "<cmd>bprevious<cr>", { desc = "previous buffer" })
+vim.keymap.set("n", "]b", "<cmd>bnext<cr>", { desc = "next buffer" })
+vim.keymap.set("n", "[t", "<cmd>tabprevious<cr>", { desc = "previous tab" })
+vim.keymap.set("n", "]t", "<cmd>tabnext<cr>", { desc = "next tab" })
 
-lmap("at", "<cmd>tabnew %<cr>", "new tab")
-lmap("al", "<cmd>vnew %<cr>", "new vertical split")
-lmap("aj", "<cmd>new %<cr>", "new split")
+vim.keymap.set("n", "<leader>at", "<cmd>tabnew %<cr>", { desc = "new tab" })
+vim.keymap.set("n", "<leader>al", "<cmd>vnew %<cr>", { desc = "new vertical split" })
+vim.keymap.set("n", "<leader>aj", "<cmd>new %<cr>", { desc = "new split" })
 
-nmap("]q", function()
+vim.keymap.set("n", "]q", function()
   require("trouble").open()
   require("trouble").next({ skip_groups = true, jump = true })
-end, "previous trouble")
+end, { desc = "previous trouble" })
 
-nmap("[q", function()
+vim.keymap.set("n", "[q", function()
   require("trouble").open()
   require("trouble").previous({ skip_groups = true, jump = true })
-end, "next trouble")
+end, { desc = "next trouble" })
 
 -- NOTE: quick paste
-lmap("p", "v$hP", "quick paste to the end")
+vim.keymap.set("n", "<leader>p", "v$hP", { desc = "quick paste to the end" })

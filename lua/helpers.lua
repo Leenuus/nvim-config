@@ -19,89 +19,6 @@ function M.toggle_scrolloff()
   end
 end
 
-function M.map(modes, lhs, rhs, opts)
-  if type(opts) == "string" then
-    vim.keymap.set(modes, lhs, rhs, { desc = opts })
-  elseif type(opts) == "table" or type(opts) == "nil" then
-    vim.keymap.set(modes, lhs, rhs, opts)
-  else
-    if M.logger ~= nil then
-      M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
-    end
-  end
-end
-
-function M.map_insert(lhs, rhs, opts)
-  if type(opts) == "string" then
-    vim.keymap.set("i", lhs, rhs, { desc = opts })
-  elseif type(opts) == "table" or type(opts) == "nil" then
-    vim.keymap.set("i", lhs, rhs, opts)
-  else
-    if M.logger ~= nil then
-      M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
-    end
-  end
-end
-
-function M.map_normal(lhs, rhs, opts)
-  if type(opts) == "string" then
-    vim.keymap.set("n", lhs, rhs, { desc = opts })
-  elseif type(opts) == "table" or type(opts) == "nil" then
-    vim.keymap.set("n", lhs, rhs, opts)
-  else
-    if M.logger ~= nil then
-      M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
-    end
-  end
-end
-
-function M.map_visual(lhs, rhs, opts)
-  if type(opts) == "string" then
-    vim.keymap.set("v", lhs, rhs, { desc = opts })
-  elseif type(opts) == "table" or type(opts) == "nil" then
-    vim.keymap.set("v", lhs, rhs, opts)
-  else
-    if M.logger ~= nil then
-      M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
-    end
-  end
-end
-
-function M.map_operator(lhs, rhs, opts)
-  if type(opts) == "string" then
-    vim.keymap.set("o", lhs, rhs, { desc = opts })
-  elseif type(opts) == "table" or type(opts) == "nil" then
-    vim.keymap.set("o", lhs, rhs, opts)
-  else
-    if M.logger ~= nil then
-      M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
-    end
-  end
-end
-
-function M.map_command(lhs, rhs, opts)
-  if type(opts) == "string" then
-    vim.keymap.set("c", lhs, rhs, opts)
-  elseif type(opts) == "table" or type(opts) == "nil" then
-    vim.keymap.set("c", lhs, rhs, opts)
-  else
-    if M.logger ~= nil then
-      M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
-    end
-  end
-end
-
--- toggle options
-function M.map_toggle(lhs, rhs, desc)
-  local d = "[T]oggle " .. desc
-  local l = "<leader>t" .. lhs
-  M.map_normal(l, rhs, { desc = d })
-end
-
-M.augroup = function(name)
-  return vim.api.nvim_create_augroup(name, { clear = true })
-end
-
 M.find_git_root = function()
   local current_dir = vim.fn.expand("%:p:h")
 
@@ -112,29 +29,5 @@ M.find_git_root = function()
   return git_root
 end
 
-function M.map_leader(lhs, rhs, opts)
-  lhs = "<leader>" .. lhs
-  if type(opts) == "string" then
-    vim.keymap.set("n", lhs, rhs, { desc = opts })
-  elseif type(opts) == "table" or type(opts) == "nil" then
-    vim.keymap.set("n", lhs, rhs, opts)
-  else
-    if M.logger ~= nil then
-      M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
-    end
-  end
-end
-
-function M.map_terminal(lhs, rhs, opts)
-  if type(opts) == "string" then
-    vim.keymap.set("t", lhs, rhs, { desc = opts })
-  elseif type(opts) == "table" or type(opts) == "nil" then
-    vim.keymap.set("t", lhs, rhs, opts)
-  else
-    if M.logger ~= nil then
-      M.logger.debug("Fail to set keymap, options: ", vim.inspect(opts))
-    end
-  end
-end
 
 return M

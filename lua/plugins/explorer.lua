@@ -1,6 +1,3 @@
-local tmap = require'helpers'.map_toggle
-
-
 return {
   {
     "stevearc/oil.nvim",
@@ -177,16 +174,16 @@ return {
         },
       })
       -- file explorer
-      tmap("e", function()
+      vim.keymap.set('n', "<leader>te", function()
         vim.o.splitright = false
         vim.cmd("vnew +Oil")
         vim.o.splitright = true
-      end, "Files")
+      end, { desc = "Files" })
 
-      tmap("E", function()
+      vim.keymap.set('n', "<leader>tE", function()
         local dir = require("helpers").find_git_root()
         require("oil").open(dir)
-      end, "Files(git root)")
+      end, { desc = "Files(git root)" })
     end,
   },
 }

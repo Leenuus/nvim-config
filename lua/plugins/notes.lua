@@ -1,5 +1,3 @@
-local nmap = require("helpers").map_normal
-
 local opts = {
   signs = true,      -- show icons in the signs column
   sign_priority = 8, -- sign priority
@@ -93,6 +91,6 @@ return {
   dependencies = { "nvim-lua/plenary.nvim" },
   config = function()
     require("todo-comments").setup(opts)
-    nmap("<leader>dL", cmd)
+    vim.keymap.set('n', "<leader>dL", cmd, { desc = 'Show TODO' })
   end,
 }
