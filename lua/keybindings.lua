@@ -97,6 +97,9 @@ tmap("p", "<CMD>TSPlaygroundToggle<CR>", "TreeSitter Playground")
 
 -- nmap("<leader>cC", "<cmd>cd %:p:h<cr>", "Change work dir")
 nmap("<leader>sc", require("telescope.builtin").commands, "Commands")
+nmap("<leader>sJ", function()
+  require("trouble").toggle()
+end, "Commands")
 
 -- previous/next
 if vim.g.neovide then
