@@ -90,9 +90,9 @@ vim.keymap.set("n", "U", "<cmd>redo<cr>", { desc = "redo" })
 -- EXPORT
 -- vim.keymap.set({ "o", "v" }, "Q", 'a"', { desc = "q double quote" })
 -- EXPORT
-vim.keymap.set({ "o", "v" }, "<HOME>", "i'", { desc = "single quote" })
+-- vim.keymap.set({ "o", "v" }, "<HOME>", "i'", { desc = "single quote" })
 -- EXPORT
-vim.keymap.set({ "o", "v" }, "<END>", "a'", { desc = "single quote" })
+-- vim.keymap.set({ "o", "v" }, "<END>", "a'", { desc = "single quote" })
 -- EXPORT
 vim.keymap.set({ "o", "v" }, "o", "i[", { desc = "o bracket" })
 -- EXPORT
