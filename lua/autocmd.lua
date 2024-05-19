@@ -12,7 +12,6 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
     let &t_SI = "\e[5 q"
     let &t_EI = "\e[2 q"
     ]])
-    vim.o.formatoptions = "jcrql"
   end,
   group = cursor_setting,
 })
@@ -79,6 +78,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = { "gitcommit" },
   callback = function()
     vim.wo.spell = true
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  group = vim.api.nvim_create_augroup("FormatOptions", { clear = true }),
+  pattern = { "*" },
+  callback = function()
+    vim.opt_local.fo:remove("o")
   end,
 })
 
