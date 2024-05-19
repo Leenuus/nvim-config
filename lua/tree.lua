@@ -3,6 +3,9 @@ local ensure_installed = {
   "cpp",
   "go",
   "rust",
+  "nasm",
+  "sql",
+  "zig",
   -- scripts
   "javascript",
   "typescript",
@@ -11,20 +14,38 @@ local ensure_installed = {
   "vimdoc",
   "vim",
   "bash",
+  "awk",
   "fish",
+  "jq",
+  -- lisp
+  -- injections
+  "luap",
+  "jsdoc",
+  "luadoc",
+  "regex",
+  "markdown_inline",
   -- data files
   "json",
+  "jsonc",
   "yaml",
+  "xml",
   -- web
   "html",
   "css",
-  -- markdown
+  -- markups
   "markdown",
-  "markdown_inline",
   -- docker
   "dockerfile",
   -- misc
+  "tmux",
   "gitignore",
+  "git_config",
+  "git_rebase",
+  "gitcommit",
+  "gitattributes",
+  "comment",
+  "diff",
+  "make",
 }
 
 vim.defer_fn(function()
