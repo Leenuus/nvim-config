@@ -162,6 +162,7 @@ vim.keymap.set("n", "<leader>lr", function()
 end, { desc = "Rename Variable With TreeSitter" })
 -- EXPORT
 vim.keymap.set("n", "<leader>li", "<CMD>LspInfo<CR>", { desc = "Lsp Info" })
+vim.keymap.set('n', 'gH' , vim.diagnostic.open_float, { desc = 'diagnostic in float' })
 
 -- lsp related keybindings
 -- EXPORT
@@ -260,3 +261,15 @@ end, { desc = "next trouble" })
 
 -- EXPORT
 vim.keymap.set("n", "<leader>p", "v$hP", { desc = "quick paste to the end" })
+
+-- better gx
+-- EXPORT
+vim.keymap.set("n", "gx", function()
+  local c = vim.fn.expand("<cfile>")
+  vim.notify(c)
+  if string.match(c, "^%.") or string.match(c, "^file:///") or string.match(c, "^/") then
+    vim.cmd["vnew"](c)
+  elseif string.match(c, "^https?://") then
+    vim.ui.open(c)
+  end
+end, { desc = "open things under cursor" })
