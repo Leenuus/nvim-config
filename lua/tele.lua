@@ -38,6 +38,8 @@ local base_find_command = {
   "*build*",
   "-E",
   "*target*",
+  "-E",
+  "*.pdf",
   "-t",
   "f",
 }

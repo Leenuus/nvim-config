@@ -1,5 +1,3 @@
--- TODO: a custom diagnostics source typos
---
 return {
   {
     "nvimtools/none-ls.nvim",
@@ -24,16 +22,17 @@ return {
         null_ls.builtins.formatting.fish_indent,
         null_ls.builtins.formatting.gofmt,
         null_ls.builtins.formatting.yamlfmt,
-        null_ls.builtins.formatting.cbfmt,
+        null_ls.builtins.formatting.codespell, -- spell
+        -- markdown
+        null_ls.builtins.formatting.cbfmt,     -- code block
         -- hover
         printenv,
         -- dia
+        null_ls.builtins.diagnostics.codespell,
         null_ls.builtins.diagnostics.fish,
         -- FIXME: not work for multiline literal string, fix it with treesitter
         -- TODO: a formatter for it
         null_ls.builtins.diagnostics.trail_space,
-        -- null_ls.builtins.diagnostics.commitlint,
-        -- null_ls.builtins.diagnostics.cppcheck,
       }
       null_ls.setup({
         sources = sources,
