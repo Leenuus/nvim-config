@@ -173,15 +173,28 @@ return {
           border = "rounded",
         },
       })
-      -- file explorer
-      vim.keymap.set('n', "<leader>te", function()
-        vim.o.splitright = false
-        vim.cmd("vnew +Oil")
-        vim.o.splitright = true
+
+      local width = math.floor(vim.api.nvim_win_get_width(0) / 10 * 2.5)
+      local height = math.floor(vim.api.nvim_win_get_height(0) / 10 * 2.5)
+      vim.keymap.set("n", "<leader>te", function()
+        local dir = vim.fn.expand("%:h")
+        vim.api.nvim_open_win(0, true, {
+          width = width,
+          height = height,
+          split = "left",
+          win = 0,
+        })
+        require("oil").open(dir)
       end, { desc = "Files" })
 
-      vim.keymap.set('n', "<leader>tE", function()
+      vim.keymap.set("n", "<leader>tE", function()
         local dir = require("helpers").find_git_root()
+        vim.api.nvim_open_win(0, true, {
+          width = width,
+          height = height,
+          split = "left",
+          win = 0,
+        })
         require("oil").open(dir)
       end, { desc = "Files(git root)" })
     end,
