@@ -147,7 +147,7 @@ vim.keymap.set("n", "<leader>w", "<CMD>w<cr>")
 -- EXPORT
 vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], { desc = "normal mode" })
 -- EXPORT
-vim.keymap.set("t", "<leader>q", "<cmd>close<cr>", { desc = "quit" })
+vim.keymap.set("t", "<leader>q", "<cmd>x<cr>", { desc = "quit" })
 
 -- resession
 local resession = require("resession")
@@ -246,9 +246,21 @@ vim.keymap.set("n", "<leader>jt", "<cmd>tabnext<cr>", { desc = "next tab" })
 -- EXPORT
 vim.keymap.set("n", "<leader>at", "<cmd>tabnew %<cr>", { desc = "new tab" })
 -- EXPORT
-vim.keymap.set("n", "<leader>al", "<cmd>vnew %<cr>", { desc = "new vertical split" })
+vim.keymap.set("n", "<leader>ah", function()
+  vim.api.nvim_open_win(0, false, { win = 0, split = "left" })
+end, { desc = "split left" })
 -- EXPORT
-vim.keymap.set("n", "<leader>aj", "<cmd>new %<cr>", { desc = "new split" })
+vim.keymap.set("n", "<leader>al", function()
+  vim.api.nvim_open_win(0, false, { win = 0, split = "right" })
+end, { desc = "split right" })
+-- EXPORT
+vim.keymap.set("n", "<leader>aj", function()
+  vim.api.nvim_open_win(0, false, { win = 0, split = "below" })
+end, { desc = "split below" })
+-- EXPORT
+vim.keymap.set("n", "<leader>ak", function()
+  vim.api.nvim_open_win(0, false, { win = 0, split = "above" })
+end, { desc = "split above" })
 
 vim.keymap.set("n", "<leader>jq", function()
   require("trouble").open()
@@ -267,12 +279,19 @@ vim.keymap.set("n", "<leader>p", "v$hP", { desc = "quick paste to the end" })
 -- EXPORT
 vim.keymap.set("n", "gx", function()
   local c = vim.fn.expand("<cfile>")
-  if string.match(c, "^%.") or string.match(c, "^file:///") or string.match(c, "^/") or string.match(c, "~") then
-    vim.cmd["vnew"](c)
+  if string.match(c, "^%.") or string.match(c, "^/") or string.match(c, "~") then
+    local res = vim.fn.system("file " .. c)
+    if res:match("ASCII text") then
+      vim.cmd["vnew"](c)
+    elseif res:match("directory") then
+      vim.notify(c .. " is a dir!")
+    else
+      vim.ui.open(c)
+    end
   elseif string.match(c, "^https?://") then
     vim.ui.open(c)
   else
-    vim.notify("Do nothing:" .. c)
+    vim.notify(c .. " :`gx` do nothing!")
   end
 end, { desc = "open things under cursor" })
 

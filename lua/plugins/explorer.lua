@@ -71,7 +71,7 @@ return {
           ["q"] = "actions.parent",
           ["<leader>q"] = {
             callback = function()
-              vim.cmd("close")
+              vim.cmd("x")
             end,
             mode = "n",
             desc = "close",
@@ -197,6 +197,18 @@ return {
         })
         require("oil").open(dir)
       end, { desc = "Files(git root)" })
+
+      vim.api.nvim_create_autocmd({
+        "BufEnter",
+      }, {
+        pattern = "*",
+        callback = function()
+          if vim.fn.winnr("$") == 1 and vim.fn.tabpagenr("$") == 1 and vim.bo.filetype == "oil" then
+            vim.cmd('set guicursor=a:ver90"')
+            vim.cmd("x")
+          end
+        end,
+      })
     end,
   },
 }
