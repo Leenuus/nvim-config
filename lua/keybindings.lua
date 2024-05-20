@@ -38,9 +38,11 @@ vim.keymap.set("c", "<C-j>", 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', { expr = tr
 vim.keymap.set("c", "<C-k>", 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', { expr = true })
 
 -- EXPORT
+vim.keymap.set("i", "<ESC>", "<esc>zz")
+-- EXPORT
 vim.keymap.set("i", "<c-u>", "<esc>viwUea")
 -- EXPORT
-vim.keymap.set("n", "<esc>", "<cmd>noh<cr><esc>zz")
+vim.keymap.set("n", "<ESC>", "<cmd>noh<cr><esc>zz")
 -- EXPORT
 vim.keymap.set({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 -- EXPORT
@@ -162,7 +164,7 @@ vim.keymap.set("n", "<leader>lr", function()
 end, { desc = "Rename Variable With TreeSitter" })
 -- EXPORT
 vim.keymap.set("n", "<leader>li", "<CMD>LspInfo<CR>", { desc = "Lsp Info" })
-vim.keymap.set('n', 'gH' , vim.diagnostic.open_float, { desc = 'diagnostic in float' })
+vim.keymap.set("n", "gH", vim.diagnostic.open_float, { desc = "diagnostic in float" })
 
 -- lsp related keybindings
 -- EXPORT
@@ -227,20 +229,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- EXPORT
-vim.keymap.set("n", "<BS>", "<C-^>", { desc = "quick back to preivous file" })
+vim.keymap.set("n", "<BS>", "<C-^>", { desc = "quick back to previous file" })
 -- EXPORT
-vim.keymap.set("n", "<C-t>", "<C-^>", { desc = "quick back to preivous file" })
+vim.keymap.set("n", "<C-t>", "<C-^>", { desc = "quick back to previous file" })
 -- EXPORT
-vim.keymap.set("n", "<C-r>", "<C-^>", { desc = "quick back to preivous file" })
+vim.keymap.set("n", "<C-r>", "<C-^>", { desc = "quick back to previous file" })
 
 -- EXPORT
-vim.keymap.set("n", "[b", "<cmd>bprevious<cr>", { desc = "previous buffer" })
+vim.keymap.set("n", "<leader>kb", "<cmd>bprevious<cr>", { desc = "previous buffer" })
 -- EXPORT
-vim.keymap.set("n", "]b", "<cmd>bnext<cr>", { desc = "next buffer" })
+vim.keymap.set("n", "<leader>jb", "<cmd>bnext<cr>", { desc = "next buffer" })
 -- EXPORT
-vim.keymap.set("n", "[t", "<cmd>tabprevious<cr>", { desc = "previous tab" })
+vim.keymap.set("n", "<leader>kt", "<cmd>tabprevious<cr>", { desc = "previous tab" })
 -- EXPORT
-vim.keymap.set("n", "]t", "<cmd>tabnext<cr>", { desc = "next tab" })
+vim.keymap.set("n", "<leader>jt", "<cmd>tabnext<cr>", { desc = "next tab" })
 
 -- EXPORT
 vim.keymap.set("n", "<leader>at", "<cmd>tabnew %<cr>", { desc = "new tab" })
@@ -249,12 +251,12 @@ vim.keymap.set("n", "<leader>al", "<cmd>vnew %<cr>", { desc = "new vertical spli
 -- EXPORT
 vim.keymap.set("n", "<leader>aj", "<cmd>new %<cr>", { desc = "new split" })
 
-vim.keymap.set("n", "]q", function()
+vim.keymap.set("n", "<leader>jq", function()
   require("trouble").open()
   require("trouble").next({ skip_groups = true, jump = true })
 end, { desc = "previous trouble" })
 
-vim.keymap.set("n", "[q", function()
+vim.keymap.set("n", "<leader>kq", function()
   require("trouble").open()
   require("trouble").previous({ skip_groups = true, jump = true })
 end, { desc = "next trouble" })
@@ -266,10 +268,14 @@ vim.keymap.set("n", "<leader>p", "v$hP", { desc = "quick paste to the end" })
 -- EXPORT
 vim.keymap.set("n", "gx", function()
   local c = vim.fn.expand("<cfile>")
-  vim.notify(c)
-  if string.match(c, "^%.") or string.match(c, "^file:///") or string.match(c, "^/") then
+  if string.match(c, "^%.") or string.match(c, "^file:///") or string.match(c, "^/") or string.match(c, "~") then
     vim.cmd["vnew"](c)
   elseif string.match(c, "^https?://") then
     vim.ui.open(c)
+  else
+    vim.notify("Do nothing:" .. c)
   end
 end, { desc = "open things under cursor" })
+
+-- EXPORT
+vim.keymap.set("n", "<C-F>", "<C-Q>", { desc = "egnostic vblock mode" })

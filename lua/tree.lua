@@ -79,38 +79,61 @@ vim.defer_fn(function()
       select = {
         enable = true,
         lookahead = true,
-
         keymaps = {
           ["aa"] = "@parameter.outer",
           ["ia"] = "@parameter.inner",
           ["af"] = "@function.outer",
           ["if"] = "@function.inner",
-          ["ac"] = "@class.outer",
-          ["ic"] = "@class.inner",
+          ["aC"] = "@class.outer",
+          ["iC"] = "@class.inner",
+          ["ac"] = "@conditional.outer",
+          ["ic"] = "@conditional.inner",
           ["ii"] = "@conditional.inner",
           ["ai"] = "@conditional.outer",
           ["q"] = { query = "@string.inner", desc = "outer part of string" },
           ["Q"] = { query = "@string.outer", desc = "inner part of string" },
+          ["ha"] = "@assignment.lhs",
+          ["la"] = "@assignment.rhs",
+          ["al"] = "@loop.outer",
+          ["il"] = "@loop.inner",
         },
       },
       move = {
         enable = true,
-        set_jumps = true,
+        set_jumps = false,
         goto_next_start = {
           ["<leader>jf"] = "@function.outer",
           ["<leader>jc"] = "@class.outer",
           ["<leader>jj"] = "@chunk",
+          ["<leader>ja"] = "@parameter.inner",
         },
-        goto_next_end = {},
+        goto_next_end = {
+          ["<leader>Jf"] = "@function.outer",
+          ["<leader>Jc"] = "@class.outer",
+          ["<leader>Jj"] = "@chunk",
+          ["<leader>Ja"] = "@parameter.inner",
+        },
         goto_previous_start = {
           ["<leader>kf"] = "@function.outer",
           ["<leader>kc"] = "@class.outer",
           ["<leader>kk"] = "@chunk",
+          ["<leader>ka"] = "@parameter.inner",
         },
-        goto_previous_end = {},
+        goto_previous_end = {
+          ["<leader>Kf"] = "@function.outer",
+          ["<leader>Kc"] = "@class.outer",
+          ["<leader>Kk"] = "@chunk",
+          ["<leader>Ka"] = "@parameter.inner",
+        },
       },
       swap = {
-        enable = false,
+        enable = true,
+        swap_next = {
+          ["<leader>Sj"] = "@parameter.inner",
+        },
+        swap_previous = {
+          ["<leader>Sk"] = "@parameter.inner",
+        },
       },
     },
     refactor = {
