@@ -118,12 +118,11 @@ vim.keymap.set("n", "<leader>tt", "<cmd>TransparentToggle<cr>", { desc = "transp
 -- EXPORT
 vim.keymap.set("n", "<leader>tC", "<cmd>set invignorecase<cr>", { desc = "ignorecase" })
 vim.keymap.set("n", "<leader>ts", require("helpers").toggle_scrolloff, { desc = "scrolloff" })
-vim.keymap.set("n", "<leader>to", "<cmd>ZenMode<cr>", { desc = "ZenMode" })
+vim.keymap.set("n", "<leader>to", "<cmd>AerialToggle! left<cr>", { desc = "Outline" })
 -- EXPORT
 vim.keymap.set("n", "<leader>tp", "<CMD>InspectTree<CR>", { desc = "Inspect AST Tree" })
 vim.keymap.set("n", "<leader>tc", "<CMD>TSContextToggle<CR>", { desc = "Toggle Treesitter Context" })
 
--- nmap("<leader>cC", "<cmd>cd %:p:h<cr>", "Change work dir")
 vim.keymap.set("n", "<leader>sc", require("telescope.builtin").commands, { desc = "Open Commands" })
 vim.keymap.set("n", "<leader>sJ", function()
   require("trouble").toggle()
