@@ -104,25 +104,21 @@ vim.defer_fn(function()
         goto_next_start = {
           ["<leader>jf"] = "@function.outer",
           ["<leader>jc"] = "@class.outer",
-          ["<leader>jj"] = "@chunk",
           ["<leader>ja"] = "@parameter.inner",
         },
         goto_next_end = {
           ["<leader>Jf"] = "@function.outer",
           ["<leader>Jc"] = "@class.outer",
-          ["<leader>Jj"] = "@chunk",
           ["<leader>Ja"] = "@parameter.inner",
         },
         goto_previous_start = {
           ["<leader>kf"] = "@function.outer",
           ["<leader>kc"] = "@class.outer",
-          ["<leader>kk"] = "@chunk",
           ["<leader>ka"] = "@parameter.inner",
         },
         goto_previous_end = {
           ["<leader>Kf"] = "@function.outer",
           ["<leader>Kc"] = "@class.outer",
-          ["<leader>Kk"] = "@chunk",
           ["<leader>Ka"] = "@parameter.inner",
         },
       },
