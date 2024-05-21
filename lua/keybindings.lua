@@ -96,13 +96,13 @@ vim.keymap.set("n", "U", "<cmd>redo<cr>", { desc = "redo" })
 -- EXPORT
 -- vim.keymap.set({ "o", "v" }, "<END>", "a'", { desc = "single quote" })
 -- EXPORT
-vim.keymap.set({ "o", "v" }, "o", "i[", { desc = "o bracket" })
+vim.keymap.set({ "o", "v" }, "o", "i{", { desc = "o bracket" })
 -- EXPORT
-vim.keymap.set({ "o", "v" }, "O", "a[", { desc = "o bracket" })
+vim.keymap.set({ "o", "v" }, "O", "a{", { desc = "o bracket" })
 -- EXPORT
-vim.keymap.set({ "o", "v" }, "[", "i{", { desc = "p brace" })
+vim.keymap.set({ "o", "v" }, "[", "i[", { desc = "p brace" })
 -- EXPORT
-vim.keymap.set({ "o", "v" }, "]", "a{", { desc = "p brace" })
+vim.keymap.set({ "o", "v" }, "]", "a[", { desc = "p brace" })
 
 -- document existing key chains
 require("which-key").register({
@@ -297,3 +297,11 @@ end, { desc = "open things under cursor" })
 
 -- EXPORT
 vim.keymap.set("n", "<C-F>", "<C-Q>", { desc = "egnostic vblock mode" })
+
+vim.keymap.set("n", "<leader>tT", function()
+  local ft = vim.bo.ft
+  if ft == "sh" then
+    ft = "bash"
+  end
+  vim.cmd("vnew " .. vim.fn.stdpath("config") .. "/lua/snippets/" .. ft .. ".lua")
+end, { desc = "open snippet" })
