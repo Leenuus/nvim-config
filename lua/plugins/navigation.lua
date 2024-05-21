@@ -3,7 +3,12 @@ return {
   {
     "ggandor/leap.nvim",
     config = function()
-      require("leap").create_default_mappings()
+      vim.keymap.set("n", "s", "<Plug>(leap)")
+      vim.keymap.set("n", "S", "<Plug>(leap-from-window)")
+      vim.keymap.set({ "x", "o" }, "s", "<Plug>(leap-forward)")
+      vim.keymap.set({ "x", "o" }, "S", "<Plug>(leap-backward)")
+      require("leap").opts.equivalence_classes = { " \t\r\n", "([{", ")]}", "'\"`" }
+      vim.cmd("autocmd ColorScheme * lua require('leap').init_highlight(true)")
     end,
   },
   {
@@ -174,7 +179,6 @@ return {
           ["zx"] = "actions.tree_sync_folds",
           ["zX"] = "actions.tree_sync_folds",
         },
-
       })
       -- NOTE: close aerial when it is the last window in last page
       -- autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif
