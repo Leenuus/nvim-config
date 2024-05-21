@@ -7,6 +7,7 @@ local c_snips = require("snippets.c")
 local fish_snips = require("snippets.fish")
 local rust_snips = require("snippets.rust")
 local lua_snips = require("snippets.lua")
+local markdown = require("snippets.markdown")
 
 add_snippets("sh", bash_snips)
 add_snippets("bash", bash_snips)
@@ -15,6 +16,7 @@ add_snippets("c", c_snips)
 add_snippets("fish", fish_snips)
 add_snippets("rust", rust_snips)
 add_snippets("lua", lua_snips)
+add_snippets("markdown", markdown)
 
 local ls = require("luasnip")
 local s = ls.snippet
