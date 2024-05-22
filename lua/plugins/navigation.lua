@@ -180,19 +180,6 @@ return {
           ["zX"] = "actions.tree_sync_folds",
         },
       })
-      -- NOTE: close aerial when it is the last window in last page
-      -- autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif
-      vim.api.nvim_create_autocmd({
-        "BufEnter",
-      }, {
-        pattern = "*",
-        callback = function()
-          if vim.fn.winnr("$") == 1 and vim.fn.tabpagenr("$") == 1 and vim.bo.filetype == "aerial" then
-            vim.cmd('set guicursor=a:ver90"')
-            vim.cmd("x")
-          end
-        end,
-      })
     end,
   },
 }
