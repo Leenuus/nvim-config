@@ -88,21 +88,17 @@ vim.keymap.set("n", "<leader>Q", "<cmd>q!<cr>")
 vim.keymap.set("n", "U", "<cmd>redo<cr>", { desc = "redo" })
 
 -- EXPORT
--- vim.keymap.set({ "o", "v" }, "q", 'i"', { desc = "q double quote" })
+vim.keymap.set({ "o", "v" }, "q", 'i"', { desc = "double quote" })
 -- EXPORT
--- vim.keymap.set({ "o", "v" }, "Q", 'a"', { desc = "q double quote" })
+vim.keymap.set({ "o", "v" }, "Q", 'a"', { desc = "double quote" })
 -- EXPORT
--- vim.keymap.set({ "o", "v" }, "<HOME>", "i'", { desc = "single quote" })
+vim.keymap.set({ "o", "v" }, "<HOME>", "i'", { desc = "single quote" })
 -- EXPORT
--- vim.keymap.set({ "o", "v" }, "<END>", "a'", { desc = "single quote" })
+vim.keymap.set({ "o", "v" }, "<END>", "a'", { desc = "single quote" })
 -- EXPORT
-vim.keymap.set({ "o", "v" }, "o", "i{", { desc = "o bracket" })
+vim.keymap.set({ "o", "v" }, "io", "i{", { desc = "bracket" })
 -- EXPORT
-vim.keymap.set({ "o", "v" }, "O", "a{", { desc = "o bracket" })
--- EXPORT
-vim.keymap.set({ "o", "v" }, "[", "i[", { desc = "p brace" })
--- EXPORT
-vim.keymap.set({ "o", "v" }, "]", "a[", { desc = "p brace" })
+vim.keymap.set({ "o", "v" }, "aO", "a{", { desc = "bracket" })
 
 -- document existing key chains
 require("which-key").register({
