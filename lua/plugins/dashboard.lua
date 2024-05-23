@@ -128,8 +128,8 @@ if vim.cmd["Telescope"] ~= nil then
 end
 
 local diary = {}
-if vim.env['DIARY_TODAY'] then
-  local dir = vim.fs.dirname(vim.env['DIARY_TODAY'])
+if vim.env["DIARY_TODAY"] then
+  local dir = vim.fs.dirname(vim.env["DIARY_TODAY"])
   diary = {
     icon = "󱋡  ",
     desc = "Diary Today",
@@ -138,7 +138,6 @@ if vim.env['DIARY_TODAY'] then
     action = "cd " .. dir .. "| e $DIARY_TODAY",
   }
 end
-
 
 return {
   dir = "~/Projects/Neovims/dashboard-nvim",
@@ -156,7 +155,7 @@ return {
             desc = "New File",
             key = "e",
             key_format = " %s",
-            action = "enew",
+            action = "new",
           },
           search_files,
           old_files,
@@ -178,6 +177,12 @@ return {
           "Treasure Your Time!!!",
         },
       },
+    })
+    vim.api.nvim_create_autocmd("Filetype", {
+      pattern = 'dashboard',
+      callback = function()
+        vim.b.minitrailspace_disable = true
+      end,
     })
   end,
 }

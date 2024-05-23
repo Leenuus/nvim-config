@@ -30,9 +30,6 @@ return {
         -- dia
         null_ls.builtins.diagnostics.codespell,
         null_ls.builtins.diagnostics.fish,
-        -- FIXME: not work for multiline literal string, fix it with treesitter
-        -- TODO: a formatter for it
-        null_ls.builtins.diagnostics.trail_space,
       }
       null_ls.setup({
         sources = sources,
