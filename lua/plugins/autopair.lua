@@ -1,12 +1,24 @@
+local opts = {
+  modes = { insert = true, command = false, terminal = false },
+  mappings = {
+    ["("] = { action = "open", pair = "()", neigh_pattern = "[^\\][^%a]" },
+    ["["] = { action = "open", pair = "[]", neigh_pattern = "[^\\][^%a]" },
+    ["{"] = { action = "open", pair = "{}", neigh_pattern = "[^\\][^%a]" },
+
+    [")"] = { action = "close", pair = "()", neigh_pattern = "[^\\]." },
+    ["]"] = { action = "close", pair = "[]", neigh_pattern = "[^\\]." },
+    ["}"] = { action = "close", pair = "{}", neigh_pattern = "[^\\]." },
+
+    ['"'] = { action = "closeopen", pair = '""', neigh_pattern = "[^\\].", register = { cr = false } },
+    ["'"] = { action = "closeopen", pair = "''", neigh_pattern = "[^%a\\].", register = { cr = false } },
+    ["`"] = { action = "closeopen", pair = "``", neigh_pattern = "[^\\].", register = { cr = false } },
+  },
+}
+
 return {
-  "windwp/nvim-autopairs",
-  event = "InsertEnter",
-  enabled = false,
-  config = function()
-    local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-    local cmp = require("cmp")
-    cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-    -- TODO: more to setup
-    require("nvim-autopairs").setup({})
-  end,
+  {
+    "echasnovski/mini.pairs",
+    version = "*",
+    opts = opts,
+  },
 }
