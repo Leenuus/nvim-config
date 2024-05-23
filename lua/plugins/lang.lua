@@ -7,7 +7,7 @@ return {
   },
   {
     "Olical/conjure",
-    ft = { "clojure", "fennel", "python" }, -- etc
+    ft = { "clojure", "fennel", "python", "lisp" }, -- etc
     dependencies = {
       {
         "PaterJason/cmp-conjure",
@@ -54,7 +54,7 @@ return {
       vim.g["conjure#mapping#eval_root_form"] = "er"
       vim.g["conjure#mapping#eval_buf"] = "ef"
       vim.g["conjure#mapping#eval_word"] = "ew"
-      vim.g["conjure#mapping#eval_visual"] = "E"
+      vim.g["conjure#mapping#eval_visual"] = "e"
       vim.g["conjure#mapping#eval_comment_current_form"] = "ec"
       vim.g["conjure#mapping#eval_marked_form"] = "em"
       vim.g["conjure#mapping#eval_previous"] = "ep"

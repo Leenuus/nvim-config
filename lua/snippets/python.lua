@@ -11,10 +11,14 @@ local main = s(
   fmt(
     [[#!/usr/bin/env python
 
+import __main__
+
+
 def main():
     {}
 
-if __name__ == '__main__':
+
+if __name__ == "__main__" or not hasattr(__main__, "__file__"):
     main()]],
     {
       i(0, "pass"),

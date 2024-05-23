@@ -123,7 +123,7 @@ vim.keymap.set("n", "<leader>to", "<cmd>AerialToggle! left<cr>", { desc = "Outli
 vim.keymap.set("n", "<leader>tp", "<CMD>InspectTree<CR>", { desc = "Inspect AST Tree" })
 vim.keymap.set("n", "<leader>tc", "<CMD>TSContextToggle<CR>", { desc = "Toggle Treesitter Context" })
 
-vim.keymap.set("n", "<leader>sc", require("telescope.builtin").commands, { desc = "Open Commands" })
+vim.keymap.set("n", "<leader>/", require("telescope.builtin").commands, { desc = "Open Commands" })
 vim.keymap.set("n", "<leader>sJ", function()
   require("trouble").toggle()
 end, { desc = "Open Trouble" })

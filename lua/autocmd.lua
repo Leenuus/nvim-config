@@ -85,7 +85,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   group = vim.api.nvim_create_augroup("FormatOptions", { clear = true }),
   pattern = { "*" },
   callback = function()
-    vim.opt_local.fo:remove("o")
+    vim.opt_local.formatoptions:remove("o")
   end,
 })
 
@@ -213,4 +213,5 @@ vim.api.nvim_create_autocmd({
       vim.cmd("x")
     end
   end,
+  group = vim.api.nvim_create_augroup("close_if_last", { clear = true }),
 })

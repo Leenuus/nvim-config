@@ -7,7 +7,7 @@ return {
       vim.keymap.set("n", "S", "<Plug>(leap-from-window)")
       vim.keymap.set({ "x", "o" }, "s", "<Plug>(leap-forward)")
       vim.keymap.set({ "x", "o" }, "S", "<Plug>(leap-backward)")
-      require("leap").opts.equivalence_classes = { " \t\r\n", "([{", ")]}", "'\"`" }
+      require("leap").opts.equivalence_classes = { " \t\r\n", "([{ )]}", "'\"`" }
       vim.cmd("autocmd ColorScheme * lua require('leap').init_highlight(true)")
     end,
   },
@@ -25,29 +25,6 @@ return {
       })
     end,
   },
-  {
-    "kylechui/nvim-surround",
-    version = "*",
-    config = function()
-      local keymap = {
-        insert = "<C-g>s",
-        insert_line = "<C-g>S",
-        normal = "ys",
-        normal_cur = "yss",
-        normal_line = "yS",
-        normal_cur_line = "ySS",
-        visual = "0",
-        visual_line = "gS",
-        delete = "ds",
-        change = "cs",
-        change_line = "cS",
-      }
-      require("nvim-surround").setup({
-        keymaps = keymap,
-      })
-    end,
-  },
-
   {
     dir = "~/Projects/Neovims/nvim-tmux-navigator",
     config = function()
