@@ -31,3 +31,7 @@ local tb2  = vim.list_extend(vim.deepcopy(dst), tail_of_t2)
 ### Evaluation Timing and Currying
 
 When dealing with file path relative keybindings, make sure expand/get the path as the keybinding function is invoked, making sure **these codes are not evaluated at neovim startup**. So you may need a closure for most of the times.
+
+### Lua Patterns
+
+In lua, `-` stands for non-greedy `*`; it is a metacharacter too.
