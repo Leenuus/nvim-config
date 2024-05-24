@@ -1,5 +1,3 @@
-local helpers = require("helpers")
-helpers.toggle_scrolloff()
 -- EXPORT
 vim.o.jumpoptions = "stack"
 -- EXPORT

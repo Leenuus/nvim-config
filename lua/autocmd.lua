@@ -35,32 +35,6 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
   end,
 })
 
-local recording_gp = vim.api.nvim_create_augroup("recording-notifications", { clear = true })
-
-local noption = {
-  title = "Recording",
-  timeout = 1,
-  hide_from_history = true,
-  icon = "",
-}
-local level = vim.log.levels.INFO
-
-vim.api.nvim_create_autocmd("RecordingEnter", {
-  pattern = "*",
-  callback = function()
-    require("notify")("Start Recording", level, noption)
-  end,
-  group = recording_gp,
-})
-
-vim.api.nvim_create_autocmd("RecordingLeave", {
-  pattern = "*",
-  callback = function()
-    require("notify")("Stop Recording", level, noption)
-  end,
-  group = recording_gp,
-})
-
 -- EXPORT
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 -- EXPORT
@@ -128,46 +102,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- abbr
-local abolish = vim.cmd['Abolish']
-abolish("{despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}", '{despe,sepa}rat{}')
-abolish("teh{n,}", 'the{n,}')
-abolish("resouce{,s}", 'resource{,s}')
-abolish("{t,w}aht", '{t,w}hat')
-abolish("cahr", "char")
-abolish("bsaic", "basic")
-abolish("suage", "usage")
-abolish("functoin", "function")
-abolish("lcoal", "local")
-abolish("scrpit", "script")
-abolish("scritp", "script")
-abolish("fasle", "false")
-abolish("optoin", "option")
-abolish("amp", "map")
-abolish("edn", "end")
-abolish("retunr", "return")
-abolish("retrun", "return")
-abolish("possbile", "possible")
-
-local extension = {
-  todo = "markdown",
-  sshconfig = "sshconfig",
-}
-
--- NOTE: never work, seem bugs
-local pattern = {}
-
-local filename = {
-  ["urls"] = "rssfeed",
-  [".fishrc"] = "fish",
-}
-
-vim.filetype.add({
-  extension = extension,
-  pattern = pattern,
-  filename = filename,
-})
-
 -- EXPORT
 vim.api.nvim_create_autocmd("BufEnter", {
   group = vim.api.nvim_create_augroup("filetype-detection", { clear = true }),
@@ -179,39 +113,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
 })
 
--- themes
-local themes = {
-  "tokyonight-moon",
-  "tokyonight-storm",
-  "tokyonight-night",
-  "tokyonight",
-  "ayu-mirage",
-  -- "ayu-dark",
-}
-local theme = themes[math.random(#themes)]
-theme = "ayu-mirage"
-local ok, _ = pcall(vim.cmd["colorscheme"], theme)
-if not ok then
-  vim.cmd("colorscheme default")
-end
-
-local auto_close_filetype = { "oil", "aerial" }
--- NOTE: lua patterns pitfall, `-` should be escaped
--- this is a lazy `*`
-local auto_close_pat = "conjure%-log"
-vim.api.nvim_create_autocmd({
-  "BufEnter",
-}, {
+-- EXPORT
+vim.api.nvim_create_autocmd({ "WinEnter", "WinResized" }, {
   pattern = "*",
-  callback = function(ev)
-    local is_last = vim.fn.winnr("$") == 1 and vim.fn.tabpagenr("$") == 1
-    local is_auto_close_ft = vim.tbl_contains(auto_close_filetype, vim.bo.filetype)
-    local is_auto_close_pat = string.find(ev.file, auto_close_pat)
-    vim.notify(ev.file)
-    if is_last and (is_auto_close_ft or is_auto_close_pat) then
-      vim.cmd('set guicursor=a:ver90"')
-      vim.cmd("x")
-    end
+  callback = function()
+    local height = vim.api.nvim_win_get_height(0)
+    vim.wo.scrolloff = math.floor(height / 2.5)
   end,
-  group = vim.api.nvim_create_augroup("close_if_last", { clear = true }),
 })

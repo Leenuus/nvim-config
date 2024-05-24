@@ -90,9 +90,6 @@ vim.defer_fn(function()
           ["ic"] = "@conditional.inner",
           ["ii"] = "@conditional.inner",
           ["ai"] = "@conditional.outer",
-          -- TODO: add fallback to treesitter-textobject select
-          -- ["q"] = { query = "@string.inner", desc = "outer part of string" },
-          -- ["Q"] = { query = "@string.outer", desc = "inner part of string" },
           ["ha"] = "@assignment.lhs",
           ["la"] = "@assignment.rhs",
           ["al"] = "@loop.outer",

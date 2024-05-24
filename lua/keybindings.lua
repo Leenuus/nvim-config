@@ -113,13 +113,17 @@ vim.keymap.set("n", "<leader>th", "<cmd>set invhlsearch<cr>", { desc = "highligh
 vim.keymap.set("n", "<leader>tt", "<cmd>TransparentToggle<cr>", { desc = "transparent" })
 -- EXPORT
 vim.keymap.set("n", "<leader>tC", "<cmd>set invignorecase<cr>", { desc = "ignorecase" })
-vim.keymap.set("n", "<leader>ts", require("helpers").toggle_scrolloff, { desc = "scrolloff" })
 vim.keymap.set("n", "<leader>to", "<cmd>AerialToggle! left<cr>", { desc = "Outline" })
 -- EXPORT
 vim.keymap.set("n", "<leader>tp", "<CMD>InspectTree<CR>", { desc = "Inspect AST Tree" })
 vim.keymap.set("n", "<leader>tc", "<CMD>TSContextToggle<CR>", { desc = "Toggle Treesitter Context" })
 
-vim.keymap.set("n", "<leader>/", require("telescope.builtin").commands, { desc = "Open Commands" })
+vim.keymap.set("n", "<leader>/", function()
+  require("telescope.builtin").commands(require("telescope.themes").get_ivy({
+    winblend = 20,
+  }))
+end, { desc = "Open Commands" })
+
 vim.keymap.set("n", "<leader>sJ", function()
   require("trouble").toggle()
 end, { desc = "Open Trouble" })
@@ -144,11 +148,6 @@ vim.keymap.set("n", "<leader>w", "<CMD>w<cr>")
 vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], { desc = "normal mode" })
 -- EXPORT
 vim.keymap.set("t", "<leader>q", "<cmd>x<cr>", { desc = "quit" })
-
--- resession
-local resession = require("resession")
-vim.keymap.set("n", "<leader>Ss", resession.save_session, { desc = "Save Current Session" })
-vim.keymap.set("n", "<leader>sp", resession.restore_session, { desc = "Restore Session" })
 
 -- lsp related keybindings
 vim.api.nvim_create_user_command("TSRename", function()
@@ -271,7 +270,7 @@ end, { desc = "next trouble" })
 -- EXPORT
 vim.keymap.set("n", "<leader>p", "v$hP", { desc = "quick paste to the end" })
 
--- better gx
+-- NOTE: better gx
 -- EXPORT
 vim.keymap.set("n", "gx", function()
   local c = vim.fn.expand("<cfile>")
@@ -294,6 +293,7 @@ end, { desc = "open things under cursor" })
 -- EXPORT
 vim.keymap.set("n", "<C-F>", "<C-Q>", { desc = "egnostic vblock mode" })
 
+-- NOTE: open snippets
 vim.keymap.set("n", "<leader>tT", function()
   local ft = vim.bo.ft
   if ft == "sh" then
@@ -301,3 +301,33 @@ vim.keymap.set("n", "<leader>tT", function()
   end
   vim.cmd("vnew " .. vim.fn.stdpath("config") .. "/lua/snippets/" .. ft .. ".lua")
 end, { desc = "open snippet" })
+
+-- NOTE: telescope
+vim.keymap.set("n", "<leader>sj", require("telescope.builtin").jumplist, { desc = "Jump list" })
+vim.keymap.set("n", "<leader>sH", require("telescope.builtin").command_history, { desc = "Command History" })
+vim.keymap.set("n", "<leader>st", "<cmd>Telescope colorscheme<cr>", { desc = "search colorscheme" })
+vim.keymap.set("n", "<leader>sm", "<cmd>messages<cr>", { desc = "search for messages" })
+vim.keymap.set("n", "<leader>sC", function()
+  vim.cmd("Telescope neoclip")
+end, { desc = "Search Clipboard" })
+vim.keymap.set("n", "<leader>s/", function()
+  require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+    winblend = 10,
+    previewer = false,
+  }))
+end, { desc = "Search Current buffer" })
+
+vim.keymap.set("n", "<leader>sl", require("telescope.builtin").resume, { desc = "Resume telescope" })
+vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "Find Helps" })
+vim.keymap.set("n", "<leader>sM", function()
+  require("telescope.builtin").man_pages({ sections = { "ALL" } })
+end, { desc = "Find man pages" })
+vim.keymap.set("n", "<leader>ss", require("telescope.builtin").builtin, { desc = "Show telescopes" })
+vim.keymap.set("n", "<leader>sk", "<cmd>Telescope keymaps<cr>", { desc = "Show Keymaps" })
+
+vim.keymap.set("n", "<leader><space>", "<cmd>FindFiles<cr>")
+
+vim.keymap.set("n", "<leader>sg", "<cmd>GrepGitRoot<cr>", { desc = "Grep Git root" })
+vim.keymap.set("n", "<leader>sG", "<cmd>GrepCwd<cr>", { desc = "Grep current File dir" })
+
+vim.keymap.set("n", "<leader>sf", "<cmd>SearchMode<cr>", { desc = "Select Search Mode" })

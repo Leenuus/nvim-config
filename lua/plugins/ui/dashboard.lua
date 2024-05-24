@@ -70,17 +70,6 @@ if notes_root ~= nil or notes_root == "" then
   }
 end
 
-local projects = {}
-if vim.cmd["Projects"] ~= nil then
-  projects = {
-    icon = "  ",
-    desc = "Projects",
-    key = "p",
-    key_format = " %s",
-    action = "Projects",
-  }
-end
-
 local search_files = {}
 local config = {}
 if vim.cmd["FindFiles"] ~= nil then
@@ -161,7 +150,6 @@ return {
           old_files,
           config,
           notes,
-          projects,
           help,
           color,
           diary,
@@ -178,8 +166,9 @@ return {
         },
       },
     })
+
     vim.api.nvim_create_autocmd("Filetype", {
-      pattern = 'dashboard',
+      pattern = "dashboard",
       callback = function()
         vim.b.minitrailspace_disable = true
       end,

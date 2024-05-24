@@ -6,7 +6,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
-      require("tree")
+      require("config.tree")
     end,
   },
 }
