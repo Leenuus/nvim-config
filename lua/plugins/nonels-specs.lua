@@ -24,7 +24,7 @@ return {
         null_ls.builtins.formatting.yamlfmt,
         null_ls.builtins.formatting.codespell, -- spell
         -- markdown
-        null_ls.builtins.formatting.cbfmt,     -- code block
+        null_ls.builtins.formatting.cbfmt, -- markdown code block
         -- hover
         printenv,
         -- dia

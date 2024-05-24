@@ -9,7 +9,7 @@ local default_session_opt =
 
 local session_storage = vim.fn.stdpath("data") .. "/sessions"
 
-if not vim.loop.fs_stat(session_storage) then
+if not vim.uv.fs_stat(session_storage) then
   vim.fn.system({
     "mkdir",
     "-p",

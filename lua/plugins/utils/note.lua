@@ -91,6 +91,6 @@ return {
   dependencies = { "nvim-lua/plenary.nvim" },
   config = function()
     require("todo-comments").setup(opts)
-    vim.keymap.set('n', "<leader>dL", cmd, { desc = 'Show TODO' })
+    vim.keymap.set("n", "<leader>dL", cmd, { desc = "Show TODO" })
   end,
 }
