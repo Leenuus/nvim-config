@@ -1,6 +1,4 @@
 local actions = require("telescope.actions")
-local state = require("telescope.actions.state")
-local log = require("plenary.log")
 
 require("telescope").setup({
   defaults = {

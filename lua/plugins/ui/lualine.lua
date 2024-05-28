@@ -17,7 +17,6 @@ local function wordir()
   return dir
 end
 
-
 return {
   {
     -- Set lualine as statusline

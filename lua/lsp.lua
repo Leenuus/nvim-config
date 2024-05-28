@@ -36,6 +36,6 @@ for _, server in ipairs(servers) do
       capabilities = capabilities,
     })
   else
-    vim.log.levels.INFO(server .. "not valid")
+    -- vim.log.levels.INFO(server .. "not valid")
   end
 end

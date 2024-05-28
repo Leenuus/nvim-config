@@ -23,17 +23,6 @@ return M
   )
 )
 
--- TODO: use treesitter to detact whether to insert the require part
-local logger = s(
-  "log",
-  fmt(
-    [[local logger = require('plenary.log')
-logger.info({})
-]],
-    { i(1, "info") }
-  )
-)
-
 local smart_require = s(
   "re",
   fmt(

@@ -1,4 +1,3 @@
-local logger = require("plenary.log").new({ level = "info", plugin = "telescope-config" })
 
 local find_git_root = require("helpers").find_git_root
 
@@ -70,7 +69,6 @@ local function select_search_file_mode()
       return item
     end,
   }, function(choice)
-    logger.info("choice: ", choice)
     if choice then
       find_files_mode = choice
     end
@@ -85,8 +83,6 @@ local no_search_dirs = {
 local function find_files()
   -- NOTE: pitfall, deep copy!
   local opts = vim.deepcopy(find_files_options[find_files_mode])
-  -- logger.info("mode: ", find_files_mode)
-  -- logger.info("options: ", opts)
   -- NOTE: some dir should never be searched
   if vim.tbl_contains(no_search_dirs, vim.fn.getcwd()) then
     vim.cmd("cd %:p:h")

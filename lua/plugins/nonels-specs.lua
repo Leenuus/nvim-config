@@ -22,7 +22,7 @@ return {
         null_ls.builtins.formatting.fish_indent,
         null_ls.builtins.formatting.gofmt,
         null_ls.builtins.formatting.yamlfmt,
-        null_ls.builtins.formatting.codespell, -- spell
+        -- null_ls.builtins.formatting.codespell, -- spell
         -- markdown
         null_ls.builtins.formatting.cbfmt, -- markdown code block
         -- hover

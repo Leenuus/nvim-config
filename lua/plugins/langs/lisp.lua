@@ -28,8 +28,10 @@ return {
       -- Set configuration options here
       vim.g["conjure#extract#tree_sitter#enabled"] = true
       vim.g["conjure#client#python#stdio#command"] = "env python -iq"
+      vim.g["conjure#client_on_load"] = false
 
       vim.g["conjure#mapping#prefix"] = "<leader>"
+      vim.g["conjure#debug"] = false
 
       --- mappings
       vim.g["conjure#mapping#enable_defaults"] = false
@@ -51,7 +53,7 @@ return {
     enabled = true,
   },
   {
-    enabled = true,
+    enabled = false,
     "bhurlow/vim-parinfer",
     ft = { "clojure", "fennel", "lisp" },
   },
@@ -67,5 +69,16 @@ return {
   {
     "kovisoft/paredit",
     enabled = false,
+  },
+  {
+    "guns/vim-sexp",
+    init = function()
+      vim.g.sexp_filetypes = ""
+      vim.keymap.set({ "o", "x" }, "as", "<Plug>(sexp_outer_string)")
+      vim.keymap.set({ "o", "x" }, "is", "<Plug>(sexp_inner_string)")
+      vim.keymap.set({ "o", "x" }, "ae", "<Plug>(sexp_outer_element)")
+      vim.keymap.set({ "o", "x" }, "ie", "<Plug>(sexp_inner_element)")
+    end,
+    ft = { "lisp" },
   },
 }

@@ -144,7 +144,7 @@ return {
             desc = "New File",
             key = "e",
             key_format = " %s",
-            action = "new",
+            action = "enew",
           },
           search_files,
           old_files,
