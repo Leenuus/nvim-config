@@ -87,19 +87,6 @@ vim.keymap.set("n", "<leader>Q", "<cmd>q!<cr>")
 -- EXPORT
 vim.keymap.set("n", "U", "<cmd>redo<cr>", { desc = "redo" })
 
--- EXPORT
-vim.keymap.set({ "o", "v" }, "q", 'i"', { desc = "double quote" })
--- EXPORT
-vim.keymap.set({ "o", "v" }, "Q", 'a"', { desc = "double quote" })
--- EXPORT
-vim.keymap.set({ "o", "v" }, "<HOME>", "i'", { desc = "single quote" })
--- EXPORT
-vim.keymap.set({ "o", "v" }, "<END>", "a'", { desc = "single quote" })
--- EXPORT
-vim.keymap.set({ "o", "v" }, "io", "i{", { desc = "bracket" })
--- EXPORT
-vim.keymap.set({ "o", "v" }, "aO", "a{", { desc = "bracket" })
-
 -- document existing key chains
 require("which-key").register({
   ["<leader>s"] = { name = "Telescope", _ = "which_key_ignore" },
@@ -118,7 +105,7 @@ vim.keymap.set("n", "<leader>to", "<cmd>AerialToggle! left<cr>", { desc = "Outli
 vim.keymap.set("n", "<leader>tp", "<CMD>InspectTree<CR>", { desc = "Inspect AST Tree" })
 vim.keymap.set("n", "<leader>tc", "<CMD>TSContextToggle<CR>", { desc = "Toggle Treesitter Context" })
 
-vim.keymap.set("n", "<leader>/", function()
+vim.keymap.set("n", "<leader>\\", function()
   require("telescope.builtin").commands(require("telescope.themes").get_ivy({
     winblend = 20,
   }))
@@ -258,12 +245,10 @@ vim.keymap.set("n", "<leader>ak", function()
 end, { desc = "split above" })
 
 vim.keymap.set("n", "<leader>jq", function()
-  require("trouble").open()
   require("trouble").next({ skip_groups = true, jump = true })
 end, { desc = "previous trouble" })
 
 vim.keymap.set("n", "<leader>kq", function()
-  require("trouble").open()
   require("trouble").previous({ skip_groups = true, jump = true })
 end, { desc = "next trouble" })
 
@@ -276,10 +261,9 @@ vim.keymap.set("n", "gx", function()
   local c = vim.fn.expand("<cfile>")
   if string.match(c, "^%.") or string.match(c, "^/") or string.match(c, "~") then
     local res = vim.fn.system("file " .. c)
-    if res:match("ASCII text") then
+    if res:match("ASCII text") or res:match('Unicode text') then
       vim.cmd["vnew"](c)
     elseif res:match("directory") then
-      vim.notify(c .. " is a dir!")
     else
       vim.ui.open(c)
     end
@@ -311,19 +295,22 @@ vim.keymap.set("n", "<leader>sC", function()
   vim.cmd("Telescope neoclip")
 end, { desc = "Search Clipboard" })
 vim.keymap.set("n", "<leader>s/", function()
-  require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+  require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_ivy({
     winblend = 10,
-    previewer = false,
   }))
 end, { desc = "Search Current buffer" })
+vim.keymap.set("n", "<leader>sk", function()
+  require("telescope.builtin").keymaps(require("telescope.themes").get_ivy({
+    winblend = 20,
+  }))
+end, { desc = "Show Keymaps" })
 
-vim.keymap.set("n", "<leader>sl", require("telescope.builtin").resume, { desc = "Resume telescope" })
+vim.keymap.set("n", "<leader>/", require("telescope.builtin").resume, { desc = "Resume telescope" })
 vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "Find Helps" })
 vim.keymap.set("n", "<leader>sM", function()
   require("telescope.builtin").man_pages({ sections = { "ALL" } })
 end, { desc = "Find man pages" })
 vim.keymap.set("n", "<leader>ss", require("telescope.builtin").builtin, { desc = "Show telescopes" })
-vim.keymap.set("n", "<leader>sk", "<cmd>Telescope keymaps<cr>", { desc = "Show Keymaps" })
 
 vim.keymap.set("n", "<leader><space>", "<cmd>FindFiles<cr>")
 
