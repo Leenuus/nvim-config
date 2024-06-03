@@ -50,7 +50,7 @@ return {
       vim.g["conjure#mapping#eval_previous"] = "ep"
       vim.g["conjure#mapping#eval_replace_form"] = "e1"
     end,
-    enabled = true,
+    enabled = false,
   },
   {
     enabled = false,

@@ -42,10 +42,7 @@ return {
           i = cmp.mapping.abort(),
           c = cmp.mapping.close(),
         }),
-        ["<C-N>"] = cmp.mapping.confirm({
-          behavior = cmp.ConfirmBehavior.Replace,
-          select = true,
-        }),
+        ["<C-N>"] = cmp.config.disable,
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.mapping.confirm({

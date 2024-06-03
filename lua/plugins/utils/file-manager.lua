@@ -1,5 +1,6 @@
 return {
   {
+    enabled = false,
     "stevearc/oil.nvim",
     opts = {},
     -- Optional dependencies
@@ -197,7 +198,6 @@ return {
         })
         require("oil").open(dir)
       end, { desc = "Files(git root)" })
-
     end,
   },
 }

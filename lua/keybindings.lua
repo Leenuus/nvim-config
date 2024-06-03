@@ -261,7 +261,7 @@ vim.keymap.set("n", "gx", function()
   local c = vim.fn.expand("<cfile>")
   if string.match(c, "^%.") or string.match(c, "^/") or string.match(c, "~") then
     local res = vim.fn.system("file " .. c)
-    if res:match("ASCII text") or res:match('Unicode text') then
+    if res:match("ASCII text") or res:match("Unicode text") then
       vim.cmd["vnew"](c)
     elseif res:match("directory") then
     else
@@ -283,7 +283,8 @@ vim.keymap.set("n", "<leader>tT", function()
   if ft == "sh" then
     ft = "bash"
   end
-  vim.cmd("vnew " .. vim.fn.stdpath("config") .. "/lua/snippets/" .. ft .. ".lua")
+  local cmd = string.format("vnew %s/lua/snippets/%s.lua", vim.fn.stdpath("config"), ft)
+  vim.cmd(cmd)
 end, { desc = "open snippet" })
 
 -- NOTE: telescope
