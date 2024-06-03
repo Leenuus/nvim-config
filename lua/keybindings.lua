@@ -118,13 +118,13 @@ end, { desc = "Open Trouble" })
 -- previous/next
 -- EXPORT
 if vim.g.neovide then
-  vim.keymap.set("n", "<A-e>", "<cmd>tabNext<cr>", { desc = "next tab" })
   vim.keymap.set("n", "<A-w>", "<cmd>tabclose<cr>", { desc = "close tab" })
-  vim.keymap.set("n", "<A-q>", "<cmd>tabprevious<cr>", { desc = "prev tab" })
   vim.keymap.set("n", "<A-t>", "<cmd>tabnew<cr>", { desc = "new tab" })
+  vim.keymap.set("n", "<A-q>;", "gT", { desc = "prev tab" })
+  vim.keymap.set("n", "<A-e>'", "gt", { desc = "next tab" })
 else
-  vim.keymap.set("n", "<leader>'", "<cmd>tabNext<cr>", { desc = "next tab" })
-  vim.keymap.set("n", "<leader>;", "<cmd>tabprevious<cr>", { desc = "prev tab" })
+  vim.keymap.set("n", "<leader>;", "gT", { desc = "prev tab" })
+  vim.keymap.set("n", "<leader>'", "gt", { desc = "next tab" })
 end
 
 -- EXPORT
