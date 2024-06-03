@@ -10,5 +10,5 @@ vim.keymap.set("n", "<leader>kk", function()
   vim.fn.search(pat, "b")
 end, { desc = "go to next section" })
 
-vim.keymap.set("n", "mm", "<cmd>ManSetMark<cr>", { desc = "set man page mark" })
-vim.keymap.set("n", "<leader><space>", "<cmd>ManGetMarks<cr>", { desc = "go to man page mark" })
+vim.keymap.set("n", "mm", "<cmd>ManSetMark<cr>", { desc = "set man page mark", buffer = 0 })
+vim.keymap.set("n", "<leader><space>", "<cmd>ManGetMarks<cr>", { desc = "go to man page mark", buffer = 0 })

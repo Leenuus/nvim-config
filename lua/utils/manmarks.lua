@@ -61,13 +61,14 @@ local function go_marks(opts)
               local file = selection.value.man
               local line = selection.value.line
               local col = selection.value.col
-              vim.cmd(string.format("%s +call\\ cursor(%s,%s) %s", open_cmd, line, col, file))
+              vim.cmd(string.format("%s %s", open_cmd, file))
+              vim.cmd(string.format("call cursor(%s,%s)", line, col))
             end
           end
 
           actions.select_default:replace(opener("edit"))
-          actions.select_horizontal:replace(opener("new"))
-          actions.select_vertical:replace(opener("vnew"))
+          actions.select_horizontal:replace(opener("topleft split"))
+          actions.select_vertical:replace(opener("vsplit"))
           actions.select_tab:replace(opener("tabnew"))
 
           return true
