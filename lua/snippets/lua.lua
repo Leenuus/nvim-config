@@ -93,7 +93,7 @@ local snippets = s(
   )
 )
 
--- todo select tempaltes
+-- TODO: select templates
 local ui_select = s(
   "se",
   fmt(
@@ -155,10 +155,36 @@ local disable_diagnositcs = s("diag", {
   i(0, "type"),
 })
 
+local set_cmd_keymap = s(
+  "kc",
+  fmt([[vim.keymap.set('<>', '<<leader>><>', '<<CMD>><><<CR>>', { desc = '<>' } )<>]], {
+    i(1, "n"),
+    i(2, "keymap"),
+    i(3, "command"),
+    i(4, "desc"),
+    i(0),
+  }, { delimiters = "<>" })
+)
+
+local set_function_keymap = s(
+  "kf",
+  fmt(
+    [[vim.keymap.set('<>', '<<leader>><>', function()
+  <>
+end, { desc = '<>' } )]],
+    {
+      i(1, "n"),
+      i(2, "keymap"),
+      i(0),
+      i(3, "desc"),
+    },
+    { delimiters = "<>" }
+  )
+)
+
 local lua_snips = {
   main,
   smart_require,
-  logger,
   check_type,
   deep_extend,
   snippets,
@@ -166,6 +192,8 @@ local lua_snips = {
   if_nil,
   if_not_nil,
   disable_diagnositcs,
+  set_cmd_keymap,
+  set_function_keymap,
 }
 
 return lua_snips
