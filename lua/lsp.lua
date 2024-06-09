@@ -14,8 +14,10 @@ local servers = {
   "jsonls",
   "bashls",
   "yamlls",
-  "pylsp",
   "gopls",
+  "pyright",
+  "ruff",
+  "sqlls",
 }
 
 -- NOTE: lua settings

@@ -13,8 +13,13 @@ local function wordir()
   local dir = vim.fn.getcwd()
   local home = vim.env["HOME"]
   dir = string.gsub(dir, home, "~")
-  dir = string.gsub(dir, '~/Projects/', "")
+  dir = string.gsub(dir, "~/Projects/", "")
   return dir
+end
+
+local function file()
+  local home = vim.env["HOME"]
+  return vim.fn.expand("%:p"):gsub(home, "~")
 end
 
 return {
@@ -45,8 +50,8 @@ return {
         },
         sections = {
           lualine_a = { "branch" },
-          lualine_b = { wordir },
-          lualine_c = { "filename" },
+          lualine_b = { file },
+          lualine_c = {},
           lualine_x = { "encoding", "fileformat", "filetype" },
           lualine_y = { filesize },
           lualine_z = { "location" },

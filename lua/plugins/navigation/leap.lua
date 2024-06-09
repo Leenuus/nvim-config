@@ -6,7 +6,7 @@ return {
       vim.keymap.set("n", "S", "<Plug>(leap-from-window)")
       vim.keymap.set({ "x", "o" }, "s", "<Plug>(leap-forward)")
       vim.keymap.set({ "x", "o" }, "S", "<Plug>(leap-backward)")
-      require("leap").opts.equivalence_classes = { " \t\r\n", "([{ )]}", "'\"`" }
+      require("leap").opts.equivalence_classes = { " \t\r\n", "([{)]}", "'\"" }
       vim.cmd("autocmd ColorScheme * lua require('leap').init_highlight(true)")
     end,
   },

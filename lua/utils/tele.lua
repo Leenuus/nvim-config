@@ -1,4 +1,3 @@
-
 local find_git_root = require("helpers").find_git_root
 
 local DEFAULT_FIND_FILES_MODE = "(gitroot)"

@@ -12,8 +12,8 @@ local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 -- local logger = require("plenary.log")
 
-local config = vim.fn.stdpath("config")
-local manmarks_file = config .. "/.manmarks.jsonl"
+local config = vim.fn.stdpath("data")
+local manmarks_file = config .. "/manmarks.jsonl"
 
 local function set_mark(name)
   local man = vim.fn.expand("%")

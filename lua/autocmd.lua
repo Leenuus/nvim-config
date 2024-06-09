@@ -121,3 +121,18 @@ vim.api.nvim_create_autocmd({ "WinEnter", "WinResized" }, {
     vim.wo.scrolloff = math.floor(height / 2.5)
   end,
 })
+
+-- EXPORT
+vim.api.nvim_create_autocmd("RecordingEnter", {
+  callback = function()
+    vim.notify("Recording", vim.log.levels.INFO)
+  end,
+})
+
+-- EXPORT
+vim.api.nvim_create_autocmd("RecordingLeave", {
+  pattern = "*",
+  callback = function()
+    vim.notify("Stop Recording", vim.log.levels.INFO)
+  end,
+})

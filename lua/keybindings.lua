@@ -145,6 +145,9 @@ vim.keymap.set("n", "<leader>lr", function()
 end, { desc = "Rename Variable With TreeSitter" })
 -- EXPORT
 vim.keymap.set("n", "<leader>li", "<CMD>LspInfo<CR>", { desc = "Lsp Info" })
+-- EXPORT
+vim.keymap.set("n", "<leader>lR", "<CMD>LspRestart<CR>", { desc = "Lsp Restart" })
+-- EXPORT
 vim.keymap.set("n", "gH", vim.diagnostic.open_float, { desc = "diagnostic in float" })
 
 -- lsp related keybindings
@@ -243,6 +246,16 @@ end, { desc = "split below" })
 vim.keymap.set("n", "<leader>ak", function()
   vim.api.nvim_open_win(0, false, { win = 0, split = "above" })
 end, { desc = "split above" })
+-- EXPORT
+vim.keymap.set("n", "<leader>aK", function()
+  local height = math.floor(vim.api.nvim_win_get_height(0) / 3)
+  return string.format("<CMD>aboveleft %dnew +term<CR>i", height)
+end, { desc = "split terminal above", expr = true })
+-- EXPORT
+vim.keymap.set("n", "<leader>aJ", function()
+  local height = math.floor(vim.api.nvim_win_get_height(0) / 3)
+  return string.format("<CMD>%dnew +term<CR>i", height)
+end, { desc = "split terminal below", expr = true })
 
 vim.keymap.set("n", "<leader>jq", function()
   require("trouble").next({ skip_groups = true, jump = true })
