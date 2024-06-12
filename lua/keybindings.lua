@@ -334,3 +334,5 @@ vim.keymap.set("n", "<leader>sg", "<cmd>GrepGitRoot<cr>", { desc = "Grep Git roo
 vim.keymap.set("n", "<leader>sG", "<cmd>GrepCwd<cr>", { desc = "Grep current File dir" })
 
 vim.keymap.set("n", "<leader>sf", "<cmd>SearchMode<cr>", { desc = "Select Search Mode" })
+
+vim.keymap.set('n', '<leader>td', '<CMD>tabnew +vertical\\ DBUI<CR>', { desc = 'Open Database UI' } )

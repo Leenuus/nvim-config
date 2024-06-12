@@ -30,7 +30,8 @@ return {
           ["<C-t>"] = actions.tabedit,
 
           ["h"] = actions.up,
-          ["q"] = actions.quit,
+          ["q"] = actions.up,
+          ["<Leader>q"] = actions.quit,
 
           ["d"] = actions.mkdir,
           ["n"] = actions.newfile,

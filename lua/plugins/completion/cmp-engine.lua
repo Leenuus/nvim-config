@@ -104,9 +104,17 @@ return {
             path = "Path",
             buffer = "Buffer",
             nvim_lua = "Vim",
-          })[entry.source.name]
+            ["vim-dadbod-completion"] = "SQL",
+          })[entry.source.name] or entry.source.name
           return vim_item
         end,
+      },
+    })
+
+    cmp.setup.filetype({ "sql" }, {
+      sources = {
+        { name = "vim-dadbod-completion" },
+        { name = "buffer" },
       },
     })
   end,
