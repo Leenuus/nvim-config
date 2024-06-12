@@ -6,26 +6,17 @@ return {
   config = function()
     local harpoon = require("harpoon")
     harpoon:setup({})
-
-    vim.keymap.set("n", "<leader><CR>", function()
+    vim.api.nvim_create_user_command("HarpoonList", function()
       harpoon.ui:toggle_quick_menu(harpoon:list())
-    end, { desc = "Harpoon list" })
-
-    vim.keymap.set("n", "<leader>aH", function()
+    end, {})
+    vim.api.nvim_create_user_command("HarpoonAdd", function()
       harpoon:list():add()
-    end, { desc = "Append buffer to harpoon" })
+    end, {})
+    for i = 1, 5 do
+      vim.api.nvim_create_user_command(string.format("HarpoonSelect%d", i), function()
+        harpoon:list():select(i)
+      end, {})
+    end
 
-    vim.keymap.set({ "n", "i" }, "<f1>", function()
-      harpoon:list():select(1)
-    end, { desc = "Switch to 1st harpoon buffer" })
-    vim.keymap.set({ "n", "i" }, "<f2>", function()
-      harpoon:list():select(2)
-    end, { desc = "Switch to 2nd harpoon buffer" })
-    vim.keymap.set({ "n", "i" }, "<f3>", function()
-      harpoon:list():select(3)
-    end, { desc = "Switch to 3rd harpoon buffer" })
-    vim.keymap.set({ "n", "i" }, "<f4>", function()
-      harpoon:list():select(4)
-    end, { desc = "Switch to 4th harpoon buffer" })
   end,
 }

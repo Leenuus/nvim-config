@@ -56,7 +56,10 @@ end
 
 local color = s(
   "co",
-  fmt("set_color {}{}", {
+  fmt([[set_color {}
+{}
+set_color normal
+]], {
     c(1, {
       t("red"),
       t("normal"),

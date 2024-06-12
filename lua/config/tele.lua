@@ -1,5 +1,29 @@
 local actions = require("telescope.actions")
 
+local opener = function(direction)
+  return function(p)
+    local old = vim.o.splitbelow
+    local old1 = vim.o.splitright
+    if direction == "left" then
+      vim.o.splitright = false
+      actions.select_vertical(p)
+    elseif direction == "right" then
+      vim.o.splitright = true
+      actions.select_vertical(p)
+    elseif direction == "above" then
+      vim.o.splitbelow = false
+      actions.select_horizontal(p)
+    elseif direction == "below" then
+      vim.o.splitbelow = true
+      actions.select_horizontal(p)
+    else
+      actions.select_default(p)
+    end
+    vim.o.splitbelow = old
+    vim.o.splitright = old1
+  end
+end
+
 require("telescope").setup({
   defaults = {
     mappings = {
@@ -7,20 +31,28 @@ require("telescope").setup({
         ["<Tab>"] = actions.toggle_selection,
         ["\\"] = actions.select_vertical,
         ["-"] = actions.select_horizontal,
-        ["'"] = actions.select_tab,
+        ["t"] = actions.select_tab,
+        ["T"] = actions.select_tab,
+        ["J"] = opener("below"),
+        ["K"] = opener("above"),
+        ["H"] = opener("left"),
+        ["L"] = opener("right"),
         ["<Left>"] = actions.cycle_history_prev,
         ["<Right>"] = actions.cycle_history_next,
         ["<Up>"] = actions.cycle_history_prev,
         ["<Down>"] = actions.cycle_history_next,
       },
       i = {
-        ["<C-P>"] = actions.select_vertical,
-        ["<C-S>"] = actions.select_horizontal,
-        ["<C-t>"] = actions.select_tab,
-        ["<C-J>"] = actions.preview_scrolling_down,
-        ["<C-K>"] = actions.preview_scrolling_up,
         ["<Left>"] = actions.cycle_history_prev,
         ["<Right>"] = actions.cycle_history_next,
+        ["<C-T>"] = actions.select_tab,
+        ["<Tab>"] = actions.select_tab,
+        ["<C-J>"] = opener("below"),
+        ["<C-K>"] = opener("above"),
+        ["<C-H>"] = opener("left"),
+        ["<C-L>"] = opener("right"),
+        ["<C-D>"] = actions.preview_scrolling_down,
+        ["<C-U>"] = actions.preview_scrolling_up,
       },
     },
   },
@@ -48,20 +80,6 @@ require("telescope").setup({
     colorscheme = {
       theme = "dropdown",
       enable_preview = true,
-    },
-
-    find_files = {
-      mappings = {
-        n = {
-          ["<Tab>"] = actions.toggle_selection,
-          ["\\"] = actions.select_vertical,
-          ["-"] = actions.select_horizontal,
-        },
-        i = {
-          ["<C-P>"] = actions.select_vertical,
-          ["<C-S>"] = actions.select_horizontal,
-        },
-      },
     },
   },
   extensions = {

@@ -80,9 +80,13 @@ vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
 -- EXPORT
+vim.keymap.set("n", "<leader>w", '<cmd>w<cr>')
+-- EXPORT
 vim.keymap.set("n", "<leader>q", "<cmd>x<cr>")
 -- EXPORT
-vim.keymap.set("n", "<leader>Q", "<cmd>q!<cr>")
+vim.keymap.set("n", "<leader>qp", "<cmd>q!<cr>")
+-- EXPORT
+vim.keymap.set("n", "<leader>qq", "<cmd>xall<cr>")
 
 -- EXPORT
 vim.keymap.set("n", "U", "<cmd>redo<cr>", { desc = "redo" })
@@ -127,8 +131,6 @@ else
   vim.keymap.set("n", "<leader>'", "gt", { desc = "next tab" })
 end
 
--- EXPORT
-vim.keymap.set("n", "<leader>w", "<CMD>w<cr>")
 
 -- terminal mode
 -- EXPORT

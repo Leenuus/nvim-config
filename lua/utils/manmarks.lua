@@ -1,28 +1,27 @@
--- TODO:
--- 1. man page previewer
--- 2. delete marks
+-- NOTE: line jumping and line searching won't work perfectly
+-- for roff man page system
+-- final solution should be transform man pages to common used
+-- format like markdown file
 
--- FIXME:
--- 1. jump to line:col doesn't work for vertical split window open
 
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
 local conf = require("telescope.config").values
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
--- local logger = require("plenary.log")
 
 local config = vim.fn.stdpath("data")
 local manmarks_file = config .. "/manmarks.jsonl"
 
 local function set_mark(name)
-  local man = vim.fn.expand("%")
-  local line = vim.fn.line(".")
-  local col = vim.fn.col(".")
+  local l = string.len('man://')
+  local man = vim.fn.expand("%"):sub(l + 1)
   if name == nil then
-    name = string.format("%s %s:%s", man, line, col)
+    return
   end
-  local mark = { man = man, line = line, col = col, name = name }
+  local line = vim.fn.getline(".")
+  local regex = string.format("\\V%s", vim.fn.escape(line, "\\"))
+  local mark = { man = man, name = name, pattern = regex }
   local mark_str = vim.json.encode(mark) .. "\n"
   local marks = io.open(manmarks_file, "a")
   if marks == nil then
@@ -54,22 +53,15 @@ local function go_marks(opts)
 
         sorter = conf.generic_sorter(opts),
         attach_mappings = function(prompt_bufnr, _)
-          local opener = function(open_cmd)
-            return function()
-              actions.close(prompt_bufnr)
-              local selection = action_state.get_selected_entry()
-              local file = selection.value.man
-              local line = selection.value.line
-              local col = selection.value.col
-              vim.cmd(string.format("%s %s", open_cmd, file))
-              vim.cmd(string.format("call cursor(%s,%s)", line, col))
-            end
-          end
-
-          actions.select_default:replace(opener("edit"))
-          actions.select_horizontal:replace(opener("topleft split"))
-          actions.select_vertical:replace(opener("vsplit"))
-          actions.select_tab:replace(opener("tabnew"))
+          actions.select_default:replace(function()
+            actions.close(prompt_bufnr)
+            local selection = action_state.get_selected_entry()
+            local file = selection.value.man
+            local pattern = selection.value.pattern
+            vim.cmd(string.format("Man %s", file))
+            local flags = "cw"
+            vim.fn.search(pattern, flags)
+          end)
 
           return true
         end,
@@ -83,4 +75,4 @@ vim.api.nvim_create_user_command("ManSetMark", function()
   end)
 end, {})
 
-vim.api.nvim_create_user_command("ManGetMarks", go_marks, {})
+vim.api.nvim_create_user_command("ManMarks", go_marks, {})

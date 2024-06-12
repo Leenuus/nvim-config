@@ -31,11 +31,11 @@ return {
       -- vim.keymap.set("n", "<leader>ee", function()
       --   iron.send_motion("af")
       -- end, { desc = "send current function" })
-      vim.keymap.set("n", "<leader>el", iron.send_line)
-      vim.keymap.set("n", "<leader>ee", iron.send_file)
+      vim.keymap.set("n", "<leader>el", iron.send_line, { desc = "evaluate line" })
+      vim.keymap.set("n", "<leader>ee", iron.send_file, { desc = "evaluate file" })
       vim.keymap.set("x", "<leader>e", iron.visual_send)
       vim.keymap.set("x", "<leader>m", iron.mark_visual)
-      vim.keymap.set("x", "<leader>em", iron.send_mark)
+      vim.keymap.set("n", "<leader>em", iron.send_mark, { desc = "evaluate marked" })
     end,
   },
 }

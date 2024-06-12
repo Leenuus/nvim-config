@@ -1,6 +1,7 @@
 return {
   {
-    "nvimtools/none-ls.nvim",
+    dir = "~/Projects/Neovims/none-ls.nvim",
+    -- "nvimtools/none-ls.nvim",
     config = function()
       local null_ls = require("null-ls")
       local spell = null_ls.builtins.completion.spell.with({
@@ -8,6 +9,9 @@ return {
       })
       local printenv = null_ls.builtins.hover.printenv.with({
         filetypes = { "bash", "sh", "fish", "dosbatch", "ps1" },
+      })
+      local sqlite = null_ls.builtins.formatting.sqlfluff.with({
+        extra_args = { "--dialect", "sqlite" },
       })
 
       local sources = {
@@ -22,6 +26,7 @@ return {
         null_ls.builtins.formatting.fish_indent,
         null_ls.builtins.formatting.gofmt,
         null_ls.builtins.formatting.yamlfmt,
+        sqlite,
         -- null_ls.builtins.formatting.codespell, -- spell
         -- markdown
         null_ls.builtins.formatting.cbfmt, -- markdown code block

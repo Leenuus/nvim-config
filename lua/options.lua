@@ -29,7 +29,7 @@ vim.o.smartcase = true
 -- EXPORT
 vim.o.updatetime = 250
 -- EXPORT
-vim.o.timeoutlen = 300
+vim.o.timeoutlen = 100
 
 -- split right
 -- EXPORT
