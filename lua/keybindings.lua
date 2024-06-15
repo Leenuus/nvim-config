@@ -82,11 +82,11 @@ vim.keymap.set("v", ">", ">gv")
 -- EXPORT
 vim.keymap.set("n", "<leader>w", '<cmd>w<cr>')
 -- EXPORT
-vim.keymap.set("n", "<leader>q", "<cmd>x<cr>")
+vim.keymap.set("n", "<leader>q", "<cmd>x<cr>", { desc = 'safe quit' })
 -- EXPORT
-vim.keymap.set("n", "<leader>qp", "<cmd>q!<cr>")
+vim.keymap.set("n", "<leader>qp", "<cmd>q!<cr>", { desc = 'force quit' })
 -- EXPORT
-vim.keymap.set("n", "<leader>qq", "<cmd>xall<cr>")
+vim.keymap.set("n", "<leader>qq", "<cmd>xall<cr>", { desc = 'safe quit all' })
 
 -- EXPORT
 vim.keymap.set("n", "U", "<cmd>redo<cr>", { desc = "redo" })
@@ -322,6 +322,7 @@ vim.keymap.set("n", "<leader>sk", function()
 end, { desc = "Show Keymaps" })
 
 vim.keymap.set("n", "<leader>/", require("telescope.builtin").resume, { desc = "Resume telescope" })
+vim.keymap.set("n", "<leader>sl", require("telescope.builtin").resume, { desc = "Resume telescope" })
 vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "Find Helps" })
 vim.keymap.set("n", "<leader>sM", function()
   require("telescope.builtin").man_pages({ sections = { "ALL" } })
