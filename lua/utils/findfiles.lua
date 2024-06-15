@@ -118,7 +118,33 @@ local function grep_git_root()
   })
 end
 
+local function quick_files()
+  local harpoon_files = require("harpoon"):list()
+
+  local file_paths = {}
+  for _, item in ipairs(harpoon_files.items) do
+    table.insert(file_paths, item.value)
+  end
+
+  if #file_paths == 0 then
+    find_files()
+  else
+    local conf = require("telescope.config").values
+    require("telescope.pickers")
+        .new({}, {
+          prompt_title = "QuickFiles",
+          finder = require("telescope.finders").new_table({
+            results = file_paths,
+          }),
+          previewer = conf.file_previewer({}),
+          sorter = conf.generic_sorter({}),
+        })
+        :find()
+  end
+end
+
 vim.api.nvim_create_user_command("GrepCwd", grep_file_dir, {})
 vim.api.nvim_create_user_command("GrepGitRoot", grep_git_root, {})
 vim.api.nvim_create_user_command("FindFiles", find_files, {})
 vim.api.nvim_create_user_command("SearchMode", select_search_file_mode, {})
+vim.api.nvim_create_user_command("QuickFiles", quick_files, {})

@@ -13,10 +13,13 @@ return {
       harpoon:list():add()
     end, {})
     for i = 1, 5 do
-      vim.api.nvim_create_user_command(string.format("HarpoonSelect%d", i), function()
+      local cmd = string.format("HarpoonSelect%d", i)
+      vim.api.nvim_create_user_command(cmd, function()
         harpoon:list():select(i)
       end, {})
+      vim.keymap.set("n", string.format("<F%d>", i), string.format("<CMD>%s<CR>", cmd))
     end
-
+    vim.keymap.set("n", "<leader>aa", "<CMD>HarpoonAdd<CR>")
+    vim.keymap.set("n", "<leader>ai", "<CMD>HarpoonList<CR>")
   end,
 }

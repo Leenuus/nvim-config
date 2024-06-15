@@ -328,12 +328,12 @@ vim.keymap.set("n", "<leader>sM", function()
   require("telescope.builtin").man_pages({ sections = { "ALL" } })
 end, { desc = "Find man pages" })
 vim.keymap.set("n", "<leader>ss", require("telescope.builtin").builtin, { desc = "Show telescopes" })
-
-vim.keymap.set("n", "<leader><space>", "<cmd>FindFiles<cr>")
-
 vim.keymap.set("n", "<leader>sg", "<cmd>GrepGitRoot<cr>", { desc = "Grep Git root" })
 vim.keymap.set("n", "<leader>sG", "<cmd>GrepCwd<cr>", { desc = "Grep current File dir" })
 
-vim.keymap.set("n", "<leader>sf", "<cmd>SearchMode<cr>", { desc = "Select Search Mode" })
-
 vim.keymap.set('n', '<leader>td', '<CMD>tabnew +vertical\\ DBUI<CR>', { desc = 'Open Database UI' } )
+
+
+vim.keymap.set("n", "<leader><space>", "<cmd>QuickFiles<cr>")
+vim.keymap.set("n", "<leader>sf", "<cmd>FindFiles<cr>")
+vim.keymap.set("n", "<leader>sF", "<cmd>SearchMode<cr>", { desc = "Select Search Mode" })
