@@ -22,17 +22,18 @@ return {
     config = function()
       vim.api.nvim_create_autocmd("RecordingEnter", {
         callback = function()
-          vim.g.minipairs_disable = true
           vim.b.minipairs_disable = true
         end,
       })
-
-      vim.api.nvim_create_autocmd("RecordingLeave", {
-        callback = function()
-          vim.g.minipairs_disable = false
-          vim.b.minipairs_disable = false
-        end,
-      })
+      vim.api.nvim_create_user_command("MiniPairEnable", function()
+        vim.b.minipairs_disable = false
+      end, {})
+      vim.api.nvim_create_user_command("MiniPairDisable", function()
+        vim.b.minipairs_disable = true
+      end, {})
+      vim.api.nvim_create_user_command("MiniPairToggle", function()
+        vim.b.minipairs_disable = not vim.b.minipairs_disable
+      end, {})
       require("mini.pairs").setup(opts)
     end,
   },
