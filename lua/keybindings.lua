@@ -305,7 +305,7 @@ end, { desc = "open snippet" })
 vim.keymap.set("n", "<leader>sj", require("telescope.builtin").jumplist, { desc = "Jump list" })
 vim.keymap.set("n", "<leader>sH", require("telescope.builtin").command_history, { desc = "Command History" })
 vim.keymap.set("n", "<leader>st", "<cmd>Telescope colorscheme<cr>", { desc = "search colorscheme" })
-vim.keymap.set("n", "<leader>sC", function()
+vim.keymap.set("n", "<leader>sc", function()
   vim.cmd("Telescope registers")
 end, { desc = "Search Clipboard" })
 vim.keymap.set("n", "<leader>s/", function()
@@ -349,3 +349,4 @@ vim.keymap.set("x", "<leader><CR>", "<CMD>RedirEvalRange<CR>", { desc = "evaluat
 
 -- EXPORT
 vim.keymap.set("n", "\\", "/\\<\\><left><left>", { desc = "search whole word" })
+vim.keymap.set('n', '<leader>sp', '<CMD>Telescope project<CR>', { desc = 'Browse Projects' } )

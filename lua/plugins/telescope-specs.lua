@@ -9,9 +9,6 @@ return {
   },
   {
     "nvim-telescope/telescope-project.nvim",
-    config = function()
-      pcall(require("telescope").load_extension, "project")
-    end,
   },
   {
     "nvim-telescope/telescope.nvim",
