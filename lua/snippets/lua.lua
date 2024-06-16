@@ -182,6 +182,8 @@ end, { desc = '<>' } )]],
   )
 )
 
+local pretty_print = s("pp", fmt([[print(vim.inspect(<>))]], { i(1) }, { delimiters = "<>" }))
+
 local lua_snips = {
   main,
   smart_require,
@@ -194,6 +196,7 @@ local lua_snips = {
   disable_diagnositcs,
   set_cmd_keymap,
   set_function_keymap,
+  pretty_print
 }
 
 return lua_snips
