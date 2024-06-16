@@ -26,6 +26,18 @@ end
 
 local find_all_command = vim.list_extend(vim.deepcopy(base_find_command), { "-H", "-I" })
 
+local function work_dir()
+  return vim.fn.getcwd()
+end
+
+local function current_file()
+  local cwd = vim.fn.expand("%:p:h")
+  if string.match(cwd, "^.-://") then
+    cwd = work_dir()
+  end
+  return cwd
+end
+
 local find_files_options = {
   [DEFAULT_FIND_FILES_MODE] = {
     cwd = find_git_root,
@@ -36,27 +48,19 @@ local find_files_options = {
     find_command = find_all_command,
   },
   ["(current file)"] = {
-    cwd = function()
-      return vim.fn.expand("%:h")
-    end,
+    cwd = current_file,
     find_command = base_find_command,
   },
   ["(current file)hidden, ignore"] = {
-    cwd = function()
-      return vim.fn.expand("%:h")
-    end,
+    cwd = current_file,
     find_command = find_all_command,
   },
   ["(workdir)"] = {
-    cwd = function()
-      return vim.fn.getcwd()
-    end,
+    cwd = work_dir,
     find_command = base_find_command,
   },
   ["(workdir)hidden, ignore"] = {
-    cwd = function()
-      return vim.fn.getcwd()
-    end,
+    cwd = work_dir,
     find_command = find_all_command,
   },
 }
@@ -81,18 +85,22 @@ local no_search_dirs = {
 }
 
 local function find_files()
-  -- NOTE: pitfall, deep copy!
+  local cwd
   local opts = vim.deepcopy(find_files_options[find_files_mode])
-  -- NOTE: some dir should never be searched
-  if vim.tbl_contains(no_search_dirs, vim.fn.getcwd()) then
-    vim.cmd("cd %:p:h")
-  end
-  if vim.tbl_contains(no_search_dirs, vim.fn.getcwd()) then
-    print("This is not a good idea to search in " .. vim.fn.getcwd())
+  if type(opts["cwd"]) == "function" then
+    cwd = opts["cwd"]()
   else
-    opts["cwd"] = opts["cwd"]()
-    require("telescope.builtin").find_files(opts)
+    cwd = cwd
   end
+  if vim.tbl_contains(no_search_dirs, cwd) then
+    print("This is not a good idea to search in " .. cwd)
+    return
+  end
+  local op = {
+    opts.find_command,
+    cwd = cwd,
+  }
+  require("telescope.builtin").find_files(op)
 end
 
 local glob_pattern = {}
