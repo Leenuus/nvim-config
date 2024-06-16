@@ -338,11 +338,6 @@ vim.keymap.set("n", "<leader>sF", "<cmd>SearchMode<cr>", { desc = "Select Search
 
 vim.keymap.set("n", "<leader>te", "<CMD>MiniFiles<CR>", { desc = "Open File Manager" })
 vim.keymap.set("n", "<leader>tE", "<CMD>TreeOpen<CR>", { desc = "Open Tree View" })
-
--- EXPORT
-vim.keymap.set("n", "/", "/\\<\\><left><left>", { desc = "search whole word" })
--- EXPORT
-vim.keymap.set("n", "\\", "/", { desc = "normal search" })
 vim.keymap.set("n", "<leader>gg", "<CMD>Git<CR>", { desc = "Awesome Git Wrapper" })
 
 vim.keymap.set("n", "<leader>tm", "<CMD>Mes<CR>", { desc = "Open messages in split window" })
@@ -351,3 +346,6 @@ vim.keymap.set("n", "<leader>el", "<CMD>RedirEvalLine<CR>", { desc = "evaluate l
 vim.keymap.set("n", "<leader>ee", "<CMD>RedirEvalFile<CR>", { desc = "evaluate file" })
 vim.keymap.set("n", "<leader>ef", "<CMD>RedirEvalFile<CR>", { desc = "evaluate file" })
 vim.keymap.set("x", "<leader><CR>", "<CMD>RedirEvalRange<CR>", { desc = "evaluate range" })
+
+-- EXPORT
+vim.keymap.set("n", "\\", "/\\<\\><left><left>", { desc = "search whole word" })
