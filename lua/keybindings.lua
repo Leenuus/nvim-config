@@ -344,5 +344,3 @@ vim.keymap.set("n", "/", "/\\<\\><left><left>", { desc = "search whole word" })
 -- EXPORT
 vim.keymap.set("n", "\\", "/", { desc = "normal search" })
 vim.keymap.set("n", "<leader>gg", "<CMD>Git<CR>", { desc = "Awesome Git Wrapper" })
-
--- TODO: recording...
