@@ -131,6 +131,9 @@ end
 return {
   dir = "~/Projects/Neovims/dashboard-nvim",
   event = "VimEnter",
+  cond = function()
+    return  vim.env["PAGER"] ~= "nvim"
+  end,
   -- enabled = false,
   dependencies = { { "nvim-tree/nvim-web-devicons" } },
   config = function()
