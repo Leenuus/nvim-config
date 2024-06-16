@@ -1,4 +1,4 @@
-local auto_close_filetype = { "oil", "aerial" }
+local auto_close_filetype = { "aerial", "tree" }
 local auto_close_pat = "conjure%-log"
 
 vim.g.auto_close_enabled = true
