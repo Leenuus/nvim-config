@@ -128,11 +128,22 @@ if vim.env["DIARY_TODAY"] then
   }
 end
 
+local projects = {}
+if require("telescope").extensions.project ~= nil then
+  projects = {
+    icon = "  ",
+    desc = "Projects",
+    key = "p",
+    key_format = " %s",
+    action = "Telescope project",
+  }
+end
+
 return {
   dir = "~/Projects/Neovims/dashboard-nvim",
   event = "VimEnter",
   cond = function()
-    return  vim.env["PAGER"] ~= "nvim"
+    return vim.env["PAGER"] ~= "nvim"
   end,
   -- enabled = false,
   dependencies = { { "nvim-tree/nvim-web-devicons" } },
@@ -156,6 +167,7 @@ return {
           help,
           color,
           diary,
+          projects,
           {
             icon = "  ",
             desc = "Quit Neovim",
