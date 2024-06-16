@@ -1,3 +1,6 @@
+-- TODO: support help file for vim
+
+
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
 local conf = require("telescope.config").values

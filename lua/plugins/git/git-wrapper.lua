@@ -1,5 +1,6 @@
 return {
   {
-    "tpope/vim-fugitive",
+    -- "tpope/vim-fugitive",
+    dir = "~/Projects/Neovims/vim-fugitive",
   },
 }
