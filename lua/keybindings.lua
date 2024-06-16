@@ -131,7 +131,6 @@ else
   vim.keymap.set("n", "<leader>'", "gt", { desc = "next tab" })
 end
 
-
 -- terminal mode
 -- EXPORT
 vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], { desc = "normal mode" })
@@ -339,6 +338,11 @@ vim.keymap.set("n", "<leader>sF", "<cmd>SearchMode<cr>", { desc = "Select Search
 
 vim.keymap.set("n", "<leader>te", "<CMD>MiniFiles<CR>", { desc = "Open File Manager" })
 vim.keymap.set("n", "<leader>tE", "<CMD>TreeOpen<CR>", { desc = "Open Tree View" })
+
+-- EXPORT
+vim.keymap.set("n", "/", "/\\<\\><left><left>", { desc = "search whole word" })
+-- EXPORT
+vim.keymap.set("n", "\\", "/", { desc = "normal search" })
 vim.keymap.set("n", "<leader>gg", "<CMD>Git<CR>", { desc = "Awesome Git Wrapper" })
 
 -- TODO: recording...

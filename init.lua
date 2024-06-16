@@ -1,7 +1,7 @@
 -- EXPORT
 vim.g.mapleader = " "
 -- EXPORT
-vim.g.maplocalleader = "\\"
+vim.g.maplocalleader = ","
 
 require("lazy-spec")
 require("options")
