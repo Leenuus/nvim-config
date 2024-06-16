@@ -337,3 +337,5 @@ vim.keymap.set('n', '<leader>td', '<CMD>tabnew +vertical\\ DBUI<CR>', { desc = '
 vim.keymap.set("n", "<leader><space>", "<cmd>QuickFiles<cr>")
 vim.keymap.set("n", "<leader>sf", "<cmd>FindFiles<cr>")
 vim.keymap.set("n", "<leader>sF", "<cmd>SearchMode<cr>", { desc = "Select Search Mode" })
+
+vim.keymap.set('n', '<leader>te', '<CMD>lua MiniFiles.open()<CR>', { desc = 'desc' } )

@@ -10,4 +10,6 @@ M.find_git_root = function()
   return git_root
 end
 
+function M.nop() end
+
 return M

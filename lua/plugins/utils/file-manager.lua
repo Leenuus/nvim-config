@@ -1,5 +1,3 @@
-local function nop() end
-
 local function make_executable()
   local ctx = require("lir").get_context()
   local file = ctx:current()
@@ -9,71 +7,59 @@ local function make_executable()
   vim.fn.setfperm(file, perm)
 end
 
+-- TODO:
+-- try open window at cursor position
 return {
   {
-    "tamago324/lir.nvim",
-    config = function()
-      local actions = require("lir.actions")
-
-      require("lir").setup({
-        show_hidden_files = true,
-        ignore = {},
-        devicons = {
-          enable = true,
-          highlight_dirname = false,
+    {
+      "echasnovski/mini.files",
+      version = "*",
+      opts = {
+        content = {
+          -- Predicate for which file system entries to show
+          filter = nil,
+          -- What prefix to show to the left of file system entry
+          prefix = nil,
+          -- In which order to show file system entries
+          sort = nil,
         },
+
         mappings = {
-          ["l"] = actions.edit,
-          ["<cr>"] = actions.edit,
-          ["<C-s>"] = actions.split,
-          ["<C-p>"] = actions.vsplit,
-          ["<C-t>"] = actions.tabedit,
-
-          ["h"] = actions.up,
-          ["q"] = actions.up,
-          ["<Leader>q"] = actions.quit,
-
-          ["d"] = actions.mkdir,
-          ["n"] = actions.newfile,
-          ["r"] = actions.rename,
-          ["@"] = actions.cd,
-          ["y"] = actions.yank_path,
-          ["."] = actions.toggle_show_hidden,
-          ["x"] = actions.delete,
-          ["8"] = make_executable,
-          ["*"] = make_executable,
-          ["J"] = nop,
-          ["C"] = nop,
-          ["X"] = nop,
-          ["P"] = nop,
+          close = "<ESC>",
+          go_in = "l",
+          go_in_plus = "L",
+          go_out = "h",
+          go_out_plus = "H",
+          reset = "<BS>",
+          reveal_cwd = "@",
+          show_help = "g?",
+          synchronize = "=",
+          trim_left = "<",
+          trim_right = ">",
         },
-        float = {
-          winblend = 0,
-          curdir_window = {
-            enable = false,
-            highlight_dirname = false,
-          },
-          win_opts = function()
-            local width = math.floor(vim.o.columns * 0.8)
-            local height = math.floor(vim.o.lines * 0.7)
-            return {
-              width = width,
-              height = height,
-              relative = "win",
-            }
-          end,
-        },
-        hide_cursor = true,
-      })
 
-      vim.api.nvim_create_autocmd({ "FileType" }, {
-        pattern = { "lir" },
-        callback = function() end,
-      })
-      vim.api.nvim_create_user_command("LirToggleCwd", function()
-        require("lir.float").toggle()
-      end, {})
-      vim.keymap.set("n", "<leader>te", "<CMD>LirToggleCwd<CR>", { desc = "Open File Manager" })
-    end,
+        -- General options
+        options = {
+          -- Whether to delete permanently or move into module-specific trash
+          permanent_delete = true,
+          -- Whether to use for editing directories
+          use_as_default_explorer = false,
+        },
+
+        -- Customization of explorer windows
+        windows = {
+          -- Maximum number of windows to show side by side
+          max_number = math.huge,
+          -- Whether to show preview of file/directory under cursor
+          preview = false,
+          -- Width of focused window
+          width_focus = 50,
+          -- Width of non-focused window
+          width_nofocus = 15,
+          -- Width of preview window
+          width_preview = 25,
+        },
+      },
+    },
   },
 }
