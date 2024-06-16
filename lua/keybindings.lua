@@ -80,13 +80,13 @@ vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
 -- EXPORT
-vim.keymap.set("n", "<leader>w", '<cmd>w<cr>')
+vim.keymap.set("n", "<leader>w", "<cmd>w<cr>")
 -- EXPORT
-vim.keymap.set("n", "<leader>q", "<cmd>x<cr>", { desc = 'safe quit' })
+vim.keymap.set("n", "<leader>q", "<cmd>x<cr>", { desc = "safe quit" })
 -- EXPORT
-vim.keymap.set("n", "<leader>qp", "<cmd>q!<cr>", { desc = 'force quit' })
+vim.keymap.set("n", "<leader>qp", "<cmd>q!<cr>", { desc = "force quit" })
 -- EXPORT
-vim.keymap.set("n", "<leader>qq", "<cmd>xall<cr>", { desc = 'safe quit all' })
+vim.keymap.set("n", "<leader>qq", "<cmd>xall<cr>", { desc = "safe quit all" })
 
 -- EXPORT
 vim.keymap.set("n", "U", "<cmd>redo<cr>", { desc = "redo" })
@@ -331,8 +331,7 @@ vim.keymap.set("n", "<leader>ss", require("telescope.builtin").builtin, { desc =
 vim.keymap.set("n", "<leader>sg", "<cmd>GrepGitRoot<cr>", { desc = "Grep Git root" })
 vim.keymap.set("n", "<leader>sG", "<cmd>GrepCwd<cr>", { desc = "Grep current File dir" })
 
-vim.keymap.set('n', '<leader>td', '<CMD>tabnew +vertical\\ DBUI<CR>', { desc = 'Open Database UI' } )
-
+vim.keymap.set("n", "<leader>td", "<CMD>tabnew +vertical\\ DBUI<CR>", { desc = "Open Database UI" })
 
 vim.keymap.set("n", "<leader><space>", "<cmd>QuickFiles<cr>")
 vim.keymap.set("n", "<leader>sf", "<cmd>FindFiles<cr>")
@@ -340,3 +339,6 @@ vim.keymap.set("n", "<leader>sF", "<cmd>SearchMode<cr>", { desc = "Select Search
 
 vim.keymap.set("n", "<leader>te", "<CMD>MiniFiles<CR>", { desc = "Open File Manager" })
 vim.keymap.set("n", "<leader>tE", "<CMD>TreeOpen<CR>", { desc = "Open Tree View" })
+vim.keymap.set("n", "<leader>gg", "<CMD>Git<CR>", { desc = "Awesome Git Wrapper" })
+
+-- TODO: recording...
