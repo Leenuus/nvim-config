@@ -308,7 +308,7 @@ vim.keymap.set("n", "<leader>sH", require("telescope.builtin").command_history, 
 vim.keymap.set("n", "<leader>st", "<cmd>Telescope colorscheme<cr>", { desc = "search colorscheme" })
 vim.keymap.set("n", "<leader>sm", "<cmd>messages<cr>", { desc = "search for messages" })
 vim.keymap.set("n", "<leader>sC", function()
-  vim.cmd("Telescope neoclip")
+  vim.cmd("Telescope registers")
 end, { desc = "Search Clipboard" })
 vim.keymap.set("n", "<leader>s/", function()
   require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_ivy({

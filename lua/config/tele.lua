@@ -26,6 +26,8 @@ end
 
 require("telescope").setup({
   defaults = {
+    -- TODO: center results, smaller window width, and disable previewer, toggle previewer bindings
+    layout_strategy = "vertical",
     mappings = {
       n = {
         ["<Tab>"] = actions.toggle_selection,
@@ -37,6 +39,7 @@ require("telescope").setup({
         ["K"] = opener("above"),
         ["H"] = opener("left"),
         ["L"] = opener("right"),
+        ["q"] = actions.close,
         ["<Left>"] = actions.cycle_history_prev,
         ["<Right>"] = actions.cycle_history_next,
         ["<Up>"] = actions.cycle_history_prev,
