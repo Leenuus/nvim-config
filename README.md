@@ -1,10 +1,8 @@
 ## TODO
 
-- a keybinding to jump to the corresponding snippets file
-- a treesitter program to remove trailing spaces, without compromising string literal
-- More to read in `:help function-list`
-- write a `im-select` alternative using simple shell script working with dbus
-- learning mode for new keybindings, floating window on the right top or notification when pressing an old one
+- [ ] mini.files floating window right at cursor position
+- [ ] write a `im-select` alternative using simple shell script working with dbus
+- [ ] hack `hardtime.nvim`, whose idea is cool, but don't get a good implementation
 
 ## NOTES
 
@@ -35,3 +33,17 @@ When dealing with file path relative keybindings, make sure expand/get the path 
 ### Lua Patterns
 
 In lua, `-` stands for non-greedy `*`; it is a metacharacter too.
+
+### expr map pitfall
+
+When you are creating a __expr mapping__ in __normal mode__, if you want special key like `<Nop>`, `<Left>`, make sure to escape them.
+
+For me, I want to disable `q` recording binding most of times, because I always mispress it. The right code are below:
+
+```lua
+vim.keymap.set("n", "q", function()
+  return vim.g.allow_recoring and "q" or "\\<NOP\\>"
+end, { expr = true })
+```
+
+Note that a bare `'<Nop>'` tells vim to do ['<', 'N', 'o', 'p', '>'] one by one, which is not what we want.
