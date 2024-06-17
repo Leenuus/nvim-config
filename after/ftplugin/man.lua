@@ -13,3 +13,5 @@ end, { desc = "go to next section" })
 vim.keymap.set("n", "gd", "<C-]>", { desc = "set man page mark", buffer = 0 })
 vim.keymap.set("n", "mm", "<cmd>ManSetMark<cr>", { desc = "set man page mark", buffer = 0 })
 vim.keymap.set("n", "<leader><space>", "<cmd>ManMarks<cr>", { desc = "go to man page mark", buffer = 0 })
+
+vim.keymap.set("n", "|", "/^\\s*", { desc = "search for man page section", buffer = 0 })
