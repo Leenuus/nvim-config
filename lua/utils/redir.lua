@@ -7,6 +7,7 @@ local function Redir(opts)
   local rng = opts.range
   local line1 = opts.line1 - 1
   local line2 = opts.line2
+  local vertical = opts.smods.vertical
   line2 = line1 == line2 and line1 + 1 or line2
 
   local output
@@ -65,8 +66,7 @@ local function Redir(opts)
   local buf = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_buf_set_lines(buf, 0, 0, false, output)
   vim.api.nvim_open_win(buf, true, {
-    split = "right",
-    win = 0,
+    vertical = vertical,
   })
 end
 
@@ -75,8 +75,6 @@ vim.api.nvim_create_user_command("Mes", function()
 end, {})
 vim.cmd([[cabbrev M Mes]])
 
--- command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
--- TODO: complete and bar
 vim.api.nvim_create_user_command("Redir", Redir, {
   nargs = 1,
   complete = "command",
