@@ -181,14 +181,12 @@ local discard_output = s("dd", fmt([[>/dev/null 2>&1]], {}))
 local copy = s("copy", fmt([[xclip -selection clipboard]], {}))
 
 local readline = s(
-  "readline",
+  "rl",
   fmt(
     [[while IFS= read -r line; do
   echo "$line"
-done < {}]],
-    {
-      insert(0, "input"),
-    }
+done]],
+    {}
   )
 )
 
@@ -314,7 +312,7 @@ local bash_snips = {
   fzf,
   shell_bang,
   disable_shell_check,
-  if_file_not_exist
+  if_file_not_exist,
 }
 
 return bash_snips
