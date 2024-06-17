@@ -322,7 +322,8 @@ end, { desc = "Show Keymaps" })
 vim.keymap.set("n", "<leader>/", require("telescope.builtin").resume, { desc = "Resume telescope" })
 vim.keymap.set("n", "<leader>sl", require("telescope.builtin").resume, { desc = "Resume telescope" })
 vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "Find Helps" })
-vim.keymap.set("n", "<leader>so", require("telescope.builtin").vim_options, { desc = "Find Options" })
+vim.keymap.set("n", "<leader>sO", require("telescope.builtin").vim_options, { desc = "Find Options" })
+vim.keymap.set("n", "<leader>so", require("telescope.builtin").oldfiles, { desc = "Find Recent Files" })
 vim.keymap.set("n", "<leader>sm", function()
   require("telescope.builtin").man_pages({ sections = { "ALL" } })
 end, { desc = "Find man pages" })
@@ -349,3 +350,17 @@ vim.keymap.set("x", "<leader><CR>", "<CMD>RedirEvalRange<CR>", { desc = "evaluat
 
 -- EXPORT
 vim.keymap.set("n", "\\", "/\\<\\><left><left>", { desc = "search whole word" })
+
+-- TODO: a keybindings to open current file's ftplugin
+vim.keymap.set("n", "<leader>tP", function()
+  local ft = vim.bo.ft
+  if ft == "sh" then
+    ft = "bash"
+  end
+  local cmd = string.format("vnew %s/after/ftplugin/%s.lua", vim.fn.stdpath("config"), ft)
+  vim.cmd(cmd)
+end, { desc = "open filetype plugin" })
+
+vim.keymap.set('n', '<leader>sp', '<CMD>Telescope project<CR>', { desc = 'open projects' } )
+
+
