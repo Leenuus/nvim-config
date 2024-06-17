@@ -57,7 +57,7 @@ local function Redir(opts)
   else
     -- NOTE: vim command
     vim.cmd("redir => output")
-    vim.cmd("silent " .. cmd)
+    vim.cmd(cmd)
     vim.cmd("redir END")
     output = vim.fn.split(vim.g.output, "\n")
   end
@@ -103,10 +103,10 @@ local function redir(range)
     end
 
     if interepter then
-      vim.cmd(string.format("%sRedir !%s", range, interepter))
+      vim.cmd(string.format("silent %sRedir !%s", range, interepter))
     else
       -- FIXME: setcmdline not work
-      vim.fn.setcmdline(string.format("%sRedir !", range))
+      vim.fn.setcmdline(string.format("silent %sRedir !", range))
     end
   end
 end
