@@ -338,7 +338,7 @@ vim.keymap.set("n", "<leader>sF", "<cmd>SearchMode<cr>", { desc = "Select Search
 
 vim.keymap.set("n", "<leader>te", "<CMD>MiniFiles<CR>", { desc = "Open File Manager" })
 vim.keymap.set("n", "<leader>tE", "<CMD>Redir !tree --gitignore<CR>", { desc = "Open Tree View" })
-vim.keymap.set("n", "<leader>gg", "<CMD>Git<CR>", { desc = "Awesome Git Wrapper" })
+vim.keymap.set("n", "<leader>gg", "<CMD>SplitLeft Git<CR>", { desc = "Awesome Git Wrapper" })
 
 vim.keymap.set("n", "<leader>tm", "<CMD>Mes<CR>", { desc = "Open messages in split window" })
 
