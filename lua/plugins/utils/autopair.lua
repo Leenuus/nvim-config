@@ -34,6 +34,8 @@ return {
         end,
       })
       require("mini.pairs").setup(opts)
+
+      require("helpers").toggler("minipairs_disable", "MiniAutoPairs", true)
     end,
   },
 }
