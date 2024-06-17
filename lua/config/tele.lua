@@ -50,6 +50,7 @@ require("telescope").setup({
         ["<Right>"] = actions.cycle_history_next,
         ["<C-T>"] = actions.select_tab,
         ["<Tab>"] = actions.select_tab,
+        ["<C-P>"] = actions.select_tab,
         ["<C-J>"] = opener("below"),
         ["<C-K>"] = opener("above"),
         ["<C-H>"] = opener("left"),

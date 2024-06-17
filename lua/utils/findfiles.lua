@@ -82,9 +82,11 @@ end
 local no_search_dirs = {
   vim.env["HOME"],
   "/tmp",
+  "/",
 }
 
-local function find_files()
+local function find_files(options)
+  options = options or {}
   local cwd
   local opts = vim.deepcopy(find_files_options[find_files_mode])
   if type(opts["cwd"]) == "function" then
@@ -92,14 +94,17 @@ local function find_files()
   else
     cwd = cwd
   end
-  if vim.tbl_contains(no_search_dirs, cwd) then
-    print("This is not a good idea to search in " .. cwd)
-    return
-  end
-  local op = {
+
+  local op = vim.tbl_deep_extend("force", {
     opts.find_command,
     cwd = cwd,
-  }
+  }, options)
+  op.cwd = op.cwd or cwd
+
+  if vim.tbl_contains(no_search_dirs, op.cwd) then
+    vim.notify("This is not a good idea to search in " .. op.cwd)
+    return
+  end
   require("telescope.builtin").find_files(op)
 end
 
@@ -110,17 +115,33 @@ for _, e in ipairs(excluded) do
 end
 
 -- live grep
-local function grep_file_dir()
-  local dir = vim.fn.expand("%:h")
-  require("telescope.builtin").live_grep({
-    cwd = dir,
+local function livegrep(opts)
+  opts = opts or {}
+
+  print("mode", find_files_mode)
+  local options = vim.deepcopy(find_files_options[find_files_mode])
+  local cwd
+  if type(options["cwd"]) == "function" then
+    cwd = options["cwd"]()
+  else
+    cwd = cwd
+  end
+  print("cwd", cwd)
+
+  opts = vim.tbl_deep_extend("force", {
     glob_pattern = glob_pattern,
-  })
+  }, opts)
+  print("cwd in")
+  print(vim.inspect(opts.cwd))
+  opts["cwd"] = opts["cwd"] or cwd
+  print("final cwd", opts.cwd)
+
+  require("telescope.builtin").live_grep(opts)
 end
 
 local function grep_git_root()
   local git_root = find_git_root()
-  require("telescope.builtin").live_grep({
+  livegrep({
     cwd = git_root,
     glob_pattern = glob_pattern,
   })
@@ -137,6 +158,7 @@ local function quick_files()
   if #file_paths == 0 then
     find_files()
   else
+    -- TODO: add normal mode binding to delete files
     local conf = require("telescope.config").values
     require("telescope.pickers")
         .new({}, {
@@ -151,8 +173,23 @@ local function quick_files()
   end
 end
 
-vim.api.nvim_create_user_command("GrepCwd", grep_file_dir, {})
+vim.api.nvim_create_user_command("LiveGrep", function(opts)
+  local cwd = opts["args"]
+  if cwd == "" then
+    cwd = nil
+  end
+  livegrep({ cwd = cwd })
+end, {
+  nargs = "?",
+  complete = "dir",
+})
 vim.api.nvim_create_user_command("GrepGitRoot", grep_git_root, {})
-vim.api.nvim_create_user_command("FindFiles", find_files, {})
+vim.api.nvim_create_user_command("FindFiles", function(opts)
+  local cwd = opts["args"]
+  if cwd == "" then
+    cwd = nil
+  end
+  find_files({ cwd = cwd })
+end, { nargs = "?", complete = "dir" })
 vim.api.nvim_create_user_command("SearchMode", select_search_file_mode, {})
 vim.api.nvim_create_user_command("QuickFiles", quick_files, {})
