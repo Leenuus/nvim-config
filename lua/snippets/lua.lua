@@ -196,6 +196,24 @@ local set_plug_keymap = s(
   )
 )
 
+local ui_input = s(
+  "input",
+  fmt(
+    [[vim.ui.input({ prompt = "<>", default = '<>' }, function(name)
+  if name == '' or name == nil then
+    <>
+  end
+end)]],
+    {
+      i(1),
+      i(2),
+      i(0),
+    },
+    { delimiters = "<>" }
+  )
+)
+
+
 
 local pretty_print = s("pp", fmt([[print(vim.inspect(<>))]], { i(1) }, { delimiters = "<>" }))
 
@@ -212,7 +230,8 @@ local lua_snips = {
   set_cmd_keymap,
   set_function_keymap,
   pretty_print,
-  set_plug_keymap
+  set_plug_keymap,
+  ui_input
 }
 
 return lua_snips
