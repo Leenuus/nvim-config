@@ -82,6 +82,8 @@ vim.keymap.set("v", ">", ">gv")
 -- EXPORT
 vim.keymap.set("n", "<leader>w", "<cmd>w<cr>")
 -- EXPORT
+vim.keymap.set("n", "<leader>ww", "<cmd>wall<cr>")
+-- EXPORT
 vim.keymap.set("n", "<leader>q", "<cmd>x<cr>", { desc = "safe quit" })
 -- EXPORT
 vim.keymap.set("n", "<leader>qp", "<cmd>q!<cr>", { desc = "force quit" })
@@ -351,7 +353,6 @@ vim.keymap.set("x", "<leader><CR>", "<CMD>RedirEvalRange<CR>", { desc = "evaluat
 -- EXPORT
 vim.keymap.set("n", "\\", "/\\<\\><left><left>", { desc = "search whole word" })
 
--- TODO: a keybindings to open current file's ftplugin
 vim.keymap.set("n", "<leader>tP", function()
   local ft = vim.bo.ft
   if ft == "sh" then
@@ -361,7 +362,7 @@ vim.keymap.set("n", "<leader>tP", function()
   vim.cmd(cmd)
 end, { desc = "open filetype plugin" })
 
-vim.keymap.set('n', '<leader>sp', '<CMD>Telescope project<CR>', { desc = 'open projects' } )
+vim.keymap.set("n", "<leader>sp", "<CMD>Telescope project<CR>", { desc = "open projects" })
 
 -- NOTE: when recording, use normal j and k, but most of time, I would like gj and gk
 -- EXPORT
