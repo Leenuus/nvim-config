@@ -17,6 +17,7 @@ local opts = {
 
 return {
   {
+    enabled = false,
     "echasnovski/mini.pairs",
     version = "*",
     config = function()
@@ -36,6 +37,12 @@ return {
       require("mini.pairs").setup(opts)
 
       require("helpers").toggler("minipairs_disable", "MiniAutoPairs", true)
+    end,
+  },
+  {
+    "tpope/vim-surround",
+    init = function()
+      vim.g.surround_no_mappings = 1
     end,
   },
 }

@@ -363,4 +363,28 @@ end, { desc = "open filetype plugin" })
 
 vim.keymap.set('n', '<leader>sp', '<CMD>Telescope project<CR>', { desc = 'open projects' } )
 
+-- NOTE: when recording, use normal j and k, but most of time, I would like gj and gk
+-- EXPORT
+vim.keymap.set({ "n", "v" }, "k", function()
+  if vim.g.allow_recoring then
+    return "k"
+  else
+    return "gk"
+  end
+end, { expr = true })
+-- EXPORT
+vim.keymap.set({ "n", "v" }, "j", function()
+  if vim.g.allow_recoring then
+    return "j"
+  else
+    return "gj"
+  end
+end, { expr = true })
 
+-- NOTE: vim-surround is amazing
+vim.keymap.set("x", "gs", "<Plug>Vsurround", { desc = "surround" })
+vim.keymap.set("x", "gS", "<Plug>VSurround", { desc = "surround" })
+vim.keymap.set("n", "gs", "<Plug>Ysurround", { desc = "surround" })
+vim.keymap.set("n", "gS", "<Plug>YSurround", { desc = "surround" })
+vim.keymap.set("i", "<C-f>", "<Plug>Isurround", { desc = "surround" })
+vim.keymap.set("i", "<C-g>", "<Plug>ISurround", { desc = "surround" })
