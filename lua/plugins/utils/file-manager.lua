@@ -34,7 +34,7 @@ return {
             reset = "<BS>",
             reveal_cwd = "@",
             show_help = "g?",
-            synchronize = "<CR>",
+            synchronize = "<leader>w",
             trim_left = "<",
             trim_right = ">",
           },

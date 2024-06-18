@@ -1,7 +1,18 @@
 local M = {}
 
-M.find_git_root = function()
-  local current_dir = vim.fn.expand("%:p:h")
+M.find_git_root = function(file)
+  local current_dir
+  if file ~= nil then
+    local f = require("plenary.path").new(file)
+    if f:exists() then
+      current_dir = f:parent().filename
+      print(vim.inspect(current_dir))
+    else
+      current_dir = vim.fn.expand("%:p:h")
+    end
+  else
+    current_dir = vim.fn.expand("%:p:h")
+  end
 
   if string.match(current_dir, "^.-://") then
     current_dir = vim.fn.getcwd()

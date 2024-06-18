@@ -352,7 +352,7 @@ vim.keymap.set("x", "<leader><CR>", "<CMD>RedirEvalRange<CR>", { desc = "evaluat
 
 -- EXPORT
 vim.keymap.set("n", "\\", "/\\<\\><left><left>", { desc = "search whole word" })
-vim.keymap.set('n', '<leader>sp', '<CMD>Telescope project<CR>', { desc = 'Browse Projects' } )
+vim.keymap.set("n", "<leader>sp", "<CMD>Telescope project<CR>", { desc = "Browse Projects" })
 
 vim.keymap.set("n", "<leader>tP", function()
   local ft = vim.bo.ft
@@ -384,9 +384,12 @@ vim.keymap.set({ "n", "v" }, "j", function()
 end, { expr = true })
 
 -- NOTE: vim-surround is amazing
-vim.keymap.set("x", "gs", "<Plug>Vsurround", { desc = "surround" })
-vim.keymap.set("x", "gS", "<Plug>VSurround", { desc = "surround" })
-vim.keymap.set("n", "gs", "<Plug>Ysurround", { desc = "surround" })
-vim.keymap.set("n", "gS", "<Plug>YSurround", { desc = "surround" })
-vim.keymap.set("i", "<C-f>", "<Plug>Isurround", { desc = "surround" })
-vim.keymap.set("i", "<C-g>", "<Plug>ISurround", { desc = "surround" })
+vim.keymap.set("x", "gs", "<Plug>Vsurround", { desc = "add surround" })
+vim.keymap.set("x", "gS", "<Plug>VSurround", { desc = "add surround" })
+vim.keymap.set("i", "<C-f>", "<Plug>Isurround", { desc = "insert pair" })
+vim.keymap.set("i", "<C-g>", "<Plug>ISurround", { desc = "insert pair" })
+
+vim.keymap.set("n", "cs", "<Plug>Csurround", { desc = "change surround" })
+vim.keymap.set("n", "cS", "<Plug>CSurround", { desc = "change surround" })
+vim.keymap.set("n", "gs", "<Plug>Ysurround", { desc = "add surround" })
+vim.keymap.set("n", "gS", "<Plug>YSurround", { desc = "add surround" })
