@@ -1,10 +1,9 @@
 ## TODO
 
-- [ ] This is a good idea to move previous buffer to the leftmost window, keep current editing window in the center
-- [ ] mini.files floating window right at cursor position
+- [ ] mini.files floating window right at cursor position, or a __better file manage paradigm...__
 - [ ] write a `im-select` alternative using simple shell script working with dbus
 - [ ] hack `hardtime.nvim`, whose idea is cool, but don't get a good implementation
-- [ ] vim fugitive custom keymap
+- [ ] how to set previous window's buffer in lua
 
 ## NOTES
 

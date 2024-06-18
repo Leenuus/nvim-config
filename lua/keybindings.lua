@@ -82,6 +82,8 @@ vim.keymap.set("v", ">", ">gv")
 -- EXPORT
 vim.keymap.set("n", "<leader>w", "<cmd>w<cr>")
 -- EXPORT
+vim.keymap.set("n", "<leader>ww", "<cmd>wall<cr>")
+-- EXPORT
 vim.keymap.set("n", "<leader>q", "<cmd>x<cr>", { desc = "safe quit" })
 -- EXPORT
 vim.keymap.set("n", "<leader>qp", "<cmd>q!<cr>", { desc = "force quit" })
@@ -322,13 +324,14 @@ end, { desc = "Show Keymaps" })
 vim.keymap.set("n", "<leader>/", require("telescope.builtin").resume, { desc = "Resume telescope" })
 vim.keymap.set("n", "<leader>sl", require("telescope.builtin").resume, { desc = "Resume telescope" })
 vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "Find Helps" })
-vim.keymap.set("n", "<leader>so", require("telescope.builtin").vim_options, { desc = "Find Options" })
+vim.keymap.set("n", "<leader>sO", require("telescope.builtin").vim_options, { desc = "Find Options" })
+vim.keymap.set("n", "<leader>so", require("telescope.builtin").oldfiles, { desc = "Find Recent Files" })
 vim.keymap.set("n", "<leader>sm", function()
   require("telescope.builtin").man_pages({ sections = { "ALL" } })
 end, { desc = "Find man pages" })
 vim.keymap.set("n", "<leader>ss", require("telescope.builtin").builtin, { desc = "Show telescopes" })
 vim.keymap.set("n", "<leader>sg", "<cmd>GrepGitRoot<cr>", { desc = "Grep Git root" })
-vim.keymap.set("n", "<leader>sG", "<cmd>GrepCwd<cr>", { desc = "Grep current File dir" })
+vim.keymap.set("n", "<leader>sG", "<cmd>LiveGrep<cr>", { desc = "Grep current File dir" })
 
 vim.keymap.set("n", "<leader>td", "<CMD>tabnew +vertical\\ DBUI<CR>", { desc = "Open Database UI" })
 
@@ -337,8 +340,8 @@ vim.keymap.set("n", "<leader>sf", "<cmd>FindFiles<cr>")
 vim.keymap.set("n", "<leader>sF", "<cmd>SearchMode<cr>", { desc = "Select Search Mode" })
 
 vim.keymap.set("n", "<leader>te", "<CMD>MiniFiles<CR>", { desc = "Open File Manager" })
-vim.keymap.set("n", "<leader>tE", "<CMD>TreeOpen<CR>", { desc = "Open Tree View" })
-vim.keymap.set("n", "<leader>gg", "<CMD>Git<CR>", { desc = "Awesome Git Wrapper" })
+vim.keymap.set("n", "<leader>tE", "<CMD>Redir !tree --gitignore<CR>", { desc = "Open Tree View" })
+vim.keymap.set("n", "<leader>gg", "<CMD>SplitLeft Git<CR>", { desc = "Awesome Git Wrapper" })
 
 vim.keymap.set("n", "<leader>tm", "<CMD>Mes<CR>", { desc = "Open messages in split window" })
 
@@ -350,3 +353,40 @@ vim.keymap.set("x", "<leader><CR>", "<CMD>RedirEvalRange<CR>", { desc = "evaluat
 -- EXPORT
 vim.keymap.set("n", "\\", "/\\<\\><left><left>", { desc = "search whole word" })
 vim.keymap.set('n', '<leader>sp', '<CMD>Telescope project<CR>', { desc = 'Browse Projects' } )
+
+vim.keymap.set("n", "<leader>tP", function()
+  local ft = vim.bo.ft
+  if ft == "sh" then
+    ft = "bash"
+  end
+  local cmd = string.format("vnew %s/after/ftplugin/%s.lua", vim.fn.stdpath("config"), ft)
+  vim.cmd(cmd)
+end, { desc = "open filetype plugin" })
+
+vim.keymap.set("n", "<leader>sp", "<CMD>Telescope project<CR>", { desc = "open projects" })
+
+-- NOTE: when recording, use normal j and k, but most of time, I would like gj and gk
+-- EXPORT
+vim.keymap.set({ "n", "v" }, "k", function()
+  if vim.g.allow_recoring then
+    return "k"
+  else
+    return "gk"
+  end
+end, { expr = true })
+-- EXPORT
+vim.keymap.set({ "n", "v" }, "j", function()
+  if vim.g.allow_recoring then
+    return "j"
+  else
+    return "gj"
+  end
+end, { expr = true })
+
+-- NOTE: vim-surround is amazing
+vim.keymap.set("x", "gs", "<Plug>Vsurround", { desc = "surround" })
+vim.keymap.set("x", "gS", "<Plug>VSurround", { desc = "surround" })
+vim.keymap.set("n", "gs", "<Plug>Ysurround", { desc = "surround" })
+vim.keymap.set("n", "gS", "<Plug>YSurround", { desc = "surround" })
+vim.keymap.set("i", "<C-f>", "<Plug>Isurround", { desc = "surround" })
+vim.keymap.set("i", "<C-g>", "<Plug>ISurround", { desc = "surround" })

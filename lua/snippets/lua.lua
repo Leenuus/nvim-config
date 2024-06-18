@@ -182,6 +182,21 @@ end, { desc = '<>' } )]],
   )
 )
 
+local set_plug_keymap = s(
+  "kp",
+  fmt(
+    [[vim.keymap.set('{}', '<leader>{}', '<Plug>{}', {{ desc = '{}' }} )]],
+    {
+      i(1, "n"),
+      i(2, "keymap"),
+      i(0),
+      i(3, "desc"),
+    },
+    { delimiters = "{}" }
+  )
+)
+
+
 local pretty_print = s("pp", fmt([[print(vim.inspect(<>))]], { i(1) }, { delimiters = "<>" }))
 
 local lua_snips = {
@@ -196,7 +211,8 @@ local lua_snips = {
   disable_diagnositcs,
   set_cmd_keymap,
   set_function_keymap,
-  pretty_print
+  pretty_print,
+  set_plug_keymap
 }
 
 return lua_snips
