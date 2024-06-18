@@ -71,7 +71,7 @@ local function Redir(opts)
 end
 
 vim.api.nvim_create_user_command("Mes", function()
-  vim.cmd("Redir mes")
+  vim.cmd("Redir silent mes")
 end, {})
 vim.cmd([[cabbrev M Mes]])
 
