@@ -18,7 +18,6 @@ local plugins = {
   { import = "plugins.utils" },
   { import = "plugins.navigation" },
   { import = "plugins.completion" },
-  { import = "plugins.git" },
 }
 
 local lazy_opts = {
