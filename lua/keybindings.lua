@@ -203,13 +203,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 vim.keymap.set("n", "<C-r>", "<C-^>", { desc = "quick back to previous file" })
 
 -- EXPORT
-vim.keymap.set("n", "<leader>kk", "<cmd>bprevious<cr>", { desc = "previous buffer" })
+vim.keymap.set("n", "<leader>ke", "<cmd>bprevious<cr>", { desc = "previous buffer" })
 -- EXPORT
-vim.keymap.set("n", "<leader>jj", "<cmd>bnext<cr>", { desc = "next buffer" })
+vim.keymap.set("n", "<leader>je", "<cmd>bnext<cr>", { desc = "next buffer" })
 -- EXPORT
-vim.keymap.set("n", "<leader>KK", "<cmd>tabprevious<cr>", { desc = "previous tab" })
+vim.keymap.set("n", "<leader>kw", "<cmd>tabprevious<cr>", { desc = "previous tab" })
 -- EXPORT
-vim.keymap.set("n", "<leader>JJ", "<cmd>tabnext<cr>", { desc = "next tab" })
+vim.keymap.set("n", "<leader>jw", "<cmd>tabnext<cr>", { desc = "next tab" })
 
 -- EXPORT
 vim.keymap.set("n", "<leader>at", "<cmd>tabnew %<cr>", { desc = "new tab" })
