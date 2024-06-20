@@ -4,6 +4,7 @@ local i = ls.insert_node
 local t = ls.text_node
 local f = ls.function_node
 local fmt = require("luasnip.extras.fmt").fmt
+local c = ls.choice_node
 local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
 
@@ -184,16 +185,12 @@ end, { desc = '<>' } )]],
 
 local set_plug_keymap = s(
   "kp",
-  fmt(
-    [[vim.keymap.set('{}', '<leader>{}', '<Plug>{}', {{ desc = '{}' }} )]],
-    {
-      i(1, "n"),
-      i(2, "keymap"),
-      i(0),
-      i(3, "desc"),
-    },
-    { delimiters = "{}" }
-  )
+  fmt([[vim.keymap.set('{}', '<leader>{}', '<Plug>{}', {{ desc = '{}' }} )]], {
+    i(1, "n"),
+    i(2, "keymap"),
+    i(0),
+    i(3, "desc"),
+  }, { delimiters = "{}" })
 )
 
 local ui_input = s(
@@ -213,7 +210,17 @@ end)]],
   )
 )
 
-
+local p_call = s(
+  "pc",
+  fmt([[<>pcall(function() <> end)]], {
+    c(1, {
+      t(""),
+      t("local ok, _ = "),
+      t("local ok, res = "),
+    }),
+    i(2),
+  }, { delimiters = "<>" })
+)
 
 local pretty_print = s("pp", fmt([[print(vim.inspect(<>))]], { i(1) }, { delimiters = "<>" }))
 
@@ -231,7 +238,8 @@ local lua_snips = {
   set_function_keymap,
   pretty_print,
   set_plug_keymap,
-  ui_input
+  ui_input,
+  p_call,
 }
 
 return lua_snips
