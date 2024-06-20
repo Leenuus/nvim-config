@@ -56,14 +56,10 @@ vim.defer_fn(function()
     ignore_install = {},
     modules = {},
     highlight = {
-      enable = true,
-      disable = function(lang, buf)
-        local max_filesize = 100 * 1024
-        local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
-          return true
-        end
+      disable = function()
+        return true
       end,
+      enable = true,
     },
     indent = { enable = true },
     incremental_selection = {
@@ -80,54 +76,19 @@ vim.defer_fn(function()
         enable = true,
         lookahead = true,
         keymaps = {
-          ["aa"] = "@parameter.outer",
           ["ia"] = "@parameter.inner",
-          ["af"] = "@function.outer",
+          ["aa"] = "@parameter.outer",
           ["if"] = "@function.inner",
-          ["aC"] = "@class.outer",
-          ["iC"] = "@class.inner",
-          ["ac"] = "@conditional.outer",
+          ["af"] = "@function.outer",
           ["ic"] = "@conditional.inner",
-          ["ii"] = "@conditional.inner",
-          ["ai"] = "@conditional.outer",
-          -- ["ha"] = "@assignment.lhs",
-          -- ["la"] = "@assignment.rhs",
-          ["al"] = "@loop.outer",
-          ["il"] = "@loop.inner",
+          ["ac"] = "@conditional.outer",
         },
       },
       move = {
-        enable = true,
-        set_jumps = false,
-        goto_next_start = {
-          ["<leader>jf"] = "@function.outer",
-          ["<leader>jc"] = "@class.outer",
-          ["<leader>ja"] = "@parameter.inner",
-        },
-        goto_next_end = {
-          ["<leader>Jf"] = "@function.outer",
-          ["<leader>Jc"] = "@class.outer",
-          ["<leader>Ja"] = "@parameter.inner",
-        },
-        goto_previous_start = {
-          ["<leader>kf"] = "@function.outer",
-          ["<leader>kc"] = "@class.outer",
-          ["<leader>ka"] = "@parameter.inner",
-        },
-        goto_previous_end = {
-          ["<leader>Kf"] = "@function.outer",
-          ["<leader>Kc"] = "@class.outer",
-          ["<leader>Ka"] = "@parameter.inner",
-        },
+        enable = false,
       },
       swap = {
-        enable = true,
-        swap_next = {
-          ["<leader>Sj"] = "@parameter.inner",
-        },
-        swap_previous = {
-          ["<leader>Sk"] = "@parameter.inner",
-        },
+        enable = false,
       },
     },
     refactor = {
