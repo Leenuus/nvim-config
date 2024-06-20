@@ -58,7 +58,7 @@ local function Redir(opts)
   else
     -- NOTE: vim command
     vim.cmd("redir => output")
-    vim.cmd(cmd)
+    vim.cmd('silent ' .. cmd)
     vim.cmd("redir END")
     output = vim.fn.split(vim.g.output, "\n")
   end

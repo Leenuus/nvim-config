@@ -56,7 +56,7 @@ return {
 
         vim.api.nvim_create_user_command("MiniFiles", function(args)
           local p = args.args
-          if p == nil then
+          if p == nil or p == "" then
             p = vim.api.nvim_buf_get_name(0)
           end
 

@@ -11,7 +11,7 @@ local project = {
   on_project_selected = function(prompt_bufnr)
     local p_actions = require("telescope._extensions.project.actions")
     p_actions.change_working_directory(prompt_bufnr)
-    vim.cmd("QuickFiles")
+    vim.cmd("FindFiles")
   end,
 }
 
