@@ -383,3 +383,32 @@ vim.keymap.set("n", "gs", "<Plug>Ysurround", { desc = "add surround" })
 vim.keymap.set("n", "gS", "<Plug>YSurround", { desc = "add surround" })
 vim.keymap.set("n", "ds", "<Plug>Dsurround", { desc = "delete surround" })
 vim.keymap.set("n", "dS", "<Plug>DSurround", { desc = "delete surround" })
+
+-- EXPORT
+vim.keymap.set("n", "m", function()
+  local m_char = vim.fn.getchar()
+  local group = "mark"
+
+  if (m_char >= 97 and m_char < 97 + 26) or (m_char >= 65 and m_char < 65 + 26) then
+    local name = string.char(m_char)
+    local line = vim.fn.line(".")
+    local col = vim.fn.col(".")
+    vim.api.nvim_buf_set_mark(0, name, line, col, {})
+    local buf = vim.fn.bufnr()
+
+    local s_name = "mark" .. name
+
+    -- delete if exists
+    local sign_list = vim.fn.sign_getplaced(buf, { group = group })[1].signs
+    for _, s in ipairs(sign_list) do
+      if s.name == s_name then
+        vim.fn.sign_unplace(group, { buffer = buf, id = s.id })
+      end
+    end
+
+    vim.fn.sign_define(s_name, { text = name })
+    vim.fn.sign_place(0, group, s_name, buf, { lnum = line })
+  else
+    return
+  end
+end, { desc = "Simple Better Mark" })
