@@ -3,9 +3,9 @@
 - [ ] mini.files floating window right at cursor position, or a __better file manage paradigm...__
 - [ ] write a `im-select` alternative using simple shell script working with dbus, make non-english input work in neovim
 - [ ] hack `hardtime.nvim`, whose idea is cool, but don't get a good implementation
-- [ ] how to set previous window's buffer in lua
 - [ ] refactor `telescope project`, make `base_dirs` work
 - [ ] lua annotations to fix annoying lsp messages
+- [ ] PAGER mode for neovim, but no force center feature of pager
 
 ## NOTES
 
@@ -50,3 +50,6 @@ end, { expr = true })
 ```
 
 Note that a bare `'<Nop>'` tells vim to do ['<', 'N', 'o', 'p', '>'] one by one, which is not what we want.
+
+
+### how to set previous window's buffer in lua
