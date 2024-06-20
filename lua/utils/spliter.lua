@@ -1,3 +1,4 @@
+-- EXPORT
 local vertical_spliter = function(right)
   return function(opts)
     local cmd = opts.args
@@ -8,6 +9,7 @@ local vertical_spliter = function(right)
   end
 end
 
+-- EXPORT
 local horizontal_spliter = function(below)
   return function(opts)
     local cmd = opts.args
@@ -18,7 +20,11 @@ local horizontal_spliter = function(below)
   end
 end
 
+-- EXPORT
 vim.api.nvim_create_user_command("SplitLeft", vertical_spliter(false), { nargs = 1 })
+-- EXPORT
 vim.api.nvim_create_user_command("SplitRight", vertical_spliter(true), { nargs = 1 })
+-- EXPORT
 vim.api.nvim_create_user_command("SplitAbove", horizontal_spliter(false), { nargs = 1 })
+-- EXPORT
 vim.api.nvim_create_user_command("SplitBelow", horizontal_spliter(true), { nargs = 1 })
