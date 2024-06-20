@@ -44,10 +44,6 @@ vim.keymap.set("i", "<c-u>", "<esc>viwUea")
 -- EXPORT
 vim.keymap.set("n", "<ESC>", "<cmd>noh<cr><esc>zz")
 -- EXPORT
-vim.keymap.set({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
--- EXPORT
-vim.keymap.set({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
--- EXPORT
 vim.keymap.set("n", "n", "<cmd>keepjumps normal! nzz<cr>")
 -- EXPORT
 vim.keymap.set("n", "N", "<cmd>keepjumps normal! Nzz<cr>")
@@ -93,14 +89,6 @@ vim.keymap.set("n", "<leader>qq", "<cmd>xall<cr>", { desc = "safe quit all" })
 -- EXPORT
 vim.keymap.set("n", "U", "<cmd>redo<cr>", { desc = "redo" })
 
--- document existing key chains
-require("which-key").register({
-  ["<leader>s"] = { name = "Telescope", _ = "which_key_ignore" },
-  ["<leader>t"] = { name = "Toggle", _ = "which_key_ignore" },
-  ["<leader>l"] = { name = "Lsp", _ = "which_key_ignore" },
-})
-
--- toggle options
 -- EXPORT
 vim.keymap.set("n", "<leader>th", "<cmd>set invhlsearch<cr>", { desc = "highlight" })
 vim.keymap.set("n", "<leader>tt", "<cmd>TransparentToggle<cr>", { desc = "transparent" })
@@ -116,10 +104,6 @@ vim.keymap.set("n", "<leader>\\", function()
     winblend = 20,
   }))
 end, { desc = "Open Commands" })
-
-vim.keymap.set("n", "<leader>sJ", function()
-  require("trouble").toggle()
-end, { desc = "Open Trouble" })
 
 -- previous/next
 -- EXPORT
@@ -216,20 +200,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- EXPORT
-vim.keymap.set("n", "<BS>", "<C-^>", { desc = "quick back to previous file" })
--- EXPORT
-vim.keymap.set("n", "<C-t>", "<C-^>", { desc = "quick back to previous file" })
--- EXPORT
 vim.keymap.set("n", "<C-r>", "<C-^>", { desc = "quick back to previous file" })
 
 -- EXPORT
-vim.keymap.set("n", "<leader>kb", "<cmd>bprevious<cr>", { desc = "previous buffer" })
+vim.keymap.set("n", "<leader>kk", "<cmd>bprevious<cr>", { desc = "previous buffer" })
 -- EXPORT
-vim.keymap.set("n", "<leader>jb", "<cmd>bnext<cr>", { desc = "next buffer" })
+vim.keymap.set("n", "<leader>jj", "<cmd>bnext<cr>", { desc = "next buffer" })
 -- EXPORT
-vim.keymap.set("n", "<leader>kt", "<cmd>tabprevious<cr>", { desc = "previous tab" })
+vim.keymap.set("n", "<leader>KK", "<cmd>tabprevious<cr>", { desc = "previous tab" })
 -- EXPORT
-vim.keymap.set("n", "<leader>jt", "<cmd>tabnext<cr>", { desc = "next tab" })
+vim.keymap.set("n", "<leader>JJ", "<cmd>tabnext<cr>", { desc = "next tab" })
 
 -- EXPORT
 vim.keymap.set("n", "<leader>at", "<cmd>tabnew %<cr>", { desc = "new tab" })
@@ -259,14 +239,6 @@ vim.keymap.set("n", "<leader>aJ", function()
   local height = math.floor(vim.api.nvim_win_get_height(0) / 3)
   return string.format("<CMD>%dnew +term<CR>i", height)
 end, { desc = "split terminal below", expr = true })
-
-vim.keymap.set("n", "<leader>jq", function()
-  require("trouble").next({ skip_groups = true, jump = true })
-end, { desc = "previous trouble" })
-
-vim.keymap.set("n", "<leader>kq", function()
-  require("trouble").previous({ skip_groups = true, jump = true })
-end, { desc = "next trouble" })
 
 -- EXPORT
 vim.keymap.set("n", "<leader>p", "v$hP", { desc = "quick paste to the end" })
@@ -304,8 +276,12 @@ vim.keymap.set("n", "<leader>tT", function()
 end, { desc = "open snippet" })
 
 -- NOTE: telescope
-vim.keymap.set("n", "<leader>sj", require("telescope.builtin").jumplist, { desc = "Jump list" })
-vim.keymap.set("n", "<leader>sH", require("telescope.builtin").command_history, { desc = "Command History" })
+vim.keymap.set("n", "<leader>sj", function()
+  require("telescope.builtin").jumplist()
+end, { desc = "Jump list" })
+vim.keymap.set("n", "<leader>sH", function()
+  require("telescope.builtin").command_history()
+end, { desc = "Command History" })
 vim.keymap.set("n", "<leader>st", "<cmd>Telescope colorscheme<cr>", { desc = "search colorscheme" })
 vim.keymap.set("n", "<leader>sc", function()
   vim.cmd("Telescope registers")
@@ -321,15 +297,27 @@ vim.keymap.set("n", "<leader>sk", function()
   }))
 end, { desc = "Show Keymaps" })
 
-vim.keymap.set("n", "<leader>/", require("telescope.builtin").resume, { desc = "Resume telescope" })
-vim.keymap.set("n", "<leader>sl", require("telescope.builtin").resume, { desc = "Resume telescope" })
-vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "Find Helps" })
-vim.keymap.set("n", "<leader>sO", require("telescope.builtin").vim_options, { desc = "Find Options" })
-vim.keymap.set("n", "<leader>so", require("telescope.builtin").oldfiles, { desc = "Find Recent Files" })
+vim.keymap.set("n", "<leader>/", function()
+  require("telescope.builtin").resume()
+end, { desc = "Resume telescope" })
+vim.keymap.set("n", "<leader>sl", function()
+  require("telescope.builtin").resume()
+end, { desc = "Resume telescope" })
+vim.keymap.set("n", "<leader>sh", function()
+  require("telescope.builtin").help_tags()
+end, { desc = "Find Helps" })
+vim.keymap.set("n", "<leader>sO", function()
+  require("telescope.builtin").vim_options()
+end, { desc = "Find Options" })
+vim.keymap.set("n", "<leader>so", function()
+  require("telescope.builtin").oldfiles()
+end, { desc = "Find Recent Files" })
 vim.keymap.set("n", "<leader>sm", function()
   require("telescope.builtin").man_pages({ sections = { "ALL" } })
 end, { desc = "Find man pages" })
-vim.keymap.set("n", "<leader>ss", require("telescope.builtin").builtin, { desc = "Show telescopes" })
+vim.keymap.set("n", "<leader>ss", function()
+  require("telescope.builtin").builtin()
+end, { desc = "Show telescopes" })
 vim.keymap.set("n", "<leader>sg", "<cmd>GrepGitRoot<cr>", { desc = "Grep Git root" })
 vim.keymap.set("n", "<leader>sG", "<cmd>LiveGrep<cr>", { desc = "Grep current File dir" })
 
@@ -393,3 +381,5 @@ vim.keymap.set("n", "cs", "<Plug>Csurround", { desc = "change surround" })
 vim.keymap.set("n", "cS", "<Plug>CSurround", { desc = "change surround" })
 vim.keymap.set("n", "gs", "<Plug>Ysurround", { desc = "add surround" })
 vim.keymap.set("n", "gS", "<Plug>YSurround", { desc = "add surround" })
+vim.keymap.set("n", "ds", "<Plug>Dsurround", { desc = "delete surround" })
+vim.keymap.set("n", "dS", "<Plug>DSurround", { desc = "delete surround" })

@@ -1,5 +1,7 @@
--- TODO: support help file for vim
-
+local loaded, _ = pcall(require, "telescope")
+if not loaded then
+  return
+end
 
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")

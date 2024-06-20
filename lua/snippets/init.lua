@@ -1,4 +1,7 @@
--- some luasnip snippets
+local ok, _ = pcall(require, "luasnip")
+if not ok then
+  return
+end
 
 local add_snippets = require("luasnip").add_snippets
 local bash_snips = require("snippets.bash")
