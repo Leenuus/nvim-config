@@ -29,19 +29,34 @@ end
 
 function M.nop() end
 
-function M.toggler(var_name, cmd_prefix, buffer)
+function M.toggler(var_name, cmd_prefix, buffer, reverse)
   local scope = buffer and "b" or "g"
-  local funcs = {
-    toggle = function()
-      vim[scope][var_name] = not vim[scope][var_name]
-    end,
-    disable = function()
-      vim[scope][var_name] = false
-    end,
-    enable = function()
-      vim[scope][var_name] = true
-    end,
-  }
+  local funcs
+  if reverse then
+    funcs = {
+      toggle = function()
+        vim[scope][var_name] = not vim[scope][var_name]
+      end,
+      disable = function()
+        vim[scope][var_name] = true
+      end,
+      enable = function()
+        vim[scope][var_name] = false
+      end,
+    }
+  else
+    funcs = {
+      toggle = function()
+        vim[scope][var_name] = not vim[scope][var_name]
+      end,
+      disable = function()
+        vim[scope][var_name] = false
+      end,
+      enable = function()
+        vim[scope][var_name] = true
+      end,
+    }
+  end
   vim.api.nvim_create_user_command(cmd_prefix .. "Disable", funcs.disable, {})
   vim.api.nvim_create_user_command(cmd_prefix .. "Enable", funcs.enable, {})
   vim.api.nvim_create_user_command(cmd_prefix .. "Toggle", funcs.toggle, {})

@@ -17,27 +17,19 @@ local opts = {
 
 return {
   {
-    enabled = false,
     "echasnovski/mini.pairs",
     version = "*",
     config = function()
+      require("helpers").toggler("minipairs_disable", "MiniPair", false, true)
+
       vim.api.nvim_create_autocmd("RecordingEnter", {
         callback = function()
-          vim.b.minipairs_disable = true
+          vim.cmd("MiniPairDisable")
         end,
       })
-      vim.api.nvim_create_user_command("MiniPairEnable", function()
-        vim.b.minipairs_disable = false
-      end, {})
-      vim.api.nvim_create_user_command("MiniPairDisable", function()
-        vim.b.minipairs_disable = true
-      end, {})
-      vim.api.nvim_create_user_command("MiniPairToggle", function()
-        vim.b.minipairs_disable = not vim.b.minipairs_disable
-      end, {})
-      require("mini.pairs").setup(opts)
 
-      require("helpers").toggler("minipairs_disable", "MiniAutoPairs", true)
+      vim.cmd("MiniPairDisable")
+      require("mini.pairs").setup(opts)
     end,
   },
   {

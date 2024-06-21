@@ -374,8 +374,8 @@ end, { expr = true })
 -- NOTE: vim-surround is amazing
 vim.keymap.set("x", "gs", "<Plug>Vsurround", { desc = "add surround" })
 vim.keymap.set("x", "gS", "<Plug>VSurround", { desc = "add surround" })
-vim.keymap.set("i", "<C-f>", "<Plug>Isurround", { desc = "insert pair" })
-vim.keymap.set("i", "<C-g>", "<Plug>ISurround", { desc = "insert pair" })
+vim.keymap.set("i", "<C-f>", "<CMD>MiniPairToggle<CR>", { desc = "toggle insert pair" })
+vim.keymap.set("i", "<C-g>", "<Plug>ISurround", { desc = "insert pair and new lines" })
 
 vim.keymap.set("n", "cs", "<Plug>Csurround", { desc = "change surround" })
 vim.keymap.set("n", "cS", "<Plug>CSurround", { desc = "change surround" })

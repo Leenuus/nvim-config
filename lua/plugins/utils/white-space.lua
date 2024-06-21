@@ -4,7 +4,7 @@ return {
   config = function()
     vim.defer_fn(require("mini.trailspace").setup, 0)
 
-    vim.api.nvim_create_user_command("MiniTrimWhiteSpace", function()
+    vim.api.nvim_create_user_command("TrimSpace", function()
       pcall(MiniTrailspace.trim)
     end, {})
 
@@ -15,6 +15,6 @@ return {
       end,
     })
 
-  require("helpers").toggler("minitrailspace_disable", "MiniTrimSpace" ,true)
+    require("helpers").toggler("minitrailspace_disable", "MiniTrimSpace", false, true)
   end,
 }
