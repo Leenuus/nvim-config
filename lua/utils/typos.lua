@@ -1,3 +1,4 @@
+-- TODO: vim-abolish like {} to reduce size of typos file
 -- NOTE: a typo fixer like vim-abolish
 
 local default_source = vim.fn.stdpath("config") .. "/typos.txt"
@@ -52,10 +53,13 @@ local setup = function(typo_source, sep)
     abolish(wrong, right)
   end
 
-  for ft, v in pairs(typos) do
+  local g = vim.api.nvim_create_augroup("FileTypeAbolish", { clear = true })
+
+  for ft, _ in pairs(typos) do
     if ft == "all" then
       goto continue
     end
+
     vim.api.nvim_create_autocmd("FileType", {
       pattern = ft,
       callback = function()
@@ -65,6 +69,7 @@ local setup = function(typo_source, sep)
           abolish(wrong, right, true)
         end
       end,
+      group = g,
     })
     ::continue::
   end
