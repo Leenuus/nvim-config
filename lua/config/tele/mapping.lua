@@ -1,4 +1,5 @@
 local actions = require("telescope.actions")
+local action_layout = require("telescope.actions.layout")
 
 local opener = function(direction)
   return function(p)
@@ -53,5 +54,6 @@ return {
     ["<C-L>"] = opener("right"),
     ["<C-D>"] = actions.preview_scrolling_down,
     ["<C-U>"] = actions.preview_scrolling_up,
+    ['<C-A>'] = action_layout.toggle_preview,
   },
 }

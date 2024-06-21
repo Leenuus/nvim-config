@@ -70,23 +70,28 @@ local deep_extend = s(
   })
 )
 
--- TODO: dynamic node to detect whether fmt and s are imported
 local snippets = s(
   "snip",
   fmt(
-    string.format(
-      [[local <> = s('<>',
-  fmt([[<>%s,
-  {
+    ([[
+local <> = fmt('<>', [[<>
 
-  },
-  {delimiters = '<<>>'}))]],
-      "]]"
-    ),
+%s, {
+},
+{
+  delimiters = "<>",
+}
+)
+    ]]):format("]]"),
+
     {
       i(1, "name"),
       i(2, "trigger"),
-      i(0, "snip"),
+      i(0),
+      c(3, {
+        t("<>"),
+        t("{}"),
+      }),
     },
     {
       delimiters = "<>",
@@ -94,7 +99,6 @@ local snippets = s(
   )
 )
 
--- TODO: select templates
 local ui_select = s(
   "se",
   fmt(
@@ -105,7 +109,7 @@ local ui_select = s(
       return item
     end,
   }, function(choice)
-    logger.info("choice: ", choice)
+    print(vim.inspect(choice))
     if choice then
       <>
     end

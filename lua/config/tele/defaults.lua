@@ -1,6 +1,5 @@
--- TODO: center results, smaller window width, and disable previewer, toggle previewer bindings
 return {
-  layout_strategy = "center",
+  layout_strategy = "flex",
   layout_config = {
     center = {
       height = 0.7,
