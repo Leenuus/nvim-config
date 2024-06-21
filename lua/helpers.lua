@@ -63,4 +63,11 @@ function M.toggler(var_name, cmd_prefix, buffer, reverse)
   return funcs
 end
 
+
+function M.capitalize(s)
+  local first = string.sub(s, 1, 1):upper()
+  return first .. string.sub(s, 2)
+end
+
+
 return M
