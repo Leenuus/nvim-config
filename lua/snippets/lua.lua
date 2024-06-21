@@ -228,6 +228,8 @@ local p_call = s(
 
 local pretty_print = s("pp", fmt([[print(vim.inspect(<>))]], { i(1) }, { delimiters = "<>" }))
 
+local tenary = s("?", fmt([[<> and <> or <>]], { i(1, "cond"), i(2, "true"), i(0, "false") }, { delimiters = "<>" }))
+
 local lua_snips = {
   main,
   smart_require,
@@ -244,6 +246,7 @@ local lua_snips = {
   set_plug_keymap,
   ui_input,
   p_call,
+  tenary,
 }
 
 return lua_snips
