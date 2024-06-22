@@ -8,14 +8,6 @@ return {
     end,
   },
   {
-    -- "nvim-telescope/telescope-project.nvim",
-    dir = "~/Projects/Neovims/telescope-project.nvim",
-    config = function()
-      -- pcall()
-      require("telescope").load_extension("project")
-    end,
-  },
-  {
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
     dependencies = {
