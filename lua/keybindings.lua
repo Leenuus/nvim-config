@@ -384,7 +384,7 @@ vim.keymap.set("n", "gS", "<Plug>YSurround", { desc = "add surround" })
 vim.keymap.set("n", "ds", "<Plug>Dsurround", { desc = "delete surround" })
 vim.keymap.set("n", "dS", "<Plug>DSurround", { desc = "delete surround" })
 
--- NOTE: better mark
+-- NOTE: better marks
 -- EXPORT
 vim.keymap.set("n", "m", function()
   local m_char = vim.fn.getchar()
@@ -413,3 +413,5 @@ vim.keymap.set("n", "m", function()
     return
   end
 end, { desc = "Simple Better Mark" })
+
+vim.keymap.set("n", "<leader>sM", "<CMD>Mes<CR>", { desc = "Open Messages in split" })
