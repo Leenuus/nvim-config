@@ -19,7 +19,7 @@ local function mark_new(name)
   local filename = vim.fn.expand("%")
   local lnum = vim.fn.line(".")
   local term = vim.fn.expand("<cWORD>")
-  local pattern = string.format("\\V%s", vim.fn.escape(term, "\\"))
+  local pattern = string.format("^\\s*%s", term)
   local width = vim.api.nvim_win_get_width(0)
   local mark = { name = name, pattern = pattern, filename = filename, lnum = lnum, width = width }
   return mark
