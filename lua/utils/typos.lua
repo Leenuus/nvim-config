@@ -1,7 +1,7 @@
 -- TODO: vim-abolish like {} to reduce size of typos file
 -- NOTE: a typo fixer like vim-abolish
 
-local default_source = vim.fn.stdpath("config") .. "/typos.txt"
+local default_source = vim.fn.stdpath("config") .. "/extra/typos.txt"
 local default_sep = " "
 local capitalize = require("helpers").capitalize
 
