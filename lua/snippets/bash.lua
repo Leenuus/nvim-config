@@ -287,6 +287,14 @@ fi
   )
 )
 
+local tenary = s(
+  "?",
+  c(1, {
+    fmt([[<> && <>]], { insert(1, "cond"), insert(2, "true") }, { delimiters = "<>" }),
+    fmt([[<> || <>]], { insert(1, "cond"), insert(2, "false") }, { delimiters = "<>" }),
+  })
+)
+
 local bash_snips = {
   if_installed,
   parse_opts,
@@ -313,6 +321,7 @@ local bash_snips = {
   shell_bang,
   disable_shell_check,
   if_file_not_exist,
+  tenary,
 }
 
 return bash_snips

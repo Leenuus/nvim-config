@@ -7,6 +7,7 @@ local fmt = require("luasnip.extras.fmt").fmt
 local c = ls.choice_node
 local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
+local sn = ls.snippet_node
 
 local main = s(
   "main",
@@ -30,7 +31,6 @@ local smart_require = s(
     [[local {} = require('{}')
 {}]],
     {
-      -- TODO: detect trailing .<func>
       f(function(args, parent, user_args)
         local _ = parent
         local _ = user_args
@@ -49,7 +49,7 @@ local smart_require = s(
   )
 )
 
--- TODO: udpate to choice node for more or fewer snippets expansion
+-- TODO: update to choice node for more or fewer snippets expansion
 local check_type = s(
   "ty",
   fmt(
@@ -72,29 +72,24 @@ local deep_extend = s(
 
 local snippets = s(
   "snip",
+  fmta(
+    string.format(
+      [[local <> = s(
+  '<>',
   fmt(
-    ([[
-local <> = fmt('<>', [[<>
-
-%s, {
-},
-{
-  delimiters = "<>",
-}
+    [[<>%s,
+    {},
+    {delimiters = '<>'}
+  )
 )
-    ]]):format("]]"),
-
+  ]],
+      "]]"
+    ),
     {
       i(1, "name"),
-      i(2, "trigger"),
+      i(2, "trig"),
       i(0),
-      c(3, {
-        t("<>"),
-        t("{}"),
-      }),
-    },
-    {
-      delimiters = "<>",
+      c(3, { t("<>"), t("{}") }),
     }
   )
 )
@@ -162,39 +157,30 @@ local disable_diagnositcs = s("diag", {
 
 local set_cmd_keymap = s(
   "kc",
-  fmt([[vim.keymap.set('<>', '<<leader>><>', '<<CMD>><><<CR>>', { desc = '<>' } )<>]], {
-    i(1, "n"),
-    i(2, "keymap"),
-    i(3, "command"),
+  fmt([[vim.keymap.set(<>, '<>', <>, { desc = '<>', <> })]], {
+    c(1, {
+      t("'n'"),
+      t("'x'"),
+      t("'i'"),
+      t("{ 'n', 'x' }"),
+    }),
+    c(2, {
+      sn(nil, { t("<leader>"), i(1) }),
+      i(1, ""),
+    }),
+    c(5, {
+      sn(nil, { t("function() "), i(1), t("end") }),
+      sn(nil, { t("'<CMD>"), i(1), t("<CR>'") }),
+      sn(nil, { t("'<Plug>"), i(1), t("'") }),
+    }),
     i(4, "desc"),
-    i(0),
+    c(3, {
+      i(1, ""),
+      t("remap = true"),
+      t("buffer = 0"),
+      t("buffer = 0, remap = true"),
+    }),
   }, { delimiters = "<>" })
-)
-
-local set_function_keymap = s(
-  "kf",
-  fmt(
-    [[vim.keymap.set('<>', '<<leader>><>', function()
-  <>
-end, { desc = '<>' } )]],
-    {
-      i(1, "n"),
-      i(2, "keymap"),
-      i(0),
-      i(3, "desc"),
-    },
-    { delimiters = "<>" }
-  )
-)
-
-local set_plug_keymap = s(
-  "kp",
-  fmt([[vim.keymap.set('{}', '<leader>{}', '<Plug>{}', {{ desc = '{}' }} )]], {
-    i(1, "n"),
-    i(2, "keymap"),
-    i(0),
-    i(3, "desc"),
-  }, { delimiters = "{}" })
 )
 
 local ui_input = s(
@@ -228,7 +214,14 @@ local p_call = s(
 
 local pretty_print = s("pp", fmt([[print(vim.inspect(<>))]], { i(1) }, { delimiters = "<>" }))
 
-local tenary = s("?", fmt([[<> and <> or <>]], { i(1, "cond"), i(2, "true"), i(0, "false") }, { delimiters = "<>" }))
+local tenary = s(
+  "?",
+  c(1, {
+    fmt([[<> and <> or <>]], { i(1, "cond"), i(2, "true"), i(0, "false") }, { delimiters = "<>" }),
+    fmt([[<> and <>]], { i(1, "cond"), i(2, "true") }, { delimiters = "<>" }),
+    fmt([[<> or <>]], { i(1, "cond"), i(2, "false") }, { delimiters = "<>" }),
+  })
+)
 
 local lua_snips = {
   main,
@@ -241,9 +234,7 @@ local lua_snips = {
   if_not_nil,
   disable_diagnositcs,
   set_cmd_keymap,
-  set_function_keymap,
   pretty_print,
-  set_plug_keymap,
   ui_input,
   p_call,
   tenary,
