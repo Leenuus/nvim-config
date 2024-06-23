@@ -1,6 +1,7 @@
 return {
   "echasnovski/mini.trailspace",
   version = "*",
+  event = "VeryLazy",
   config = function()
     vim.defer_fn(require("mini.trailspace").setup, 0)
 

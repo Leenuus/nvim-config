@@ -1,5 +1,6 @@
 return {
   {
+    event = "VeryLazy",
     "nvim-telescope/telescope-fzf-native.nvim",
     build = "make",
     cond = function()
@@ -8,6 +9,7 @@ return {
     end,
   },
   {
+    event = "VeryLazy",
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
     dependencies = {

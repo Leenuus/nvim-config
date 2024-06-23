@@ -1,5 +1,6 @@
 return {
   {
+    event = "VeryLazy",
     dir = "~/Projects/Neovims/none-ls.nvim",
     -- "nvimtools/none-ls.nvim",
     config = function()

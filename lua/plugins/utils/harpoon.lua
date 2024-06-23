@@ -1,5 +1,6 @@
 return {
   "ThePrimeagen/harpoon",
+  event = "VeryLazy",
   branch = "harpoon2",
   module = true,
   dependencies = { "nvim-lua/plenary.nvim" },

@@ -1,7 +1,7 @@
 return {
-  "xiyaowong/transparent.nvim",
-  "folke/tokyonight.nvim",
-  "Shatur/neovim-ayu",
-  "nvimdev/zephyr-nvim",
-  "AlphaTechnolog/pywal.nvim",
+  { "xiyaowong/transparent.nvim", event = "VeryLazy" },
+  { "folke/tokyonight.nvim", event = "VeryLazy" },
+  { "Shatur/neovim-ayu" },
+  { "nvimdev/zephyr-nvim", event = "VeryLazy" },
+  { "AlphaTechnolog/pywal.nvim", event = "VeryLazy" },
 }

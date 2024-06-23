@@ -1,6 +1,7 @@
 return {
   {
     "ggandor/leap.nvim",
+    event = "VeryLazy",
     config = function()
       vim.keymap.set("n", "s", "<Plug>(leap-forward)")
       vim.keymap.set("n", "S", "<Plug>(leap-backward)")
@@ -12,6 +13,7 @@ return {
   },
   {
     "ggandor/flit.nvim",
+    event = "VeryLazy",
     config = function()
       require("flit").setup({
         keys = { f = "f", F = "F", t = "t", T = "T" },

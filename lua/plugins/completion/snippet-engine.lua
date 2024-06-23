@@ -7,6 +7,7 @@ return {
       end
       return "make install_jsregexp"
     end)(),
+    event = "InsertEnter",
   },
   -- { dir = "~/Projects/Neovims/friendly-snippets" },
 }

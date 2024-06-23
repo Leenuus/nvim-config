@@ -76,10 +76,10 @@ vim.defer_fn(function()
         enable = true,
         lookahead = true,
         keymaps = {
-          ["ia"] = "@parameter.inner",
-          ["aa"] = "@parameter.outer",
           ["if"] = "@function.inner",
           ["af"] = "@function.outer",
+          ["ia"] = "@parameter.inner",
+          ["aa"] = "@parameter.outer",
           ["ic"] = "@conditional.inner",
           ["ac"] = "@conditional.outer",
         },

@@ -18,6 +18,7 @@ local opts = {
 return {
   {
     "echasnovski/mini.pairs",
+    event = "InsertEnter",
     version = "*",
     config = function()
       require("helpers").toggler("minipairs_disable", "MiniPair", false, true)

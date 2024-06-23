@@ -5,15 +5,16 @@ end
 return {
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
-    cmd = { "TSContextEnable", "TSContextDisable", "TSContextToggle" },
     enabled = enabled_p,
   },
   {
     "nvim-treesitter/nvim-treesitter-refactor",
     enabled = enabled_p,
+    event = "VeryLazy",
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
+    cmd = { "TSContextEnable", "TSContextDisable", "TSContextToggle" },
     enabled = enabled_p,
   },
   {
@@ -23,5 +24,6 @@ return {
       require("config.tree")
     end,
     enabled = enabled_p,
+    event = "VeryLazy",
   },
 }
