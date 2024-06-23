@@ -172,6 +172,7 @@ local set_cmd_keymap = s(
       sn(nil, { t("function() "), i(1), t("end") }),
       sn(nil, { t("'<CMD>"), i(1), t("<CR>'") }),
       sn(nil, { t("'<Plug>"), i(1), t("'") }),
+      sn(nil, { t("'"), i(1), t("'") }),
     }),
     i(4, "desc"),
     c(3, {
