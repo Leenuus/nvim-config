@@ -318,14 +318,8 @@ end, { desc = "Find man pages" })
 vim.keymap.set("n", "<leader>ss", function()
   require("telescope.builtin").builtin()
 end, { desc = "Show telescopes" })
-vim.keymap.set("n", "<leader>sg", "<cmd>GrepGitRoot<cr>", { desc = "Grep Git root" })
-vim.keymap.set("n", "<leader>sG", "<cmd>LiveGrep<cr>", { desc = "Grep current File dir" })
 
 vim.keymap.set("n", "<leader>td", "<CMD>tabnew +vertical\\ DBUI<CR>", { desc = "Open Database UI" })
-
-vim.keymap.set("n", "<leader><space>", "<cmd>QuickFiles<cr>")
-vim.keymap.set("n", "<leader>sf", "<cmd>FindFiles<cr>")
-vim.keymap.set("n", "<leader>sF", "<cmd>SearchMode<cr>", { desc = "Select Search Mode" })
 
 vim.keymap.set("n", "<leader>te", "<CMD>MiniFiles<CR>", { desc = "Open File Manager" })
 vim.keymap.set("n", "<leader>tE", "<CMD>Redir !tree --gitignore<CR>", { desc = "Open Tree View" })
@@ -415,3 +409,8 @@ vim.keymap.set("n", "m", function()
 end, { desc = "Simple Better Mark" })
 
 vim.keymap.set("n", "<leader>sM", "<CMD>Mes<CR>", { desc = "Open Messages in split" })
+
+vim.keymap.set("n", "<leader>sg", "<cmd>LiveGrep<cr>", { desc = "Live Grep" })
+vim.keymap.set("n", "<leader>sf", "<cmd>FindFiles<cr>")
+vim.keymap.set("n", "<leader>sF", "<cmd>SearchMode<cr>", { desc = "Select Search Mode" })
+vim.keymap.set("n", "<leader><space>", "<cmd>QuickFiles<cr>")

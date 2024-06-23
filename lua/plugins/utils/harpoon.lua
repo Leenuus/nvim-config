@@ -1,8 +1,8 @@
 return {
-  "ThePrimeagen/harpoon",
+  -- "ThePrimeagen/harpoon",
+  -- branch = "harpoon2",
+  dir = '~/Projects/Neovims/harpoon',
   event = "VeryLazy",
-  branch = "harpoon2",
-  module = true,
   dependencies = { "nvim-lua/plenary.nvim" },
   config = function()
     local harpoon = require("harpoon")
