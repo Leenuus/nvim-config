@@ -76,7 +76,13 @@ vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
 -- EXPORT
-vim.keymap.set("n", "<leader>w", "<cmd>w<cr>")
+vim.keymap.set("n", "<leader>w", function()
+  if vim.bo.bufhidden == "hide" or vim.bo.buftype == "nofile" or not vim.o.swapfile then
+    return "\\<NOP\\>"
+  else
+    return "<CMD>w<CR>"
+  end
+end, { expr = true })
 -- EXPORT
 vim.keymap.set("n", "<leader>ww", "<cmd>wall<cr>")
 -- EXPORT
@@ -213,6 +219,13 @@ vim.keymap.set("n", "<leader>jw", "<cmd>tabnext<cr>", { desc = "next tab" })
 
 -- EXPORT
 vim.keymap.set("n", "<leader>at", "<cmd>tabnew %<cr>", { desc = "new tab" })
+-- EXPORT
+vim.keymap.set("n", "<leader>aT", function()
+  vim.cmd("tabnew")
+  vim.opt_local.bufhidden = "hide"
+  vim.opt_local.buftype = "nofile"
+  vim.opt_local.swapfile = false
+end, { desc = "new scratch tab" })
 -- EXPORT
 vim.keymap.set("n", "<leader>ah", function()
   vim.api.nvim_open_win(0, false, { win = 0, split = "left" })
@@ -365,6 +378,7 @@ vim.keymap.set({ "n", "v" }, "j", function()
   end
 end, { expr = true })
 
+-- FIXME: doesnot work
 -- NOTE: vim-surround is amazing
 vim.keymap.set("x", "gs", "<Plug>Vsurround", { desc = "add surround" })
 vim.keymap.set("x", "gS", "<Plug>VSurround", { desc = "add surround" })
@@ -415,4 +429,5 @@ vim.keymap.set("n", "<leader>sf", "<cmd>FindFiles<cr>")
 vim.keymap.set("n", "<leader>sF", "<cmd>SearchMode<cr>", { desc = "Select Search Mode" })
 vim.keymap.set("n", "<leader><space>", "<cmd>QuickFiles<cr>")
 
+-- EXPORT
 vim.keymap.set("x", "'", "gc", { desc = "toggle comment", remap = true })
