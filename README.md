@@ -7,6 +7,7 @@
 - [ ] hack `hardtime.nvim`, whose idea is cool, but don't get a good implementation
 - [ ] lua annotations to fix annoying lsp messages
 - [ ] PAGER mode for neovim, but no force center feature of pager
+- [ ] fine-tune snippets engine
 
 ## NOTES
 

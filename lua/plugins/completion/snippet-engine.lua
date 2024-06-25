@@ -8,6 +8,9 @@ return {
       return "make install_jsregexp"
     end)(),
     event = "InsertEnter",
+    config = function()
+      require("luasnip.loaders.from_vscode").lazy_load()
+    end,
   },
-  -- { dir = "~/Projects/Neovims/friendly-snippets" },
+  { "rafamadriz/friendly-snippets" },
 }
