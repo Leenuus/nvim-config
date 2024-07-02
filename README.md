@@ -8,6 +8,9 @@
 - [ ] lua annotations to fix annoying lsp messages
 - [ ] PAGER mode for neovim, but no force center feature of pager
 - [ ] fine-tune snippets engine
+- [ ] replace folke's `folke/todo-comments.nvim,` use treesitter and syntax features
+- [ ] fish filetype, tsrename
+- [ ] findfiles mode bug, open filetype plugin, and search in plugin, should have searched in config folder
 
 ## NOTES
 
