@@ -231,9 +231,8 @@ vim.keymap.set("n", "<leader>ah", function()
   vim.api.nvim_open_win(0, false, { win = 0, split = "left" })
 end, { desc = "split left" })
 -- EXPORT
-vim.keymap.set("n", "<leader>al", function()
-  vim.api.nvim_open_win(0, false, { win = 0, split = "right" })
-end, { desc = "split right" })
+vim.keymap.set("n", "<leader>al", "<CMD>vsplit #<CR>", { desc = "split alternate buffer right" })
+vim.keymap.set("n", "<leader>aL", "<CMD>vnew<CR>", { desc = "split right" })
 -- EXPORT
 vim.keymap.set("n", "<leader>aj", function()
   vim.api.nvim_open_win(0, false, { win = 0, split = "below" })
@@ -378,7 +377,6 @@ vim.keymap.set({ "n", "v" }, "j", function()
   end
 end, { expr = true })
 
--- FIXME: doesnot work
 -- NOTE: vim-surround is amazing
 vim.keymap.set("x", "gs", "<Plug>Vsurround", { desc = "add surround" })
 vim.keymap.set("x", "gS", "<Plug>VSurround", { desc = "add surround" })
@@ -388,9 +386,9 @@ vim.keymap.set("i", "<C-g>", "<Plug>ISurround", { desc = "insert pair and new li
 vim.keymap.set("n", "cs", "<Plug>Csurround", { desc = "change surround" })
 vim.keymap.set("n", "cS", "<Plug>CSurround", { desc = "change surround" })
 vim.keymap.set("n", "gs", "<Plug>Ysurround", { desc = "add surround" })
-vim.keymap.set("n", "gS", "<Plug>YSurround", { desc = "add surround" })
+vim.keymap.set("n", "gS", "<Plug>YsurroundiW", { desc = "surround current word" })
 vim.keymap.set("n", "ds", "<Plug>Dsurround", { desc = "delete surround" })
-vim.keymap.set("n", "dS", "<Plug>DSurround", { desc = "delete surround" })
+vim.keymap.set("n", "dS", "<Plug>DsurroundiW", { desc = "delete surround" })
 
 -- NOTE: better marks
 -- EXPORT
@@ -426,8 +424,13 @@ vim.keymap.set("n", "<leader>sM", "<CMD>Mes<CR>", { desc = "Open Messages in spl
 
 vim.keymap.set("n", "<leader>sg", "<cmd>LiveGrep<cr>", { desc = "Live Grep" })
 vim.keymap.set("n", "<leader>sf", "<cmd>FindFiles<cr>")
-vim.keymap.set("n", "<leader>sF", "<cmd>SearchMode<cr>", { desc = "Select Search Mode" })
+vim.keymap.set("n", "<leader>sF", "<cmd>FindFilesMode<cr>", { desc = "Select Search Mode" })
 vim.keymap.set("n", "<leader><space>", "<cmd>QuickFiles<cr>")
 
 -- EXPORT
 vim.keymap.set("x", "'", "gc", { desc = "toggle comment", remap = true })
+vim.keymap.set("n", "g'", "gcc", { desc = "toggle line comment", remap = true })
+
+vim.keymap.set("n", "<leader>sb", function()
+  require("telescope.builtin").buffers()
+end, { desc = "search buffers" })
