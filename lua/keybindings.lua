@@ -434,3 +434,7 @@ vim.keymap.set("n", "g'", "gcc", { desc = "toggle line comment", remap = true })
 vim.keymap.set("n", "<leader>sb", function()
   require("telescope.builtin").buffers()
 end, { desc = "search buffers" })
+
+-- Ctrl-E to go back to last window
+-- EXPORT
+vim.keymap.set("n", "<C-E>", "<CMD>wincmd p<CR>", { desc = "previous window" })

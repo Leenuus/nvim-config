@@ -11,6 +11,7 @@
 - [ ] replace folke's `folke/todo-comments.nvim,` use treesitter and syntax features
 - [ ] fish filetype, tsrename
 - [ ] findfiles mode bug, open filetype plugin, and search in plugin, should have searched in config folder
+- [ ] use `x_u` to toggle alphabet case
 
 ## NOTES
 

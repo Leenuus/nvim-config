@@ -268,8 +268,8 @@ local shell_bang = s("bang", {
   t("#!/bin/bash"),
 })
 
-local disable_shell_check = s("shellcheck", {
-  t("# shellcheck disable="),
+local off = s("off", {
+  t("shellcheck disable=SC"),
 })
 
 local if_file_not_exist = s(
@@ -319,7 +319,7 @@ local bash_snips = {
   script_self,
   fzf,
   shell_bang,
-  disable_shell_check,
+  off,
   if_file_not_exist,
   tenary,
 }
