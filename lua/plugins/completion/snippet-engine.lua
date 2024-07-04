@@ -12,5 +12,7 @@ return {
       require("luasnip.loaders.from_vscode").lazy_load()
     end,
   },
-  { "rafamadriz/friendly-snippets" },
+  {
+    dir = "~/Projects/Neovims/friendly-snippets",
+  },
 }
