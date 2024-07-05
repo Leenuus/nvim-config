@@ -8,8 +8,9 @@ local t = ls.text_node
 
 local discard_output = s(
   "dd",
-  fmt([[>/dev/null 2>&1{}]], {
-    i(1),
+  c(1, {
+    t(">/dev/null 2>&1"),
+    t(">/dev/null"),
   })
 )
 
@@ -56,18 +57,31 @@ end
 
 local color = s(
   "co",
-  fmt([[set_color {}
+  fmt(
+    [[set_color {}
 {}
 set_color normal
-]], {
-    c(1, {
-      t("red"),
-      t("normal"),
-      t("blue"),
-      t("green"),
-    }),
-    i(0),
-  })
+]],
+    {
+      c(1, {
+        t("red"),
+        t("normal"),
+        t("blue"),
+        t("green"),
+      }),
+      i(0),
+    }
+  )
+)
+
+local self = s(
+  "self",
+  fmt(
+    [[set SCRIPT (status filename)
+set DIR (status dirname)]],
+    {},
+    { delimiters = "<>" }
+  )
 )
 
 local fish_snips = {
@@ -76,6 +90,7 @@ local fish_snips = {
   if_tmux,
   abbr,
   color,
+  self,
 }
 
 return fish_snips

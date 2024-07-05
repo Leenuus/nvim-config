@@ -176,7 +176,13 @@ local trap = s(
   })
 )
 
-local discard_output = s("dd", fmt([[>/dev/null 2>&1]], {}))
+local discard_output = s(
+  "dd",
+  c(1, {
+    t(">/dev/null 2>&1"),
+    t(">/dev/null"),
+  })
+)
 
 local copy = s("copy", fmt([[xclip -selection clipboard]], {}))
 
@@ -254,12 +260,14 @@ local source = s("source?", t("(return 0 2>/dev/null) && sourced=1 || not_source
 local fzf = s(
   "fzf",
   fmt(
-    [[SHELL=bash fzf \
-  --preview-window=40%,wrap \
-  --bind='ctrl-h:backward-kill-word,ctrl-j:preview-page-down,ctrl-k:preview-page-up' \
-  --border=rounded --inline-info -m
+    [[SHELL=bash fzf --bind='ctrl-h:backward-kill-word,ctrl-j:preview-page-down,ctrl-k:preview-page-up' <>
 ]],
-    {},
+    {
+      c(1, {
+        fmt("-d{} -n{}", { insert(1, ":"), insert(2, "1") }),
+        t(""),
+      }),
+    },
     { delimiters = "<>" }
   )
 )
@@ -315,7 +323,7 @@ local bash_snips = {
   simple_parse_opt,
   last_pid,
   color,
-  source,
+  -- source,
   script_self,
   fzf,
   shell_bang,
