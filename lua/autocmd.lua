@@ -2,21 +2,6 @@
 local cursor_setting = vim.api.nvim_create_augroup("cursor_setting", { clear = true })
 
 -- EXPORT
-vim.api.nvim_create_autocmd({ "VimEnter" }, {
-  pattern = "*",
-  callback = function()
-    vim.cmd([[
-    set cursorline
-    set cursorcolumn
-    silent !echo -ne "\e[2 q"
-    let &t_SI = "\e[5 q"
-    let &t_EI = "\e[2 q"
-    ]])
-  end,
-  group = cursor_setting,
-})
-
--- EXPORT
 vim.api.nvim_create_autocmd({ "VimLeave" }, {
   pattern = "*",
   callback = function()
@@ -36,13 +21,11 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 })
 
 -- EXPORT
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
--- EXPORT
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()
   end,
-  group = highlight_group,
+  group = vim.api.nvim_create_augroup("YankHighlight", { clear = true }),
   pattern = "*",
 })
 
@@ -115,7 +98,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 -- EXPORT
 vim.api.nvim_create_autocmd({ "WinEnter", "WinResized" }, {
-  pattern = "*",
   callback = function()
     local height = vim.api.nvim_win_get_height(0)
     vim.wo.scrolloff = math.floor(height / 2.5)
