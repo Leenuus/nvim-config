@@ -5,3 +5,5 @@ lcoal local lua
 true True python
 false False python
 end fi sh
+keyborad keyboard
+borad board
