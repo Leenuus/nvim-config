@@ -12,3 +12,9 @@ vim.api.nvim_create_user_command("ChmodPlusX", function()
     print("No shellbang!")
   end
 end, {})
+
+-- go to git root
+vim.api.nvim_create_user_command("GitRootCd", function()
+  local d = require("helpers").find_git_root()
+  vim.cmd("cd " .. d)
+end, {})

@@ -438,3 +438,8 @@ end, { desc = "search buffers" })
 -- Ctrl-E to go back to last window
 -- EXPORT
 vim.keymap.set("n", "<C-E>", "<CMD>wincmd p<CR>", { desc = "previous window" })
+
+-- EXPORT
+vim.keymap.set("n", "<leader>cd", "<CMD>lcd %:h<CR>", { desc = "lcd cfd" })
+
+vim.keymap.set("n", "<leader>cg", "<CMD>GitRootCd<CR>", { desc = "lcd gitroot" })
