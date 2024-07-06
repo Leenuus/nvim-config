@@ -77,8 +77,8 @@ set_color normal
 local self = s(
   "self",
   fmt(
-    [[set SCRIPT (status filename)
-set DIR (status dirname)]],
+    [[set -l SCRIPT (status filename)
+set -l DIR (status dirname)]],
     {},
     { delimiters = "<>" }
   )

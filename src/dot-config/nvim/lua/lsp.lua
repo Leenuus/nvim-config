@@ -1,8 +1,10 @@
 -- NOTE: https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 pcall(function()
   capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities) or capabilities
 end)
+
 local lspconfig
 pcall(function()
   lspconfig = require("lspconfig")
@@ -45,7 +47,7 @@ if lspconfig then
         capabilities = capabilities,
       })
     else
-      -- vim.log.levels.INFO(server .. "not valid")
+      vim.log.levels.INFO(server .. "not valid")
     end
   end
 end
