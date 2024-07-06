@@ -1,6 +1,7 @@
 -- EXPORT
 vim.filetype.add({
   pattern = {
+    ["/tmp/bash%-fc"] = "sh",
     [".*"] = {
       function(path, bufnr)
         local last_line = vim.api.nvim_buf_get_lines(bufnr, -2, -1, false)[1]
@@ -58,17 +59,6 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.bo[event.buf].buflisted = false
     vim.keymap.set("n", "q", "<cmd>x<cr>", { buffer = event.buf, silent = true })
     vim.keymap.set("n", "<leader>q", "<cmd>x<cr>", { buffer = event.buf, silent = true })
-  end,
-})
-
--- EXPORT
-vim.api.nvim_create_autocmd("BufEnter", {
-  group = vim.api.nvim_create_augroup("filetype-detection", { clear = true }),
-  pattern = {
-    "bash-fc*",
-  },
-  callback = function()
-    vim.bo.filetype = "bash"
   end,
 })
 
