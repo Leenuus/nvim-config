@@ -29,23 +29,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",
 })
 
--- EXPORT
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = vim.api.nvim_create_augroup("SpellCheck", { clear = true }),
-  pattern = { "gitcommit" },
-  callback = function()
-    vim.wo.spell = true
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = vim.api.nvim_create_augroup("FormatOptions", { clear = true }),
-  pattern = { "*" },
-  callback = function()
-    vim.opt_local.formatoptions:remove("o")
-  end,
-})
-
 -- NOTE: clear jumplist when entering so
 -- no weird things happen when accidentally
 -- press ctrl-o
@@ -58,43 +41,6 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
   group = vim.api.nvim_create_augroup("jumps", { clear = true }),
 })
 
--- EXPORT
-vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("filetype-config", {
-    clear = true,
-  }),
-  pattern = {
-    "PlenaryTestPopup",
-    "help",
-    "lspinfo",
-    "notify",
-    "qf",
-    "spectre_panel",
-    "startuptime",
-    "tsplayground",
-    "neotest-output",
-    "checkhealth",
-    "neotest-summary",
-    "neotest-output-panel",
-    "man",
-  },
-  callback = function(event)
-    vim.bo[event.buf].buflisted = false
-    vim.keymap.set("n", "q", "<cmd>x<cr>", { buffer = event.buf, silent = true })
-    vim.keymap.set("n", "<leader>q", "<cmd>x<cr>", { buffer = event.buf, silent = true })
-  end,
-})
-
--- EXPORT
-vim.api.nvim_create_autocmd("BufEnter", {
-  group = vim.api.nvim_create_augroup("filetype-detection", { clear = true }),
-  pattern = {
-    "bash-fc*",
-  },
-  callback = function()
-    vim.bo.filetype = "bash"
-  end,
-})
 
 -- EXPORT
 vim.api.nvim_create_autocmd({ "WinEnter", "WinResized" }, {
