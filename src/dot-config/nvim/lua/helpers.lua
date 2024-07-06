@@ -6,7 +6,6 @@ M.find_git_root = function(file)
     local f = require("plenary.path").new(file)
     if f:exists() then
       current_dir = f:parent().filename
-      print(vim.inspect(current_dir))
     else
       current_dir = vim.fn.expand("%:p:h")
     end
@@ -63,11 +62,9 @@ function M.toggler(var_name, cmd_prefix, buffer, reverse)
   return funcs
 end
 
-
 function M.capitalize(s)
   local first = string.sub(s, 1, 1):upper()
   return first .. string.sub(s, 2)
 end
-
 
 return M
