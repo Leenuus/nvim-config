@@ -79,6 +79,9 @@ vim.api.nvim_create_autocmd("FileType", {
     "gitcommit",
   },
   callback = function(event)
-    vim.keymap.set("n", "<leader>Q", "<cmd>cq<cr>", { buffer = event.buf, silent = true, desc = 'Abort Commit' })
+    vim.keymap.set("n", "<leader>Q", function()
+      vim.api.nvim_buf_set_lines(event.buf, 0, -1, false, { "" })
+      vim.cmd("x")
+    end, { buffer = event.buf, silent = true, desc = "Abort Commit" })
   end,
 })
