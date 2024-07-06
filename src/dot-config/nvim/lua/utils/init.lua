@@ -7,5 +7,6 @@ require("utils.redir")
 require("utils.spliter")
 require("utils.misc")
 require("utils.session")
+require("utils.non-vim-files")
 
 require("utils.typos").setup()

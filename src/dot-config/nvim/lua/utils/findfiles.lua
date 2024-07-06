@@ -3,7 +3,6 @@ local toggler = require("helpers").toggler
 local path = require("plenary.path")
 
 local excluded = {
-  "*.pdf",
   "*build*",
   "*target*",
   "*Pipfile*",
