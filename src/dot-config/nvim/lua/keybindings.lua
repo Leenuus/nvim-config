@@ -88,7 +88,7 @@ vim.keymap.set("n", "<leader>ww", "<cmd>wall<cr>")
 -- EXPORT
 vim.keymap.set("n", "<leader>q", "<cmd>x<cr>", { desc = "safe quit" })
 -- EXPORT
-vim.keymap.set("n", "<leader>qp", "<cmd>q!<cr>", { desc = "force quit" })
+vim.keymap.set("n", "<leader>Q", "<cmd>q!<cr>", { desc = "force quit" })
 -- EXPORT
 vim.keymap.set("n", "<leader>qq", "<cmd>xall<cr>", { desc = "safe quit all" })
 
@@ -218,9 +218,9 @@ vim.keymap.set("n", "<leader>kw", "<cmd>tabprevious<cr>", { desc = "previous tab
 vim.keymap.set("n", "<leader>jw", "<cmd>tabnext<cr>", { desc = "next tab" })
 
 -- EXPORT
-vim.keymap.set("n", "<leader>at", "<cmd>tabnew %<cr>", { desc = "new tab" })
+vim.keymap.set("n", "<leader>ap", "<cmd>tabnew %<cr>", { desc = "new tab" })
 -- EXPORT
-vim.keymap.set("n", "<leader>aT", function()
+vim.keymap.set("n", "<leader>aP", function()
   vim.cmd("tabnew")
   vim.opt_local.bufhidden = "hide"
   vim.opt_local.buftype = "nofile"
