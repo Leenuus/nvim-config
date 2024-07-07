@@ -303,6 +303,16 @@ local tenary = s(
   })
 )
 
+local rofi = s("rofi", t("rofi -dmenu -i --matching fuzzy"))
+
+local read = s(
+  "rr",
+  fmt([[IFS='<>' read -r <>]], {
+    insert(1, ":"),
+    insert(0),
+  }, { delimiters = "<>" })
+)
+
 local bash_snips = {
   if_installed,
   parse_opts,
@@ -330,6 +340,8 @@ local bash_snips = {
   off,
   if_file_not_exist,
   tenary,
+  rofi,
+  read,
 }
 
 return bash_snips

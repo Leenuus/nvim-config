@@ -335,7 +335,6 @@ vim.keymap.set("n", "<leader>td", "<CMD>tabnew +vertical\\ DBUI<CR>", { desc = "
 
 vim.keymap.set("n", "<leader>te", "<CMD>MiniFiles<CR>", { desc = "Open File Manager" })
 vim.keymap.set("n", "<leader>tE", "<CMD>Redir !tree --gitignore<CR>", { desc = "Open Tree View" })
-vim.keymap.set("n", "<leader>gg", "<CMD>SplitLeft Git<CR>", { desc = "Awesome Git Wrapper" })
 
 vim.keymap.set("n", "<leader>tm", "<CMD>Mes<CR>", { desc = "Open messages in split window" })
 
@@ -443,3 +442,10 @@ vim.keymap.set("n", "<C-E>", "<CMD>wincmd p<CR>", { desc = "previous window" })
 vim.keymap.set("n", "<leader>cd", "<CMD>lcd %:h<CR>", { desc = "lcd cfd" })
 
 vim.keymap.set("n", "<leader>cg", "<CMD>GitRootCd<CR>", { desc = "lcd gitroot" })
+
+-- fugitive
+vim.keymap.set("n", "<leader>gg", "<CMD>SplitLeft Git<CR>", { desc = "Awesome Git Wrapper" })
+vim.keymap.set("n", "<leader>gl", "<CMD>tabnew +Gclog<CR>", { desc = "Awesome Git Wrapper" })
+
+-- insert completion
+vim.keymap.set("i", "<C-L>", "<C-X>", { desc = "more egnostic C-X" })
