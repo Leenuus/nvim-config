@@ -1,7 +1,7 @@
 -- EXPORT
-vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>")
+vim.keymap.set({ "n", "x" }, "<Space>", "<Nop>")
 -- EXPORT
-vim.keymap.set({ "n", "v" }, "<BS>", "<Nop>")
+vim.keymap.set({ "n", "x" }, "<BS>", "<Nop>")
 -- EXPORT
 vim.keymap.set("n", "gf", "<Nop>")
 -- EXPORT
@@ -58,22 +58,22 @@ vim.keymap.set("n", "g#", "<cmd>keepjumps normal! g#zz<cr>")
 -- EXPORT
 vim.keymap.set("x", "p", [["_dP]])
 -- EXPORT
-vim.keymap.set({ "n", "v", "o" }, "H", "_")
+vim.keymap.set({ "n", "x", "o" }, "H", "_")
 
 -- EXPORT
 vim.keymap.set({ "n", "o" }, "L", "$")
 -- EXPORT
-vim.keymap.set("v", "L", "$h")
+vim.keymap.set("x", "L", "$h")
 
 -- EXPORT
-vim.keymap.set({ "n", "v" }, "J", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gjzz"<cr>')
+vim.keymap.set({ "n", "x" }, "J", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gjzz"<cr>')
 -- EXPORT
-vim.keymap.set({ "n", "v" }, "K", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gkzz"<cr>')
+vim.keymap.set({ "n", "x" }, "K", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gkzz"<cr>')
 
 -- EXPORT
-vim.keymap.set("v", "<", "<gv")
+vim.keymap.set("x", "<", "<gv")
 -- EXPORT
-vim.keymap.set("v", ">", ">gv")
+vim.keymap.set("x", ">", ">gv")
 
 -- EXPORT
 vim.keymap.set("n", "<leader>w", function()
@@ -147,7 +147,7 @@ vim.keymap.set("n", "gH", vim.diagnostic.open_float, { desc = "diagnostic in flo
 -- EXPORT
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function()
-    vim.keymap.set({ "n", "v" }, "<leader>la", function()
+    vim.keymap.set({ "n", "x" }, "<leader>la", function()
       vim.lsp.buf.code_action()
     end, { buffer = 0, desc = "Code Action" })
 
@@ -360,7 +360,7 @@ vim.keymap.set("n", "<leader>sp", "<CMD>Telescope project<CR>", { desc = "open p
 
 -- NOTE: when recording, use normal j and k, but most of time, I would like gj and gk
 -- EXPORT
-vim.keymap.set({ "n", "v" }, "k", function()
+vim.keymap.set({ "n", "x" }, "k", function()
   if vim.g.allow_recoring then
     return "k"
   else
@@ -368,7 +368,7 @@ vim.keymap.set({ "n", "v" }, "k", function()
   end
 end, { expr = true })
 -- EXPORT
-vim.keymap.set({ "n", "v" }, "j", function()
+vim.keymap.set({ "n", "x" }, "j", function()
   if vim.g.allow_recoring then
     return "j"
   else
