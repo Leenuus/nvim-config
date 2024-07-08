@@ -1,115 +1,165 @@
--- TODO: split things into small functions
+vim.g.DEBUG = true
+local log = require("plenary.log").new({
+  plugin = "redir",
+})
+
+local function redir_open_win(buf, vertical, reuse_win_p)
+  if not reuse_win_p or vim.g.redir_win == nil then
+    local win = vim.api.nvim_open_win(buf, true, {
+      vertical = vertical,
+    })
+    vim.api.nvim_create_autocmd("WinClosed", {
+      pattern = { string.format("%d", win) },
+      callback = function()
+        vim.g.redir_win = nil
+      end,
+    })
+    vim.g.redir_win = win
+  else
+    vim.api.nvim_win_set_buf(vim.g.redir_win, buf)
+  end
+end
+
+local function redir_vim_command(cmd, vertical, reuse_win_p)
+  vim.cmd("redir => output")
+  vim.cmd("silent " .. cmd)
+  vim.cmd("redir END")
+  local output = vim.fn.split(vim.g.output, "\n")
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, 0, false, output)
+
+  redir_open_win(buf, vertical, reuse_win_p)
+end
+
+local function redir_shell_command(cmd, cmd_str, lines, vertical, reuse_win_p)
+  cmd_str = cmd_str:sub(2)
+
+  local buf = vim.api.nvim_create_buf(false, true)
+
+  local stdin
+  if #lines == 0 then
+    stdin = false
+  else
+    stdin = lines
+  end
+
+  redir_open_win(buf, vertical, reuse_win_p)
+
+  local shell_cmd = {
+    "sh",
+    "-c",
+    cmd_str,
+  }
+
+  if vim.g.DEBUG then
+    local report = string.format(
+      [[cmd: %s
+lines: %s
+stdin: %s
+buf: %d
+cmd_str: %s
+shell_cmd: %s
+]],
+      vim.inspect(cmd),
+      vim.inspect(lines),
+      vim.inspect(stdin),
+      buf,
+      cmd_str,
+      vim.inspect(shell_cmd)
+    )
+    log.info(report)
+  end
+
+  vim.system(shell_cmd, {
+    text = true,
+    stdout = function(err, stdout)
+      vim.schedule_wrap(function()
+        if stdout ~= nil then
+          local output = vim.fn.split(stdout, "\n")
+          if vim.g.DEBUG then
+            log.info("stdout: " .. vim.inspect(output))
+          end
+          vim.api.nvim_buf_set_lines(buf, -2, -1, false, output)
+        end
+      end)()
+    end,
+    stdin = stdin,
+  }, function(completed)
+    -- NOTE:
+    -- placeholder to make call async
+  end)
+end
 
 -- reference
 -- https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
-local function Redir(opts)
-  local cmd = opts.fargs[1]
-  local rng = opts.range
-  local line1 = opts.line1 - 1
-  local line2 = opts.line2
-  local vertical = opts.smods.vertical
-  line2 = line1 == line2 and line1 + 1 or line2
+local function redir(args)
+  local cmd = args.fargs
+  local cmd_str = args.args
+  local vertical = args.smods.vertical
+  local reuse_win_p = not args.bang
 
-  local output
-
-  local Job = require("plenary.job")
-  if string.match(cmd, "^!") then
-    cmd = vim.fn.split(cmd)
-
-    local command = cmd[1]:sub(2)
-    local args = {}
-    for i, t in ipairs(cmd) do
-      if i ~= 1 then
-        table.insert(args, t)
-      end
-    end
-
-    if rng == 0 then
-      -- NOTE: no input given, call command
-      Job:new({
-        command = command,
-        args = args,
-        on_exit = function(j, _)
-          output = j:result()
-        end,
-      }):sync()
-    else
-      -- NOTE: setup input in temp file
-      local lines = vim.api.nvim_buf_get_lines(0, line1, line2, false)
-      local input = vim.fn.join(lines, "\n")
-      local file = vim.fn.tempname()
-      local f = io.open(file, "w+")
-      if not f then
-        return
-      end
-      f:write(input)
-      f:close()
-
-      table.insert(args, file)
-
-      Job:new({
-        command = command,
-        args = args,
-        on_exit = function(j, _)
-          output = j:result()
-        end,
-      }):sync()
-    end
-  else
-    -- NOTE: vim command
-    vim.cmd("redir => output")
-    vim.cmd('silent ' .. cmd)
-    vim.cmd("redir END")
-    output = vim.fn.split(vim.g.output, "\n")
+  if vim.g.DEBUG then
+    log.info(vim.inspect(args))
   end
 
-  local buf = vim.api.nvim_create_buf(false, true)
-  vim.api.nvim_buf_set_lines(buf, 0, 0, false, output)
-  vim.api.nvim_open_win(buf, true, {
-    vertical = vertical,
-  })
+  if string.match(cmd[1], "^!") then
+    local range = args.range
+    local lines
+    if range == 0 then
+      lines = {}
+    else
+      local line1 = args.line1 - 1
+      local line2 = args.line2
+      line2 = line1 == line2 and line1 + 1 or line2
+      lines = vim.api.nvim_buf_get_lines(0, line1, line2, false)
+    end
+
+    redir_shell_command(cmd, cmd_str, lines, vertical, reuse_win_p)
+  else
+    redir_vim_command(cmd_str, vertical, reuse_win_p)
+  end
 end
 
-vim.api.nvim_create_user_command("Mes", function()
-  vim.cmd("Redir silent mes")
-end, {})
-vim.cmd([[cabbrev M Mes]])
-
-vim.api.nvim_create_user_command("Redir", Redir, {
-  nargs = 1,
+vim.api.nvim_create_user_command("Redir", redir, {
+  nargs = "+",
   complete = "command",
   range = true,
+  bang = true,
 })
 vim.cmd([[cabbrev R Redir]])
 
-local interepters = {
-  python = "python",
-  sh = "bash",
-  bash = "bash",
-  fish = "fish",
-  lua = "luajit",
-}
+vim.api.nvim_create_user_command("Mes", function()
+  vim.cmd("Redir messages")
+end, {})
+vim.cmd([[cabbrev M Mes]])
 
-local function redir(range)
-  return function()
+local function evaler(range)
+  return function(bang)
     local line = vim.fn.getline(1)
-    local interepter = string.match(line, "^#!(.*)")
+    local it = string.match(line, "^#!(.*)")
 
-    if not interepter then
-      local ft = vim.o.ft
-      interepter = interepters[ft]
-    end
+    local cmd = string.format("%sRedir%s !", range, bang and "!" or "")
 
-    if interepter then
-      vim.cmd(string.format("silent %sRedir !%s", range, interepter))
+    if it and it ~= "" then
+      vim.cmd(cmd .. it)
     else
-      -- FIXME: setcmdline not work
-      vim.fn.setcmdline(string.format("silent %sRedir !", range))
+      vim.fn.feedkeys(":" .. cmd, "tn")
     end
   end
 end
 
-vim.api.nvim_create_user_command("RedirEvalLine", redir("."), {})
-vim.api.nvim_create_user_command("RedirEvalFile", redir("%"), {})
--- FIXME: not work well
--- vim.api.nvim_create_user_command("RedirEvalRange", redir("'<,'>"), {})
+vim.api.nvim_create_user_command("EvalFile", function(args)
+  local bang = args.bang
+  evaler("%")(bang)
+end, { bar = true, bang = true })
+
+vim.api.nvim_create_user_command("EvalLine", function(args)
+  local bang = args.bang
+  evaler(".")(bang)
+end, { bar = true, bang = true })
+
+-- TEST: test me
+vim.api.nvim_create_user_command("EvalRange", function(args)
+  local bang = args.bang
+  evaler("'<,'>")(bang)
+end, { bar = true, bang = true })

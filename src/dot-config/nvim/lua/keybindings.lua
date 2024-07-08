@@ -338,10 +338,9 @@ vim.keymap.set("n", "<leader>tE", "<CMD>Redir !tree --gitignore<CR>", { desc = "
 
 vim.keymap.set("n", "<leader>tm", "<CMD>Mes<CR>", { desc = "Open messages in split window" })
 
-vim.keymap.set("n", "<leader>el", "<CMD>RedirEvalLine<CR>", { desc = "evaluate line" })
-vim.keymap.set("n", "<leader>ee", "<CMD>RedirEvalFile<CR>", { desc = "evaluate file" })
-vim.keymap.set("n", "<leader>ef", "<CMD>RedirEvalFile<CR>", { desc = "evaluate file" })
-vim.keymap.set("x", "<leader><CR>", "<CMD>RedirEvalRange<CR>", { desc = "evaluate range" })
+vim.keymap.set("n", "<leader>el", "<CMD>EvalLine<CR>", { desc = "evaluate line" })
+vim.keymap.set("n", "<leader>ee", "<CMD>EvalFile<CR>", { desc = "evaluate file" })
+vim.keymap.set("n", "<leader>ef", "<CMD>EvalFile<CR>", { desc = "evaluate file" })
 
 -- EXPORT
 vim.keymap.set("n", "\\", "/\\<\\><left><left>", { desc = "search whole word" })
