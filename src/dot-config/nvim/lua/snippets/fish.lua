@@ -17,13 +17,14 @@ local discard_output = s(
 local if_installed = s(
   "ty",
   fmt(
-    [[if type {} >/dev/null 2>&1
+    [[if {} type {} >/dev/null 2>&1
   {}
 end
 ]],
     {
+      c(2, { t("not"), t("") }),
       i(1, "program"),
-      i(2, "command"),
+      i(3, "command"),
     }
   )
 )
@@ -106,7 +107,7 @@ local fish_snips = {
   abbr,
   color,
   self,
-  fzf
+  fzf,
 }
 
 return fish_snips

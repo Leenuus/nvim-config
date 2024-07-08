@@ -213,7 +213,13 @@ local p_call = s(
   }, { delimiters = "<>" })
 )
 
-local pretty_print = s("pp", fmt([[print(vim.inspect(<>))]], { i(1) }, { delimiters = "<>" }))
+local pretty_print = s(
+  "pp",
+  c(1, {
+    fmt([[print(vim.inspect(<>))]], { i(1) }, { delimiters = "<>" }),
+    fmt([[vim.inspect(<>)]], { i(1) }, { delimiters = "<>" }),
+  })
+)
 
 local tenary = s(
   "?",

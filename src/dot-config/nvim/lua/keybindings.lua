@@ -441,10 +441,7 @@ vim.keymap.set("n", "<C-E>", "<CMD>wincmd p<CR>", { desc = "previous window" })
 -- EXPORT
 vim.keymap.set("n", "<leader>cd", "<CMD>lcd %:h | pwd<CR>", { desc = "lcd cfd" })
 -- EXPORT
-vim.keymap.set("n", "<leader>cc", function()
-  local dir = vim.fn.fnamemodify(vim.fn.getcwd(), ":h")
-  vim.cmd("lcd " .. dir .. "| pwd")
-end, { desc = "lcd parent dir" })
+vim.keymap.set("n", "<leader>cc", "<CMD>cd .. | pwd<CR>", { desc = "lcd parent dir" })
 vim.keymap.set("n", "<leader>cg", "<CMD>GitRootCd | pwd<CR>", { desc = "lcd gitroot" })
 
 -- fugitive
@@ -453,3 +450,10 @@ vim.keymap.set("n", "<leader>gl", "<CMD>tabnew +Gclog<CR>", { desc = "Awesome Gi
 
 -- insert completion
 vim.keymap.set("i", "<C-L>", "<C-X>", { desc = "more egnostic C-X" })
+
+-- in document
+-- EXPORT
+vim.keymap.set("x", "id", ":<C-U>normal! ggVG<CR>", { desc = "in document" })
+-- EXPORT
+vim.keymap.set("o", "id", ":<C-U>normal! ggVG<CR>", { desc = "in document" })
+
