@@ -56,9 +56,9 @@ function M.toggler(var_name, cmd_prefix, buffer, reverse)
       end,
     }
   end
-  vim.api.nvim_create_user_command(cmd_prefix .. "Disable", funcs.disable, {})
-  vim.api.nvim_create_user_command(cmd_prefix .. "Enable", funcs.enable, {})
-  vim.api.nvim_create_user_command(cmd_prefix .. "Toggle", funcs.toggle, {})
+  vim.api.nvim_create_user_command(cmd_prefix .. "Disable", funcs.disable, { bar = true })
+  vim.api.nvim_create_user_command(cmd_prefix .. "Enable", funcs.enable, { bar = true })
+  vim.api.nvim_create_user_command(cmd_prefix .. "Toggle", funcs.toggle, { bar = true })
   return funcs
 end
 

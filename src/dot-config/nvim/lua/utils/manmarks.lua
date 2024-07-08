@@ -86,76 +86,76 @@ local function tele_marks(opts)
   local width = vim.api.nvim_win_get_width(0)
   local marks = load_marks()
   pickers
-      .new(opts, {
-        prompt_title = "go to manpages marks",
-        finder = finders.new_table({
-          results = marks,
-          entry_maker = function(e)
-            local search_up
-            if width == e.width then
-              search_up = nil
-            elseif width >= e.width then
-              search_up = true
-            else
-              search_up = false
-            end
-            return {
-              search_up = search_up,
-              value = e.id,
-              pattern = e.pattern,
-              display = e.name,
-              ordinal = e.name,
-              filename = e.filename,
-              lnum = e.lnum,
-              id = e.id,
-            }
-          end,
-        }),
-        sorter = conf.generic_sorter(opts),
-        attach_mappings = function(prompt_bufnr, map)
-          local function opener(open_cmd)
-            return function()
-              actions.close(prompt_bufnr)
-              dump_marks(marks)
-              local e = action_state.get_selected_entry()
-              local filename = e.filename
-              local lnum = e.lnum
-              local search_up = e.search_up
+    .new(opts, {
+      prompt_title = "go to manpages marks",
+      finder = finders.new_table({
+        results = marks,
+        entry_maker = function(e)
+          local search_up
+          if width == e.width then
+            search_up = nil
+          elseif width >= e.width then
+            search_up = true
+          else
+            search_up = false
+          end
+          return {
+            search_up = search_up,
+            value = e.id,
+            pattern = e.pattern,
+            display = e.name,
+            ordinal = e.name,
+            filename = e.filename,
+            lnum = e.lnum,
+            id = e.id,
+          }
+        end,
+      }),
+      sorter = conf.generic_sorter(opts),
+      attach_mappings = function(prompt_bufnr, map)
+        local function opener(open_cmd)
+          return function()
+            actions.close(prompt_bufnr)
+            dump_marks(marks)
+            local e = action_state.get_selected_entry()
+            local filename = e.filename
+            local lnum = e.lnum
+            local search_up = e.search_up
 
-              local cmd = string.format("%s +%d %s", open_cmd, lnum, filename)
-              vim.cmd(cmd)
+            local cmd = string.format("%s +%d %s", open_cmd, lnum, filename)
+            vim.cmd(cmd)
 
-              local pattern = e.pattern
-              vim.notify(vim.inspect(search_up))
-              if search_up then
-                vim.notify(pattern)
-                local flags = "bcW"
-                vim.fn.search(pattern, flags)
-              elseif search_up ~= nil then
-                local flags = "cW"
-                vim.fn.search(pattern, flags)
-              end
+            local pattern = e.pattern
+            vim.notify(vim.inspect(search_up))
+            if search_up then
+              vim.notify(pattern)
+              local flags = "bcW"
+              vim.fn.search(pattern, flags)
+            elseif search_up ~= nil then
+              local flags = "cW"
+              vim.fn.search(pattern, flags)
             end
           end
-          actions.select_default:replace(opener("edit"))
-          actions.select_horizontal:replace(opener("split"))
-          actions.select_vertical:replace(opener("vsplit"))
-          actions.select_tab:replace(opener("tabedit"))
+        end
+        actions.select_default:replace(opener("edit"))
+        actions.select_horizontal:replace(opener("split"))
+        actions.select_vertical:replace(opener("vsplit"))
+        actions.select_tab:replace(opener("tabedit"))
 
-          map("n", "d", function()
-            actions.close(prompt_bufnr)
-            local e = action_state.get_selected_entry()
-            local id = e.id
-            marks = mark_delete(marks, id)
-            dump_marks(marks)
-          end)
+        map("n", "d", function()
+          actions.close(prompt_bufnr)
+          local e = action_state.get_selected_entry()
+          local id = e.id
+          marks = mark_delete(marks, id)
+          dump_marks(marks)
+        end)
 
-          return true
-        end,
-      })
-      :find()
+        return true
+      end,
+    })
+    :find()
 end
 
-vim.api.nvim_create_user_command("ManSetMark", set_new_mark, {})
+vim.api.nvim_create_user_command("ManSetMark", set_new_mark, { bar = true })
 
-vim.api.nvim_create_user_command("ManMarks", tele_marks, {})
+vim.api.nvim_create_user_command("ManMarks", tele_marks, { bar = true })

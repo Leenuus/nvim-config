@@ -21,10 +21,10 @@ local horizontal_spliter = function(below)
 end
 
 -- EXPORT
-vim.api.nvim_create_user_command("SplitLeft", vertical_spliter(false), { nargs = 1 })
+vim.api.nvim_create_user_command("SplitLeft", vertical_spliter(false), { nargs = 1, bar = true })
 -- EXPORT
-vim.api.nvim_create_user_command("SplitRight", vertical_spliter(true), { nargs = 1 })
+vim.api.nvim_create_user_command("SplitRight", vertical_spliter(true), { nargs = 1, bar = true })
 -- EXPORT
-vim.api.nvim_create_user_command("SplitAbove", horizontal_spliter(false), { nargs = 1 })
+vim.api.nvim_create_user_command("SplitAbove", horizontal_spliter(false), { nargs = 1, bar = true })
 -- EXPORT
-vim.api.nvim_create_user_command("SplitBelow", horizontal_spliter(true), { nargs = 1 })
+vim.api.nvim_create_user_command("SplitBelow", horizontal_spliter(true), { nargs = 1, bar = true })

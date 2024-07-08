@@ -113,12 +113,12 @@ end
 vim.api.nvim_create_user_command("FindFiles", function(args)
   local p = args.args
   find_files(p)
-end, { nargs = "?", complete = "dir" })
+end, { nargs = "?", complete = "dir", bar = true })
 
 vim.api.nvim_create_user_command("LiveGrep", function(args)
   local p = args.args
   live_grep(p)
-end, { nargs = "?", complete = "dir" })
+end, { nargs = "?", complete = "dir", bar = true })
 
 -- NOTE: create commands to toggle ignore
 toggler("find_files_ignore", "FindFilesIgnore", false, false)
@@ -131,8 +131,8 @@ vim.api.nvim_create_user_command("FindFilesMode", function()
       vim.g.find_files_mode = choice
     end
   end)
-end, {})
+end, { bar = true })
 
 vim.api.nvim_create_user_command("QuickFiles", function()
   quick_files()
-end, {})
+end, { bar = true })

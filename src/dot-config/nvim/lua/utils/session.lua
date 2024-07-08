@@ -57,9 +57,9 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
 vim.api.nvim_create_user_command("SessionLoad", function(args)
   local path = args.args
   load_session(path)
-end, { nargs = "?", complete = "dir" })
+end, { nargs = "?", complete = "dir", bar = true })
 
 vim.api.nvim_create_user_command("SessionSave", function(args)
   local bang = args.bang
   save_session(bang)
-end, { bang = true })
+end, { bang = true, bar = true })
