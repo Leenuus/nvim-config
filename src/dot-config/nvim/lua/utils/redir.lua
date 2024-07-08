@@ -152,10 +152,13 @@ vim.api.nvim_create_user_command("EvalFile", function(args)
   local bang = args.bang
   evaler("%")(bang)
 end, { bar = true, bang = true })
+
 vim.api.nvim_create_user_command("EvalLine", function(args)
   local bang = args.bang
   evaler(".")(bang)
 end, { bar = true, bang = true })
+
+-- TEST: test me
 vim.api.nvim_create_user_command("EvalRange", function(args)
   local bang = args.bang
   evaler("'<,'>")(bang)
