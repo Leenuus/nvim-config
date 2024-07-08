@@ -1,3 +1,4 @@
+vim.g.DEBUG = true
 local log = require("plenary.log").new({
   plugin = "redir",
 })
@@ -17,7 +18,7 @@ end
 local function redir_shell_command(cmd, lines, vertical, reuse_win_p)
   cmd[1] = cmd[1]:match("^!([^%s]*)")
 
-  local buf = vim.api.nvim_create_buf(true, true)
+  local buf = vim.api.nvim_create_buf(false, true)
 
   local stdin
   if #lines == 0 then
@@ -35,10 +36,12 @@ local function redir_shell_command(cmd, lines, vertical, reuse_win_p)
       [[cmd: %s
 lines: %s
 stdin: %s
+buf: %d
 ]],
       vim.inspect(cmd),
       vim.inspect(lines),
-      vim.inspect(stdin)
+      vim.inspect(stdin),
+      buf
     )
     log.info(report)
   end
@@ -66,6 +69,8 @@ end
 -- reference
 -- https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
 local function Redir(args)
+  -- FIXME: !awk '{ print "good" }'
+  -- fargs = { "!awk", "'{", "print", '"good"', "}'" },
   local cmd = args.fargs
   local vertical = args.smods.vertical
   local reuse_win_p = not args.bang
@@ -88,12 +93,12 @@ local function Redir(args)
 
     redir_shell_command(cmd, lines, vertical, reuse_win_p)
   else
-    redir_vim_command(cmd[1], vertical, reuse_win_p)
+    redir_vim_command(args.args, vertical, reuse_win_p)
   end
 end
 
 vim.api.nvim_create_user_command("Redir", Redir, {
-  nargs = 1,
+  nargs = "+",
   complete = "command",
   range = true,
   bang = true,
@@ -105,35 +110,27 @@ vim.api.nvim_create_user_command("Mes", function()
 end, {})
 vim.cmd([[cabbrev M Mes]])
 
---
--- local interepters = {
---   python = "python",
---   sh = "bash",
---   bash = "bash",
---   fish = "fish",
---   lua = "luajit",
--- }
---
--- local function redir(range)
---   return function()
---     local line = vim.fn.getline(1)
---     local interepter = string.match(line, "^#!(.*)")
---
---     if not interepter then
---       local ft = vim.o.ft
---       interepter = interepters[ft]
---     end
---
---     if interepter then
---       vim.cmd(string.format("silent %sRedir !%s", range, interepter))
---     else
---       -- FIXME: setcmdline not work
---       vim.fn.setcmdline(string.format("silent %sRedir !", range))
---     end
---   end
--- end
---
--- vim.api.nvim_create_user_command("RedirEvalLine", redir("."), {})
--- vim.api.nvim_create_user_command("RedirEvalFile", redir("%"), {})
--- -- FIXME: not work well
--- -- vim.api.nvim_create_user_command("RedirEvalRange", redir("'<,'>"), {})
+local function evaler(range)
+  return function()
+    local line = vim.fn.getline(1)
+    local it = string.match(line, "^#!(.*)")
+
+    local cmd = string.format("%sRedir !", range)
+
+    if it and it ~= "" then
+      vim.cmd(cmd .. it)
+    else
+      vim.fn.feedkeys(":" .. cmd, "tn")
+    end
+  end
+end
+
+vim.api.nvim_create_user_command("EvalFile", function(args)
+  evaler("%")()
+end, { bar = true })
+vim.api.nvim_create_user_command("EvalLine", function(args)
+  evaler(".")()
+end, { bar = true })
+vim.api.nvim_create_user_command("EvalRange", function(args)
+  evaler("'<,'>")()
+end, { bar = true })
