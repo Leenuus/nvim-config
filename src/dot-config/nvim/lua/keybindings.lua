@@ -439,9 +439,13 @@ end, { desc = "search buffers" })
 vim.keymap.set("n", "<C-E>", "<CMD>wincmd p<CR>", { desc = "previous window" })
 
 -- EXPORT
-vim.keymap.set("n", "<leader>cd", "<CMD>lcd %:h<CR>", { desc = "lcd cfd" })
-
-vim.keymap.set("n", "<leader>cg", "<CMD>GitRootCd<CR>", { desc = "lcd gitroot" })
+vim.keymap.set("n", "<leader>cd", "<CMD>lcd %:h | pwd<CR>", { desc = "lcd cfd" })
+-- EXPORT
+vim.keymap.set("n", "<leader>cc", function()
+  local dir = vim.fn.fnamemodify(vim.fn.getcwd(), ":h")
+  vim.cmd("lcd " .. dir .. "| pwd")
+end, { desc = "lcd parent dir" })
+vim.keymap.set("n", "<leader>cg", "<CMD>GitRootCd | pwd<CR>", { desc = "lcd gitroot" })
 
 -- fugitive
 vim.keymap.set("n", "<leader>gg", "<CMD>SplitLeft Git<CR>", { desc = "Awesome Git Wrapper" })
