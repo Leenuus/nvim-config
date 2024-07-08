@@ -84,6 +84,21 @@ set -l DIR (status dirname)]],
   )
 )
 
+local fzf = s(
+  "fzf",
+  fmt(
+    [[SHELL=bash fzf --bind='ctrl-h:backward-kill-word,ctrl-j:preview-page-down,ctrl-k:preview-page-up' <>
+]],
+    {
+      c(1, {
+        fmt("-d{} -n{}", { i(1, ":"), i(2, "1") }),
+        t(""),
+      }),
+    },
+    { delimiters = "<>" }
+  )
+)
+
 local fish_snips = {
   discard_output,
   if_installed,
@@ -91,6 +106,7 @@ local fish_snips = {
   abbr,
   color,
   self,
+  fzf
 }
 
 return fish_snips
