@@ -3,6 +3,23 @@ local log = require("plenary.log").new({
   plugin = "redir",
 })
 
+local function redir_open_win(buf, vertical, reuse_win_p)
+  if not reuse_win_p or vim.g.redir_win == nil then
+    local win = vim.api.nvim_open_win(buf, true, {
+      vertical = vertical,
+    })
+    vim.api.nvim_create_autocmd("WinClosed", {
+      pattern = { string.format("%d", win) },
+      callback = function()
+        vim.g.redir_win = nil
+      end,
+    })
+    vim.g.redir_win = win
+  else
+    vim.api.nvim_win_set_buf(vim.g.redir_win, buf)
+  end
+end
+
 local function redir_vim_command(cmd, vertical, reuse_win_p)
   vim.cmd("redir => output")
   vim.cmd("silent " .. cmd)
@@ -10,9 +27,8 @@ local function redir_vim_command(cmd, vertical, reuse_win_p)
   local output = vim.fn.split(vim.g.output, "\n")
   local buf = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_buf_set_lines(buf, 0, 0, false, output)
-  vim.api.nvim_open_win(buf, true, {
-    vertical = vertical,
-  })
+
+  redir_open_win(buf, vertical, reuse_win_p)
 end
 
 local function redir_shell_command(cmd, lines, vertical, reuse_win_p)
@@ -27,9 +43,7 @@ local function redir_shell_command(cmd, lines, vertical, reuse_win_p)
     stdin = lines
   end
 
-  vim.api.nvim_open_win(buf, true, {
-    vertical = vertical,
-  })
+  redir_open_win(buf, vertical, reuse_win_p)
 
   if vim.g.DEBUG then
     local report = string.format(
