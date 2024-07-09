@@ -338,10 +338,6 @@ vim.keymap.set("n", "<leader>tE", "<CMD>Redir !tree --gitignore<CR>", { desc = "
 
 vim.keymap.set("n", "<leader>tm", "<CMD>Mes<CR>", { desc = "Open messages in split window" })
 
-vim.keymap.set("n", "<leader>el", "<CMD>EvalLine<CR>", { desc = "evaluate line" })
-vim.keymap.set("n", "<leader>ee", "<CMD>EvalFile<CR>", { desc = "evaluate file" })
-vim.keymap.set("n", "<leader>ef", "<CMD>EvalFile<CR>", { desc = "evaluate file" })
-
 -- EXPORT
 vim.keymap.set("n", "\\", "/\\<\\><left><left>", { desc = "search whole word" })
 vim.keymap.set("n", "<leader>sp", "<CMD>Telescope project<CR>", { desc = "Browse Projects" })
@@ -456,3 +452,8 @@ vim.keymap.set("x", "id", ":<C-U>normal! ggVG<CR>", { desc = "in document" })
 -- EXPORT
 vim.keymap.set("o", "id", ":<C-U>normal! ggVG<CR>", { desc = "in document" })
 
+vim.keymap.set("n", "<leader>el", "<CMD>EvalLine<CR>", { desc = "evaluate line" })
+vim.keymap.set("n", "<leader>ee", "<CMD>EvalFile<CR>", { desc = "evaluate file" })
+vim.keymap.set("n", "<leader>ef", "<CMD>EvalFile<CR>", { desc = "evaluate file" })
+vim.keymap.set("x", "<leader><CR>", "<CMD>EvalRange!<CR>", { desc = "evaluate range, collect stderr" })
+vim.keymap.set("x", "<CR>", "<CMD>EvalRange<CR>", { desc = "evaluate range" })
