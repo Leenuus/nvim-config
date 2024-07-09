@@ -1,30 +1,31 @@
 -- NOTE:
--- credit:
--- https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
+-- Thanks @ramainl for inspiration
+-- credit: https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
 
 vim.g.DEBUG = true
 local log = require("plenary.log").new({
   plugin = "redir",
 })
 
-local function redir_open_win(buf, vertical, reuse_win_p)
-  if not reuse_win_p or vim.g.redir_win == nil then
+local function redir_open_win(buf, vertical, stderr_p)
+  local wn = stderr_p and "redir_sterr_win" or "redir_win"
+  if vim.g[wn] == nil then
     local win = vim.api.nvim_open_win(buf, true, {
       vertical = vertical,
     })
     vim.api.nvim_create_autocmd("WinClosed", {
       pattern = { string.format("%d", win) },
       callback = function()
-        vim.g.redir_win = nil
+        vim.g[wn] = nil
       end,
     })
-    vim.g.redir_win = win
+    vim.g[wn] = win
   else
-    vim.api.nvim_win_set_buf(vim.g.redir_win, buf)
+    vim.api.nvim_win_set_buf(vim.g[wn], buf)
   end
 end
 
-local function redir_vim_command(cmd, vertical, reuse_win_p)
+local function redir_vim_command(cmd, vertical)
   vim.cmd("redir => output")
   vim.cmd("silent " .. cmd)
   vim.cmd("redir END")
@@ -32,26 +33,40 @@ local function redir_vim_command(cmd, vertical, reuse_win_p)
   local buf = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_buf_set_lines(buf, 0, 0, false, output)
 
-  redir_open_win(buf, vertical, reuse_win_p)
+  redir_open_win(buf, vertical)
 end
 
-local function redir_shell_command(cmd, lines, vertical, reuse_win_p)
-  local buf = vim.api.nvim_create_buf(false, true)
-
-  local stdin
-  if #lines == 0 then
-    stdin = false
-  else
-    stdin = lines
-  end
-
-  redir_open_win(buf, vertical, reuse_win_p)
-
+local function redir_shell_command(cmd, lines, vertical, stderr_p)
   local shell_cmd = {
     "sh",
     "-c",
     cmd,
   }
+
+  local stdin = nil
+  if #lines ~= 0 then
+    stdin = lines
+  end
+
+  local stdout_buf = vim.api.nvim_create_buf(false, true)
+  redir_open_win(stdout_buf, vertical)
+
+  local stderr = nil
+  if stderr_p then
+    local stderr_buf = vim.api.nvim_create_buf(false, true)
+    redir_open_win(stderr_buf, vertical, true)
+    stderr = function(err, data)
+      vim.schedule_wrap(function()
+        if data ~= nil then
+          local output = vim.fn.split(data, "\n")
+          if vim.g.DEBUG then
+            log.info("stdout: " .. vim.inspect(output))
+          end
+          vim.api.nvim_buf_set_lines(stderr_buf, -2, -1, false, output)
+        end
+      end)()
+    end
+  end
 
   if vim.g.DEBUG then
     local report = string.format(
@@ -63,7 +78,7 @@ shell_cmd: %s
 ]],
       vim.inspect(lines),
       vim.inspect(stdin),
-      buf,
+      stdout_buf,
       cmd,
       vim.inspect(shell_cmd)
     )
@@ -79,10 +94,11 @@ shell_cmd: %s
           if vim.g.DEBUG then
             log.info("stdout: " .. vim.inspect(output))
           end
-          vim.api.nvim_buf_set_lines(buf, -2, -1, false, output)
+          vim.api.nvim_buf_set_lines(stdout_buf, -2, -1, false, output)
         end
       end)()
     end,
+    stderr = stderr,
     stdin = stdin,
   }, function(completed)
     -- NOTE:
@@ -93,7 +109,7 @@ end
 local function redir(args)
   local cmd = args.args
   local vertical = args.smods.vertical
-  local reuse_win_p = not args.bang
+  local stderr_p = args.bang
 
   if vim.g.DEBUG then
     log.info(vim.inspect(args))
@@ -112,9 +128,9 @@ local function redir(args)
     end
 
     cmd = cmd:sub(2)
-    redir_shell_command(cmd, lines, vertical, reuse_win_p)
+    redir_shell_command(cmd, lines, vertical, stderr_p)
   else
-    redir_vim_command(cmd, vertical, reuse_win_p)
+    redir_vim_command(cmd, vertical, stderr_p)
   end
 end
 
@@ -128,7 +144,7 @@ vim.cmd([[cabbrev R Redir]])
 
 vim.api.nvim_create_user_command("Mes", function()
   vim.cmd("Redir messages")
-end, {})
+end, { bar = true })
 vim.cmd([[cabbrev M Mes]])
 
 local function evaler(range)
@@ -157,7 +173,7 @@ vim.api.nvim_create_user_command("EvalLine", function(args)
 end, { bar = true, bang = true })
 
 -- TEST: test me
-vim.api.nvim_create_user_command("EvalRange", function(args)
-  local bang = args.bang
-  evaler("'<,'>")(bang)
-end, { bar = true, bang = true })
+-- vim.api.nvim_create_user_command("EvalRange", function(args)
+--   local bang = args.bang
+--   evaler("'<,'>")(bang)
+-- end, { bar = true, bang = true })
