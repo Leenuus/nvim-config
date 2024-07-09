@@ -2,7 +2,7 @@
 -- Thanks @ramainl for inspiration
 -- credit: https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
 
-vim.g.DEBUG = true
+vim.g.DEBUG = false
 local log = require("plenary.log").new({
   plugin = "redir",
 })
@@ -49,11 +49,13 @@ local function redir_shell_command(cmd, lines, vertical, stderr_p)
   end
 
   local stdout_buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_set_option_value("ft", "redir_stdout", { buf = stdout_buf })
   redir_open_win(stdout_buf, vertical)
 
   local stderr = nil
   if stderr_p then
     local stderr_buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_set_option_value("ft", "redir_sterr", { buf = stderr_buf })
     redir_open_win(stderr_buf, vertical, true)
     stderr = function(err, data)
       vim.schedule_wrap(function()
@@ -172,8 +174,8 @@ vim.api.nvim_create_user_command("EvalLine", function(args)
   evaler(".")(bang)
 end, { bar = true, bang = true })
 
--- TEST: test me
--- vim.api.nvim_create_user_command("EvalRange", function(args)
---   local bang = args.bang
---   evaler("'<,'>")(bang)
--- end, { bar = true, bang = true })
+vim.api.nvim_create_user_command("EvalRange", function(args)
+  local bang = args.bang
+  evaler("'<,'>")(bang)
+end, { bar = true, bang = true, range = true })
+
