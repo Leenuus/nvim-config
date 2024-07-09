@@ -1,3 +1,7 @@
+-- NOTE:
+-- credit:
+-- https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
+
 vim.g.DEBUG = true
 local log = require("plenary.log").new({
   plugin = "redir",
@@ -31,9 +35,7 @@ local function redir_vim_command(cmd, vertical, reuse_win_p)
   redir_open_win(buf, vertical, reuse_win_p)
 end
 
-local function redir_shell_command(cmd, cmd_str, lines, vertical, reuse_win_p)
-  cmd_str = cmd_str:sub(2)
-
+local function redir_shell_command(cmd, lines, vertical, reuse_win_p)
   local buf = vim.api.nvim_create_buf(false, true)
 
   local stdin
@@ -48,23 +50,21 @@ local function redir_shell_command(cmd, cmd_str, lines, vertical, reuse_win_p)
   local shell_cmd = {
     "sh",
     "-c",
-    cmd_str,
+    cmd,
   }
 
   if vim.g.DEBUG then
     local report = string.format(
-      [[cmd: %s
-lines: %s
+      [[lines: %s
 stdin: %s
 buf: %d
 cmd_str: %s
 shell_cmd: %s
 ]],
-      vim.inspect(cmd),
       vim.inspect(lines),
       vim.inspect(stdin),
       buf,
-      cmd_str,
+      cmd,
       vim.inspect(shell_cmd)
     )
     log.info(report)
@@ -90,11 +90,8 @@ shell_cmd: %s
   end)
 end
 
--- reference
--- https://gist.github.com/romainl/eae0a260ab9c135390c30cd370c20cd7
 local function redir(args)
-  local cmd = args.fargs
-  local cmd_str = args.args
+  local cmd = args.args
   local vertical = args.smods.vertical
   local reuse_win_p = not args.bang
 
@@ -102,7 +99,7 @@ local function redir(args)
     log.info(vim.inspect(args))
   end
 
-  if string.match(cmd[1], "^!") then
+  if cmd:sub(1, 1) == "!" then
     local range = args.range
     local lines
     if range == 0 then
@@ -114,9 +111,10 @@ local function redir(args)
       lines = vim.api.nvim_buf_get_lines(0, line1, line2, false)
     end
 
-    redir_shell_command(cmd, cmd_str, lines, vertical, reuse_win_p)
+    cmd = cmd:sub(2)
+    redir_shell_command(cmd, lines, vertical, reuse_win_p)
   else
-    redir_vim_command(cmd_str, vertical, reuse_win_p)
+    redir_vim_command(cmd, vertical, reuse_win_p)
   end
 end
 
