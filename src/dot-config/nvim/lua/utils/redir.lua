@@ -77,6 +77,13 @@ local function redir_shell_command(cmd, lines, vertical, stderr_p)
   }, function(completed)
     -- NOTE:
     -- placeholder to make call async
+    local text = {}
+    if stderr_p then
+      text = { string.format("Exit code: %d; Signal: %d", completed.code, completed.signal) }
+    end
+    vim.schedule(function()
+      vim.api.nvim_buf_set_lines(stdout_buf, 0, 1, false, text)
+    end)
   end)
 end
 
