@@ -334,7 +334,6 @@ end, { desc = "Show telescopes" })
 vim.keymap.set("n", "<leader>td", "<CMD>tabnew +vertical\\ DBUI<CR>", { desc = "Open Database UI" })
 
 vim.keymap.set("n", "<leader>te", "<CMD>MiniFiles<CR>", { desc = "Open File Manager" })
-vim.keymap.set("n", "<leader>tE", "<CMD>Redir !tree --gitignore<CR>", { desc = "Open Tree View" })
 
 vim.keymap.set("n", "<leader>tm", "<CMD>Mes<CR>", { desc = "Open messages in split window" })
 
@@ -457,3 +456,7 @@ vim.keymap.set("n", "<leader>ee", "<CMD>EvalFile<CR>", { desc = "evaluate file" 
 vim.keymap.set("n", "<leader>ef", "<CMD>EvalFile<CR>", { desc = "evaluate file" })
 vim.keymap.set("x", "<leader><CR>", "<CMD>EvalRange!<CR>", { desc = "evaluate range, collect stderr" })
 vim.keymap.set("x", "<CR>", "<CMD>EvalRange<CR>", { desc = "evaluate range" })
+
+-- Redir powered keymaps
+-- my nerdtree
+vim.keymap.set("n", "<leader>tE", "<CMD>Redir !tree --gitignore<CR>", { desc = "Open Tree View" })

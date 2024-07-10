@@ -161,3 +161,14 @@ vim.api.nvim_create_user_command("EvalRange", function(args)
   evaler("'<,'>")(bang)
 end, { bar = true, bang = true, range = true })
 
+vim.api.nvim_create_user_command("Tldr", function(args)
+  local bang = args.bang
+  local arg = args.args
+
+  if not bang then
+    vim.cmd(string.format([[tabnew +vertical\ Redir\ !tldr\ %s]], arg))
+    vim.cmd("only")
+  else
+    vim.cmd(string.format([[vertical Redir !tldr %s]], arg))
+  end
+end, { bar = true, bang = true, nargs = 1 })
