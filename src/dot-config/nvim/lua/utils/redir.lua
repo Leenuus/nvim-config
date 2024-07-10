@@ -31,6 +31,14 @@ local function redir_vim_command(cmd, vertical)
   redir_open_win(buf, vertical)
 end
 
+-- TODO: store child handles
+-- to handle long running process
+-- 1. add handle
+-- 2. remove handle when child exits
+-- 3. a dashboard for processes
+-- 4. it may be overdesigned !!!
+local redir_child_process = {}
+
 local function redir_shell_command(cmd, lines, vertical, stderr_p)
   local shell_cmd = {
     "sh",
@@ -88,6 +96,11 @@ local function redir_shell_command(cmd, lines, vertical, stderr_p)
       vim.api.nvim_buf_set_lines(stdout_buf, 0, 1, false, text)
     end)
   end)
+
+  table.insert(redir_child_process, {
+    pid = handle.pid,
+    cmd = cmd,
+  })
 end
 
 local function redir(args)
