@@ -56,3 +56,25 @@ end, { expr = true })
 ```
 
 Note that a bare `'<Nop>'` tells vim to do ['<', 'N', 'o', 'p', '>'] one by one, which is not what we want.
+
+### How to get and use marks in lua
+
+```lua
+
+-- NOTE:
+-- use get_mark and get_text
+vim.api.nvim_create_user_command('Print', function()
+	local s = vim.api.nvim_buf_get_mark(0, "<")
+	local e = vim.api.nvim_buf_get_mark(0, ">")
+
+	local s_r = s[1] - 1
+	local s_c = s[2]
+
+	local e_r = e[1] - 1
+	local e_c = e[2]
+
+	local t = vim.api.nvim_buf_get_text(0, s_r, s_c, e_r, e_c , {})
+	print(vim.inspect(t))
+	print(vim.base64.encode(vim.fn.join(t, "\n")))
+end, { range = true })
+```
