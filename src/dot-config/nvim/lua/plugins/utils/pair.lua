@@ -38,4 +38,10 @@ return {
       vim.g.surround_no_mappings = 1
     end,
   },
+  {
+    "wellle/targets.vim",
+    init = function()
+      vim.g.targets_nl = "jk"
+    end,
+  },
 }
