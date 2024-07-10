@@ -1,4 +1,6 @@
 return {
   "wellle/targets.vim",
-  event = "VeryLazy",
+  init = function()
+    vim.g.targets_nl = "jk"
+  end,
 }
