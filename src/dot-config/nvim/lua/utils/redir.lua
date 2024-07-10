@@ -53,35 +53,38 @@ local function redir_shell_command(cmd, lines, vertical, stderr_p)
     vim.api.nvim_set_option_value("ft", "redir_sterr", { buf = stderr_buf })
     redir_open_win(stderr_buf, vertical, true)
     stderr = function(err, data)
-      vim.schedule_wrap(function()
+      vim.schedule(function()
         if data ~= nil then
           local output = vim.fn.split(data, "\n")
           vim.api.nvim_buf_set_lines(stderr_buf, -1, -1, false, output)
         end
-      end)()
+      end)
     end
   end
 
-  vim.system(shell_cmd, {
+  local handle = vim.system(shell_cmd, {
     text = true,
     stdout = function(err, stdout)
-      vim.schedule_wrap(function()
+      vim.schedule(function()
         if stdout ~= nil then
           local output = vim.fn.split(stdout, "\n")
           vim.api.nvim_buf_set_lines(stdout_buf, -1, -1, false, output)
         end
-      end)()
+      end)
     end,
     stderr = stderr,
     stdin = stdin,
   }, function(completed)
-    -- NOTE:
-    -- placeholder to make call async
+    local code = completed.code
+    -- local signal = completed.signal
     local text = {}
-    if stderr_p then
-      text = { string.format("Exit code: %d; Signal: %d", completed.code, completed.signal) }
-    end
+    -- if stderr_p then
+    --   text = { string.format("Exit code: %d; Signal: %d", code, signal) }
+    -- end
     vim.schedule(function()
+      if code ~= 0 then
+        vim.notify(string.format("[Redir]: `%s` exit non-zero: %d", cmd, code), vim.log.levels.WARN)
+      end
       vim.api.nvim_buf_set_lines(stdout_buf, 0, 1, false, text)
     end)
   end)
