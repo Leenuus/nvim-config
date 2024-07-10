@@ -3,9 +3,9 @@ local toggler = require("helpers").toggler
 local path = require("plenary.path")
 
 local excluded = {
-  "*build*",
-  "*target*",
-  "*Pipfile*",
+  "build",
+  "target",
+  "Pipfile*",
   "node_modules",
   "venv",
   "__pycache__",

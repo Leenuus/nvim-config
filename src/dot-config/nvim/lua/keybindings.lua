@@ -460,3 +460,5 @@ vim.keymap.set("x", "<CR>", "<CMD>EvalRange<CR>", { desc = "evaluate range" })
 -- Redir powered keymaps
 -- my nerdtree
 vim.keymap.set("n", "<leader>tE", "<CMD>Redir !tree --gitignore<CR>", { desc = "Open Tree View" })
+
+vim.keymap.set("i", "<C-Q>", "<CMD>IMEToggle<CR>", { desc = "Toggle Input method" })

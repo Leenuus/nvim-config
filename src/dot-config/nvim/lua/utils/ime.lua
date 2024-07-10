@@ -25,7 +25,7 @@ vim.api.nvim_create_user_command("IMEDisable", function()
 end, { bar = true })
 
 vim.api.nvim_create_user_command("IMEToggle", function()
-  -- vim.system({ "fcitx5-remote", "-t" }, {}):wait()
+  vim.system({ "fcitx5-remote", "-t" }, {}):wait()
   vim.g.ime_enable = not vim.g.ime_enable
 end, { bar = true })
 
