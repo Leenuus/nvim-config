@@ -8,5 +8,6 @@ require("utils.spliter")
 require("utils.misc")
 require("utils.session")
 require("utils.non-vim-files")
+require("utils.ime")
 
 require("utils.typos").setup()
