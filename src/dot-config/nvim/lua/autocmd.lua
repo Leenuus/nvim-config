@@ -11,8 +11,19 @@ vim.api.nvim_create_autocmd({ "VimLeave" }, {
 })
 
 -- EXPORT
+local checktime_g = vim.api.nvim_create_augroup("checktime", { clear = true })
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
-  group = vim.api.nvim_create_augroup("checktime", { clear = true }),
+  group = checktime_g,
+  callback = function()
+    if vim.o.buftype ~= "nofile" then
+      vim.cmd("checktime")
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = { "*.log" },
+  group = checktime_g,
   callback = function()
     if vim.o.buftype ~= "nofile" then
       vim.cmd("checktime")
@@ -40,7 +51,6 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
   end,
   group = vim.api.nvim_create_augroup("jumps", { clear = true }),
 })
-
 
 -- EXPORT
 vim.api.nvim_create_autocmd({ "WinEnter", "WinResized" }, {
