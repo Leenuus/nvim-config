@@ -416,9 +416,8 @@ end, { desc = "Simple Better Mark" })
 vim.keymap.set("n", "<leader>sM", "<CMD>Mes<CR>", { desc = "Open Messages in split" })
 
 vim.keymap.set("n", "<leader>sg", "<cmd>LiveGrep<cr>", { desc = "Live Grep" })
-vim.keymap.set("n", "<leader>sf", "<cmd>FindFiles<cr>")
 vim.keymap.set("n", "<leader>sF", "<cmd>FindFilesMode<cr>", { desc = "Select Search Mode" })
-vim.keymap.set("n", "<leader><space>", "<cmd>QuickFiles<cr>")
+vim.keymap.set("n", "<leader><space>", "<cmd>FindFiles<cr>")
 
 -- EXPORT
 vim.keymap.set("x", "'", "gc", { desc = "toggle comment", remap = true })

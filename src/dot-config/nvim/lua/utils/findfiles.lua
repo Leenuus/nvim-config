@@ -100,16 +100,6 @@ local function live_grep(search_path)
   require("telescope.builtin").live_grep(opts)
 end
 
-local function quick_files()
-  local harpoon = require("harpoon")
-  local len = #harpoon:list().items
-  if len == 0 then
-    find_files()
-  else
-    vim.cmd([[Telescope harpoon marks]])
-  end
-end
-
 vim.api.nvim_create_user_command("FindFiles", function(args)
   local p = args.args
   find_files(p)
@@ -131,8 +121,4 @@ vim.api.nvim_create_user_command("FindFilesMode", function()
       vim.g.find_files_mode = choice
     end
   end)
-end, { bar = true })
-
-vim.api.nvim_create_user_command("QuickFiles", function()
-  quick_files()
 end, { bar = true })

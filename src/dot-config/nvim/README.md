@@ -2,16 +2,12 @@
 
 ## HACK
 
-- [ ] project manager based on telescope
-- [ ] write a `im-select` alternative using simple shell script working with dbus, make non-english input work in neovim
-- [ ] hack `hardtime.nvim`, whose idea is cool, but don't get a good implementation
 - [ ] lua annotations to fix annoying lsp messages
 - [ ] PAGER mode for neovim, but no force center feature of pager
-- [ ] fine-tune snippets engine
 - [ ] replace folke's `folke/todo-comments.nvim,` use treesitter and syntax features
 - [ ] fish filetype, tsrename
-- [ ] findfiles mode bug, open filetype plugin, and search in plugin, should have searched in config folder
-- [ ] use `x_u` to toggle alphabet case
+- [ ] environment vars to decide neovim startup mode, plugin collections
+- [ ] lsp detach, lsp restart should remove all `ext_marks`
 
 ## NOTES
 
