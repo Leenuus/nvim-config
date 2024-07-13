@@ -18,3 +18,9 @@ vim.api.nvim_create_user_command("GitRootCd", function()
   local d = require("helpers").find_git_root()
   vim.cmd("cd " .. d)
 end, { bar = true })
+
+-- copy pwd
+vim.api.nvim_create_user_command("CopyCwd", function()
+  local f = vim.fn.getcwd(0)
+  vim.fn.system(string.format("echo -n '%s' | xclip -selection clipboard", f))
+end, { bar = true })

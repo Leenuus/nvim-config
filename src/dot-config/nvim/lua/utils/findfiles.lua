@@ -25,10 +25,10 @@ for _, v in ipairs(excluded) do
 end
 
 vim.g.find_files_ignore = true
-vim.g.find_files_mode = 1
+vim.g.find_files_mode = 3
 
 local function cwd()
-  return vim.fn.getcwd(-1, 0)
+  return vim.fn.getcwd(0)
 end
 
 local function cfd()

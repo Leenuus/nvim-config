@@ -6,6 +6,10 @@
 -- TODO:
 -- - [ ] remember all sessions files, telescope search and load
 
+-- FIXME:
+-- - [ ] session file prevent me from opening man pages from within the same dir
+-- which has a session file
+
 vim.g.loaded_session = nil
 
 vim.defer_fn(function()

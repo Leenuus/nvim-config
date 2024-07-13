@@ -30,8 +30,6 @@ return {
     ["<Tab>"] = actions.toggle_selection,
     ["\\"] = actions.select_vertical,
     ["-"] = actions.select_horizontal,
-    ["t"] = actions.select_tab,
-    ["T"] = actions.select_tab,
     ["J"] = opener("below"),
     ["K"] = opener("above"),
     ["H"] = opener("left"),
@@ -45,8 +43,6 @@ return {
   i = {
     ["<Left>"] = actions.cycle_history_prev,
     ["<Right>"] = actions.cycle_history_next,
-    ["<C-T>"] = actions.select_tab,
-    ["<Tab>"] = actions.select_tab,
     ["<C-P>"] = actions.select_tab,
     ["<C-J>"] = opener("below"),
     ["<C-K>"] = opener("above"),
@@ -54,6 +50,6 @@ return {
     ["<C-L>"] = opener("right"),
     ["<C-D>"] = actions.preview_scrolling_down,
     ["<C-U>"] = actions.preview_scrolling_up,
-    ['<C-A>'] = action_layout.toggle_preview,
+    ["<C-A>"] = action_layout.toggle_preview,
   },
 }

@@ -1,5 +1,5 @@
 return {
-  { "xiyaowong/transparent.nvim", event = "VeryLazy" },
+  { "xiyaowong/transparent.nvim", event = "VeryLazy", enabled = false },
   { "folke/tokyonight.nvim", event = "VeryLazy" },
   { "Shatur/neovim-ayu" },
   { "nvimdev/zephyr-nvim", event = "VeryLazy" },
