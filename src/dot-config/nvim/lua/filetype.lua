@@ -1,13 +1,17 @@
 -- EXPORT
 vim.filetype.add({
+  extension = {
+    i3config = "i3config",
+  },
   pattern = {
     ["/tmp/bash%-fc"] = "sh",
     [".*"] = {
       function(path, bufnr)
         local last_line = vim.api.nvim_buf_get_lines(bufnr, -2, -1, false)[1]
-        if last_line:match("^# vim:") then
-          local filetype = last_line:match("ft=(%a+)")
-          return filetype or ""
+        if last_line:match("vim:") then
+          local filetype = last_line:match("ft=(%w+)")
+          print(vim.inspect(filetype))
+          return filetype
         end
       end,
       { priority = math.huge },
@@ -61,4 +65,3 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.keymap.set("n", "<leader>q", "<cmd>x<cr>", { buffer = event.buf, silent = true })
   end,
 })
-
