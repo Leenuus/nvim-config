@@ -313,6 +313,21 @@ local read = s(
   }, { delimiters = "<>" })
 )
 
+local match = s(
+  "ma",
+  fmt(
+    [[match(<>, /<>/);
+print substr(<>, RSTART, RLENGTH)
+]],
+    {
+      insert(1, "var"),
+      insert(2, "regex"),
+      rep(1),
+    },
+    { delimiters = "<>" }
+  )
+)
+
 local bash_snips = {
   if_installed,
   parse_opts,
@@ -342,6 +357,7 @@ local bash_snips = {
   tenary,
   rofi,
   read,
+  match,
 }
 
 return bash_snips
