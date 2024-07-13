@@ -10,5 +10,6 @@ require("utils.session")
 require("utils.non-vim-files")
 require("utils.ime")
 require("utils.projects")
+require("utils.tmux")
 
 require("utils.typos").setup()
