@@ -465,3 +465,8 @@ vim.keymap.set("i", "<C-Q>", "<CMD>IMEToggle<CR>", { desc = "Toggle Input method
 
 vim.keymap.set("n", "<leader>sp", "<CMD>FindProjects<CR>", { desc = "Open Common Used Projects" })
 
+-- target.vim
+vim.keymap.set("n", "c'", "ciq", { desc = "change inside quote", remap = true })
+vim.keymap.set("n", "d'", "diq", { desc = "delete inside quote", remap = true })
+vim.keymap.set("n", 'c"', "caq", { desc = "change around quote", remap = true })
+vim.keymap.set("n", 'd"', "daq", { desc = "delete around quote", remap = true })
