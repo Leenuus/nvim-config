@@ -461,3 +461,6 @@ vim.keymap.set("x", "<CR>", "<CMD>EvalRange<CR>", { desc = "evaluate range" })
 vim.keymap.set("n", "<leader>tE", "<CMD>Redir !tree --gitignore<CR>", { desc = "Open Tree View" })
 
 vim.keymap.set("i", "<C-Q>", "<CMD>IMEToggle<CR>", { desc = "Toggle Input method" })
+
+vim.keymap.set("n", "<leader>sp", "<CMD>FindProjects<CR>", { desc = "Open Common Used Projects" })
+

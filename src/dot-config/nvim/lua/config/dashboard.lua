@@ -10,64 +10,6 @@ for _, p in ipairs(vim.fn.split(vim.fn.glob(headers_path), "\n")) do
   end
 end
 
-local notes_root = vim.env["NOTES_ROOT"]
-local notes = {}
-if notes_root ~= nil or notes_root == "" then
-  notes = {
-    icon = "󰎚  ",
-    desc = "Notes",
-    key = "n",
-    key_format = " %s",
-    action = "cd" .. notes_root .. "| FindFiles",
-  }
-end
-
-local search_files = {}
-local config = {}
-if vim.cmd["FindFiles"] ~= nil then
-  search_files = {
-    icon = "  ",
-    desc = "Search Files",
-    key = "f",
-    key_format = " %s",
-    action = "FindFiles",
-  }
-  config = {
-    icon = "  ",
-    desc = "Config",
-    key = "c",
-    key_format = " %s",
-    action = "cd" .. vim.fn.stdpath("config") .. "| FindFiles",
-  }
-end
-
-local help = {}
-local color = {}
-local old_files = {}
-if vim.cmd["Telescope"] ~= nil then
-  help = {
-    icon = "󰋖  ",
-    desc = "Help",
-    key = "h",
-    key_format = " %s",
-    action = "Telescope help_tags",
-  }
-  color = {
-    icon = "  ",
-    desc = "Change Colorscheme",
-    key = "t",
-    key_format = " %s",
-    action = "Telescope colorscheme",
-  }
-  old_files = {
-    icon = "󱋡  ",
-    desc = "Recent Files",
-    key = "o",
-    key_format = " %s",
-    action = "Telescope oldfiles",
-  }
-end
-
 local diary = {}
 if vim.env["DIARY_TODAY"] then
   local dir = vim.fs.dirname(vim.env["DIARY_TODAY"])
@@ -92,12 +34,34 @@ require("dashboard").setup({
         key_format = " %s",
         action = "enew",
       },
-      search_files,
-      old_files,
-      config,
-      notes,
-      help,
-      color,
+      {
+        icon = "  ",
+        desc = "Search Files",
+        key = "f",
+        key_format = " %s",
+        action = "FindFiles",
+      },
+      {
+        icon = "󱋡  ",
+        desc = "Recent Files",
+        key = "o",
+        key_format = " %s",
+        action = "Telescope oldfiles",
+      },
+      {
+        icon = "  ",
+        desc = "Config",
+        key = "c",
+        key_format = " %s",
+        action = "cd" .. vim.fn.stdpath("config") .. "| FindFiles",
+      },
+      {
+        icon = "  ",
+        desc = "Projects",
+        key = "p",
+        key_format = " %s",
+        action = "FindProjects",
+      },
       diary,
       {
         icon = "  ",
