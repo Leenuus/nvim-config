@@ -66,11 +66,6 @@ vim.keymap.set({ "n", "o" }, "L", "$")
 vim.keymap.set("x", "L", "$h")
 
 -- EXPORT
-vim.keymap.set({ "n", "x" }, "J", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gjzz"<cr>')
--- EXPORT
-vim.keymap.set({ "n", "x" }, "K", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gkzz"<cr>')
-
--- EXPORT
 vim.keymap.set("x", "<", "<gv")
 -- EXPORT
 vim.keymap.set("x", ">", ">gv")
@@ -376,12 +371,12 @@ vim.keymap.set("x", "gS", "<Plug>VgSurround", { desc = "add surround" })
 vim.keymap.set("i", "<C-f>", "<CMD>MiniPairToggle<CR>", { desc = "toggle insert pair" })
 vim.keymap.set("i", "<C-g>", "<Plug>ISurround", { desc = "insert pair and new lines" })
 
-vim.keymap.set("n", "cs", "<Plug>Csurround", { desc = "change surround" })
-vim.keymap.set("n", "cS", "<Plug>CSurround", { desc = "change surround" })
+vim.keymap.set("n", "cgs", "<Plug>Csurround", { desc = "change surround" })
+vim.keymap.set("n", "cgS", "<Plug>CSurround", { desc = "change surround" })
+vim.keymap.set("n", "dgs", "<Plug>Dsurround", { desc = "delete surround" })
+vim.keymap.set("n", "dgS", "<Plug>DsurroundiW", { desc = "delete surround" })
 vim.keymap.set("n", "gs", "<Plug>Ysurround", { desc = "add surround" })
 vim.keymap.set("n", "gS", "<Plug>YsurroundiW", { desc = "surround current word" })
-vim.keymap.set("n", "ds", "<Plug>Dsurround", { desc = "delete surround" })
-vim.keymap.set("n", "dS", "<Plug>DsurroundiW", { desc = "delete surround" })
 
 -- NOTE: better marks
 -- EXPORT
@@ -470,3 +465,25 @@ vim.keymap.set("n", "c'", "ciq", { desc = "change inside quote", remap = true })
 vim.keymap.set("n", "d'", "diq", { desc = "delete inside quote", remap = true })
 vim.keymap.set("n", 'c"', "caq", { desc = "change around quote", remap = true })
 vim.keymap.set("n", 'd"', "daq", { desc = "delete around quote", remap = true })
+
+-- EXPORT
+vim.keymap.set({ "n" }, "J", function()
+  local l = vim.fn.line(".")
+  local h = vim.fn.winheight(0)
+  return string.format("%dggzz", math.floor(h / 3) + l)
+end, { expr = true })
+-- EXPORT
+vim.keymap.set({ "n" }, "K", function()
+  local l = vim.fn.line(".")
+  local h = vim.fn.winheight(0)
+  local t = l - math.floor(h / 3)
+  if t < 0 then
+    t = 0
+  end
+  return string.format("%dggzz", t)
+end, { expr = true })
+
+-- EXPORT
+vim.keymap.set({ "x" }, "J", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gjzz"<cr>')
+-- EXPORT
+vim.keymap.set({ "x" }, "K", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gkzz"<cr>')
