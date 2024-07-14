@@ -16,7 +16,7 @@ end, { bar = true })
 -- go to git root
 vim.api.nvim_create_user_command("GitRootCd", function()
   local d = require("helpers").find_git_root()
-  vim.cmd("cd " .. d)
+  vim.cmd("lcd " .. d)
 end, { bar = true })
 
 -- copy pwd

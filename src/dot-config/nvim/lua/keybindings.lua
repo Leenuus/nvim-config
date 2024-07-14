@@ -430,7 +430,7 @@ vim.keymap.set("n", "<C-E>", "<CMD>wincmd p<CR>", { desc = "previous window" })
 -- EXPORT
 vim.keymap.set("n", "<leader>cd", "<CMD>lcd %:h | pwd<CR>", { desc = "lcd cfd" })
 -- EXPORT
-vim.keymap.set("n", "<leader>cc", "<CMD>cd .. | pwd<CR>", { desc = "lcd parent dir" })
+vim.keymap.set("n", "<leader>cc", "<CMD>lcd .. | pwd<CR>", { desc = "lcd parent dir" })
 vim.keymap.set("n", "<leader>cg", "<CMD>GitRootCd | pwd<CR>", { desc = "lcd gitroot" })
 
 -- fugitive
@@ -454,7 +454,9 @@ vim.keymap.set("x", "<CR>", "<CMD>EvalRange<CR>", { desc = "evaluate range" })
 
 -- Redir powered keymaps
 -- my nerdtree
-vim.keymap.set("n", "<leader>tE", "<CMD>Redir !tree --gitignore<CR>", { desc = "Open Tree View" })
+vim.keymap.set("n", "<leader>tE", function()
+  return "<CMD>SplitLeft Redir !tree --gitignore " .. vim.fn.getcwd(0) .. "<CR>"
+end, { desc = "Open Tree View", expr = true })
 
 vim.keymap.set("i", "<C-Q>", "<CMD>IMEToggle<CR>", { desc = "Toggle Input method" })
 

@@ -18,7 +18,7 @@ if vim.env["DIARY_TODAY"] then
     desc = "Diary Today",
     key = "d",
     key_format = " %s",
-    action = "cd " .. dir .. "| e $DIARY_TODAY",
+    action = "lcd " .. dir .. "| e $DIARY_TODAY",
   }
 end
 
@@ -53,7 +53,7 @@ require("dashboard").setup({
         desc = "Config",
         key = "c",
         key_format = " %s",
-        action = "cd" .. vim.fn.stdpath("config") .. "| FindFiles",
+        action = "lcd" .. vim.fn.stdpath("config") .. "| FindFiles",
       },
       {
         icon = "  ",
