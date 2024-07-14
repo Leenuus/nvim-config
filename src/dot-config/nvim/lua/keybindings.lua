@@ -467,6 +467,8 @@ vim.keymap.set("n", "c'", "ciq", { desc = "change inside quote", remap = true })
 vim.keymap.set("n", "d'", "diq", { desc = "delete inside quote", remap = true })
 vim.keymap.set("n", 'c"', "caq", { desc = "change around quote", remap = true })
 vim.keymap.set("n", 'd"', "daq", { desc = "delete around quote", remap = true })
+vim.keymap.set("n", "y'", "yiq", { desc = "yank inside quote", remap = true })
+vim.keymap.set("n", 'y"', "yiq", { desc = "yank around quote", remap = true })
 
 -- EXPORT
 vim.keymap.set({ "n" }, "J", function()
@@ -489,3 +491,25 @@ end, { expr = true })
 vim.keymap.set({ "x" }, "J", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gjzz"<cr>')
 -- EXPORT
 vim.keymap.set({ "x" }, "K", '<cmd>execute "normal!" .. winheight(0) / 3 .. "gkzz"<cr>')
+
+-- EXPORT
+vim.keymap.set("n", "ce", function()
+  local w = vim.fn.expand("<cword>")
+  print(vim.inspect(w))
+  if #w == 1 then
+    return "cl"
+  else
+    return "ce"
+  end
+end, { expr = true })
+
+-- EXPORT
+vim.keymap.set("n", "de", function()
+  local w = vim.fn.expand("<cword>")
+  print(vim.inspect(w))
+  if #w == 1 then
+    return "dl"
+  else
+    return "de"
+  end
+end, { expr = true })
