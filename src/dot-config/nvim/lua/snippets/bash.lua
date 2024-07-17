@@ -272,10 +272,6 @@ local fzf = s(
   )
 )
 
-local shell_bang = s("bang", {
-  t("#!/bin/bash"),
-})
-
 local off = s("off", {
   t("shellcheck disable=SC"),
 })

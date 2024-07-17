@@ -119,3 +119,11 @@ Host {}
     )
   ),
 })
+
+for ft, it in pairs(require("helpers").its) do
+  add_snippets(ft, {
+    s("bang", {
+      t("#!" .. it),
+    }),
+  })
+end

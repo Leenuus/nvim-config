@@ -67,4 +67,10 @@ function M.capitalize(s)
   return first .. string.sub(s, 2)
 end
 
+M.its = {
+  sh = "/usr/bin/env bash",
+  python = "/usr/bin/env python",
+  awk = "/usr/bin/env -S awk -f",
+}
+
 return M
