@@ -469,6 +469,7 @@ vim.keymap.set("n", 'c"', "caq", { desc = "change around quote", remap = true })
 vim.keymap.set("n", 'd"', "daq", { desc = "delete around quote", remap = true })
 vim.keymap.set("n", "y'", "yiq", { desc = "yank inside quote", remap = true })
 vim.keymap.set("n", 'y"', "yiq", { desc = "yank around quote", remap = true })
+vim.keymap.set("n", 'y"', "yaq", { desc = "yank around quote", remap = true })
 
 -- EXPORT
 vim.keymap.set({ "n" }, "J", function()
