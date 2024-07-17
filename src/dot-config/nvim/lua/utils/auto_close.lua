@@ -16,7 +16,9 @@ vim.api.nvim_create_autocmd({
 
     local is_scratch_file = vim.bo.bufhidden == "hide" and vim.o.buftype == "nofile" and not vim.o.swapfile
 
-    if is_last and (is_auto_close_ft or is_scratch_file) and vim.g.auto_close_enabled then
+    local is_pager = vim.b["nvimpager"]
+
+    if not is_pager and is_last and (is_auto_close_ft or is_scratch_file) and vim.g.auto_close_enabled then
       vim.cmd('set guicursor=a:ver90"')
       vim.cmd("x")
     end

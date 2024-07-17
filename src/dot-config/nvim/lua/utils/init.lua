@@ -11,5 +11,6 @@ require("utils.non-vim-files")
 require("utils.ime")
 require("utils.projects")
 require("utils.tmux")
+require("utils.pager")
 
 require("utils.typos").setup()

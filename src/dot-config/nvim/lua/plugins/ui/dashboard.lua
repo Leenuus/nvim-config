@@ -5,4 +5,7 @@ return {
   config = function()
     require("config.dashboard")
   end,
+  enabled = function()
+    return vim.env["nvimpager"] ~= '1'
+  end,
 }
